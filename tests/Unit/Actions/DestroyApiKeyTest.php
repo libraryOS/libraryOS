@@ -41,13 +41,13 @@ class DestroyApiKeyTest extends TestCase
         Queue::assertPushedOn(
             queue: 'low',
             job: LogUserAction::class,
-            callback: fn(LogUserAction $job): bool => $job->action === 'api_key_deletion' && $job->user->id === $user->id,
+            callback: fn (LogUserAction $job): bool => $job->action === 'api_key_deletion' && $job->user->id === $user->id,
         );
 
         Queue::assertPushedOn(
             queue: 'high',
             job: SendEmail::class,
-            callback: fn(SendEmail $job): bool => (
+            callback: fn (SendEmail $job): bool => (
                 $job->mailable instanceof ApiKeyDestroyed
                 && $job->mailable->label === 'Test API Key'
                 && $job->user->id === $user->id

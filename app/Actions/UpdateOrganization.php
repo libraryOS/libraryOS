@@ -48,7 +48,7 @@ class UpdateOrganization
     {
         $this->organization->update([
             'name' => $this->name,
-            'slug' => $this->organization->id . '-' . Str::of($this->name)->slug('-'),
+            'slug' => $this->organization->id.'-'.Str::of($this->name)->slug('-'),
         ]);
     }
 

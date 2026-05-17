@@ -57,7 +57,7 @@ class OfficeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('GET', '/api/organizations/' . $organization->id . '/adminland/offices');
+        $response = $this->json('GET', '/api/organizations/'.$organization->id.'/adminland/offices');
 
         $response->assertStatus(200);
         $response->assertJsonStructure([
@@ -76,7 +76,7 @@ class OfficeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('GET', '/api/organizations/' . $organization->id . '/adminland/offices');
+        $response = $this->json('GET', '/api/organizations/'.$organization->id.'/adminland/offices');
 
         $response->assertStatus(200);
         $response->assertJsonCount(0, 'data');
@@ -90,7 +90,7 @@ class OfficeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('GET', '/api/organizations/' . $organization->id . '/adminland/offices');
+        $response = $this->json('GET', '/api/organizations/'.$organization->id.'/adminland/offices');
 
         $response->assertStatus(403);
     }
@@ -106,7 +106,7 @@ class OfficeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('GET', '/api/organizations/' . $organization->id . '/adminland/offices/' . $office->id);
+        $response = $this->json('GET', '/api/organizations/'.$organization->id.'/adminland/offices/'.$office->id);
 
         $response->assertStatus(200);
         $response->assertJsonStructure($this->jsonStructure);
@@ -121,7 +121,7 @@ class OfficeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('GET', '/api/organizations/' . $organization->id . '/adminland/offices/' . $otherOffice->id);
+        $response = $this->json('GET', '/api/organizations/'.$organization->id.'/adminland/offices/'.$otherOffice->id);
 
         $response->assertStatus(404);
     }
@@ -134,7 +134,7 @@ class OfficeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('POST', '/api/organizations/' . $organization->id . '/adminland/offices', [
+        $response = $this->json('POST', '/api/organizations/'.$organization->id.'/adminland/offices', [
             'name' => 'Scranton Branch',
             'address_line_1' => '1725 Slough Avenue',
             'city' => 'Scranton',
@@ -152,7 +152,7 @@ class OfficeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('POST', '/api/organizations/' . $organization->id . '/adminland/offices', [
+        $response = $this->json('POST', '/api/organizations/'.$organization->id.'/adminland/offices', [
             'address_line_1' => '1725 Slough Avenue',
             'city' => 'Scranton',
         ]);
@@ -168,7 +168,7 @@ class OfficeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('POST', '/api/organizations/' . $organization->id . '/adminland/offices', [
+        $response = $this->json('POST', '/api/organizations/'.$organization->id.'/adminland/offices', [
             'name' => 'Scranton Branch',
             'city' => 'Scranton',
         ]);
@@ -184,7 +184,7 @@ class OfficeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('POST', '/api/organizations/' . $organization->id . '/adminland/offices', [
+        $response = $this->json('POST', '/api/organizations/'.$organization->id.'/adminland/offices', [
             'name' => 'Scranton Branch',
             'address_line_1' => '1725 Slough Avenue',
         ]);
@@ -205,7 +205,7 @@ class OfficeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('POST', '/api/organizations/' . $organization->id . '/adminland/offices', [
+        $response = $this->json('POST', '/api/organizations/'.$organization->id.'/adminland/offices', [
             'name' => 'Scranton Branch',
             'address_line_1' => '1725 Slough Avenue',
             'city' => 'Scranton',
@@ -225,7 +225,7 @@ class OfficeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('PUT', '/api/organizations/' . $organization->id . '/adminland/offices/' . $office->id, [
+        $response = $this->json('PUT', '/api/organizations/'.$organization->id.'/adminland/offices/'.$office->id, [
             'name' => 'Scranton Branch Updated',
             'address_line_1' => '1725 Slough Avenue',
             'city' => 'Scranton',
@@ -246,7 +246,7 @@ class OfficeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('PUT', '/api/organizations/' . $organization->id . '/adminland/offices/' . $office->id, [
+        $response = $this->json('PUT', '/api/organizations/'.$organization->id.'/adminland/offices/'.$office->id, [
             'address_line_1' => '1725 Slough Avenue',
             'city' => 'Scranton',
         ]);
@@ -270,7 +270,7 @@ class OfficeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('PUT', '/api/organizations/' . $organization->id . '/adminland/offices/' . $office->id, [
+        $response = $this->json('PUT', '/api/organizations/'.$organization->id.'/adminland/offices/'.$office->id, [
             'name' => 'Scranton Branch',
             'address_line_1' => '1725 Slough Avenue',
             'city' => 'Scranton',
@@ -290,7 +290,7 @@ class OfficeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('DELETE', '/api/organizations/' . $organization->id . '/adminland/offices/' . $office->id);
+        $response = $this->json('DELETE', '/api/organizations/'.$organization->id.'/adminland/offices/'.$office->id);
 
         $response->assertNoContent();
     }
@@ -311,7 +311,7 @@ class OfficeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('DELETE', '/api/organizations/' . $organization->id . '/adminland/offices/' . $office->id);
+        $response = $this->json('DELETE', '/api/organizations/'.$organization->id.'/adminland/offices/'.$office->id);
 
         $response->assertStatus(404);
     }

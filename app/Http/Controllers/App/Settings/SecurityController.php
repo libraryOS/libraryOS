@@ -14,7 +14,7 @@ class SecurityController extends Controller
     public function index(Request $request): View
     {
         $apiKeys = $request->user()->tokens
-            ->map(fn(PersonalAccessToken $token) => (object) [
+            ->map(fn (PersonalAccessToken $token) => (object) [
                 'id' => $token->id,
                 'name' => $token->name,
                 'last_used' => $token->last_used_at ? $token->last_used_at->diffForHumans() : trans('Never'),

@@ -40,7 +40,7 @@ class UpdateMemberType
 
         $member = $this->user->memberOf($this->organization);
 
-        if (!$member instanceof Member) {
+        if (! $member instanceof Member) {
             throw new ModelNotFoundException('Organization not found');
         }
 

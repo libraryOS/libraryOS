@@ -18,7 +18,7 @@ class MemberController extends Controller
             ->with('user')
             ->orderByDesc('joined_at')
             ->get()
-            ->map(fn($member) => (object) [
+            ->map(fn ($member) => (object) [
                 'name' => $member->user?->getFullName(),
                 'email' => $member->user?->email,
                 'joined_at' => $member->joined_at,
@@ -28,7 +28,7 @@ class MemberController extends Controller
         $memberTypes = $organization->memberTypes()
             ->orderBy('position')
             ->get()
-            ->map(fn($memberType) => (object) [
+            ->map(fn ($memberType) => (object) [
                 'id' => $memberType->id,
                 'name' => $memberType->name,
                 'position' => $memberType->position,

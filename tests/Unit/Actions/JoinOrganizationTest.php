@@ -43,7 +43,7 @@ class JoinOrganizationTest extends TestCase
         Queue::assertPushedOn(
             queue: 'low',
             job: LogUserAction::class,
-            callback: fn(LogUserAction $job): bool => (
+            callback: fn (LogUserAction $job): bool => (
                 $job->action === 'organization_joined'
                 && $job->user->id === $user->id
                 && $job->organization->id === $organization->id

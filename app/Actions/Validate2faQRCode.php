@@ -44,6 +44,6 @@ readonly class Validate2faQRCode
 
     private function generateRandomCodes(): array
     {
-        return collect()->times(8)->map(fn() => Str::random(10))->all();
+        return collect()->times(8)->map(fn () => Str::random(10))->all();
     }
 }

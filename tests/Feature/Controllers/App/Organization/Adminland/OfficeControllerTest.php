@@ -41,26 +41,26 @@ class OfficeControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->get('/organizations/' . $organization->slug . '/adminland/offices');
+            ->get('/organizations/'.$organization->slug.'/adminland/offices');
 
         $response->assertStatus(200);
         $response->assertViewIs('app.organization.adminland.offices.index');
         $response->assertViewHas(
             'officeTypes',
-            fn($officeTypes): bool => $officeTypes->count() === 1
+            fn ($officeTypes): bool => $officeTypes->count() === 1
                 && $officeTypes->first()->name === 'Headquarters',
         );
         $response->assertViewHas(
             'offices',
-            fn($offices): bool => $offices->count() === 1
+            fn ($offices): bool => $offices->count() === 1
                 && $offices->first()->name === 'Main Office'
                 && $offices->first()->office_type === 'Headquarters'
                 && str_contains((string) $offices->first()->address, '1725 Slough Avenue'),
         );
         $response->assertViewHas(
             'countries',
-            fn($countries): bool => $countries->contains(
-                fn($entry): bool => $entry->name === 'United States',
+            fn ($countries): bool => $countries->contains(
+                fn ($entry): bool => $entry->name === 'United States',
             ),
         );
     }
@@ -72,7 +72,7 @@ class OfficeControllerTest extends TestCase
         $organization = $this->addOrganization($user);
 
         $response = $this->actingAs($user)
-            ->get('/organizations/' . $organization->slug . '/adminland/offices/create');
+            ->get('/organizations/'.$organization->slug.'/adminland/offices/create');
 
         $response->assertStatus(200);
         $response->assertViewIs('app.organization.adminland.offices._create_office');
@@ -89,7 +89,7 @@ class OfficeControllerTest extends TestCase
         $country = Country::factory()->create();
 
         $response = $this->actingAs($user)
-            ->post('/organizations/' . $organization->slug . '/adminland/offices', [
+            ->post('/organizations/'.$organization->slug.'/adminland/offices', [
                 'name' => 'Main Office',
                 'office_type_id' => $officeType->id,
                 'address_line_1' => '1725 Slough Avenue',
@@ -128,7 +128,7 @@ class OfficeControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->get('/organizations/' . $organization->slug . '/adminland/offices/' . $office->id);
+            ->get('/organizations/'.$organization->slug.'/adminland/offices/'.$office->id);
 
         $response->assertStatus(200);
         $response->assertViewIs('app.organization.adminland.offices._edit_office');
@@ -151,11 +151,11 @@ class OfficeControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->get('/organizations/' . $organization->slug . '/adminland/offices/' . $office->id);
+            ->get('/organizations/'.$organization->slug.'/adminland/offices/'.$office->id);
 
         $response->assertStatus(200);
-        $response->assertSee('value="' . $officeType->id . '" selected', false);
-        $response->assertSee('value="' . $country->id . '" selected', false);
+        $response->assertSee('value="'.$officeType->id.'" selected', false);
+        $response->assertSee('value="'.$country->id.'" selected', false);
     }
 
     #[Test]
@@ -170,7 +170,7 @@ class OfficeControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->get('/organizations/' . $organization->slug . '/adminland/offices/' . $office->id);
+            ->get('/organizations/'.$organization->slug.'/adminland/offices/'.$office->id);
 
         $response->assertStatus(404);
     }
@@ -190,7 +190,7 @@ class OfficeControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->put('/organizations/' . $organization->slug . '/adminland/offices/' . $office->id, [
+            ->put('/organizations/'.$organization->slug.'/adminland/offices/'.$office->id, [
                 'name' => 'Updated Office',
                 'office_type_id' => $officeType->id,
                 'address_line_1' => '12 Main Street',
@@ -229,7 +229,7 @@ class OfficeControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->put('/organizations/' . $organization->slug . '/adminland/offices/' . $office->id, [
+            ->put('/organizations/'.$organization->slug.'/adminland/offices/'.$office->id, [
                 'name' => 'Updated Office',
                 'address_line_1' => '12 Main Street',
                 'city' => 'Paris',
@@ -248,7 +248,7 @@ class OfficeControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->delete('/organizations/' . $organization->slug . '/adminland/offices/' . $office->id);
+            ->delete('/organizations/'.$organization->slug.'/adminland/offices/'.$office->id);
 
         $response->assertRedirect(route('organization.adminland.office.index', $organization->slug));
         $response->assertSessionHas('status', 'Changes saved');
@@ -270,7 +270,7 @@ class OfficeControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->delete('/organizations/' . $organization->slug . '/adminland/offices/' . $office->id);
+            ->delete('/organizations/'.$organization->slug.'/adminland/offices/'.$office->id);
 
         $response->assertStatus(404);
     }

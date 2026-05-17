@@ -51,7 +51,7 @@ class MemberControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('GET', '/api/organizations/' . $organization->id . '/adminland/members');
+        $response = $this->json('GET', '/api/organizations/'.$organization->id.'/adminland/members');
 
         $response->assertStatus(200);
         $response->assertJsonStructure([
@@ -74,7 +74,7 @@ class MemberControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('GET', '/api/organizations/' . $organization->id . '/adminland/members');
+        $response = $this->json('GET', '/api/organizations/'.$organization->id.'/adminland/members');
 
         $response->assertStatus(200);
         $response->assertJsonCount(1, 'data');
@@ -88,7 +88,7 @@ class MemberControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('GET', '/api/organizations/' . $organization->id . '/adminland/members');
+        $response = $this->json('GET', '/api/organizations/'.$organization->id.'/adminland/members');
 
         $response->assertStatus(403);
     }
@@ -104,7 +104,7 @@ class MemberControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('GET', '/api/organizations/' . $organization->id . '/adminland/members/' . $member->id);
+        $response = $this->json('GET', '/api/organizations/'.$organization->id.'/adminland/members/'.$member->id);
 
         $response->assertStatus(200);
         $response->assertJsonStructure($this->jsonStructure);
@@ -119,7 +119,7 @@ class MemberControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('GET', '/api/organizations/' . $organization->id . '/adminland/members/' . $otherMember->id);
+        $response = $this->json('GET', '/api/organizations/'.$organization->id.'/adminland/members/'.$otherMember->id);
 
         $response->assertStatus(404);
     }

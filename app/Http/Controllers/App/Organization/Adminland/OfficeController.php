@@ -164,7 +164,7 @@ class OfficeController extends Controller
         $officeTypes = $organization->officeTypes()
             ->orderBy('position')
             ->get()
-            ->map(fn($officeType) => (object) [
+            ->map(fn ($officeType) => (object) [
                 'id' => $officeType->id,
                 'name' => $officeType->name,
                 'edit_link' => route('organization.adminland.office_type.edit', [
@@ -181,7 +181,7 @@ class OfficeController extends Controller
             ->with('officeType', 'country')
             ->orderBy('name')
             ->get()
-            ->map(fn($office) => (object) [
+            ->map(fn ($office) => (object) [
                 'id' => $office->id,
                 'name' => $office->name,
                 'office_type' => $office->officeType?->name,
@@ -199,7 +199,7 @@ class OfficeController extends Controller
         $countries = Country::query()
             ->orderBy('name')
             ->get()
-            ->map(fn($country) => (object) [
+            ->map(fn ($country) => (object) [
                 'id' => $country->id,
                 'name' => $country->name,
             ]);

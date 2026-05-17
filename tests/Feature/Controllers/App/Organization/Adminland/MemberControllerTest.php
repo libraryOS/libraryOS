@@ -26,13 +26,13 @@ class MemberControllerTest extends TestCase
             'joined_at' => now(),
         ]);
 
-        $response = $this->actingAs($user)->get('/organizations/' . $organization->slug . '/adminland/members');
+        $response = $this->actingAs($user)->get('/organizations/'.$organization->slug.'/adminland/members');
 
         $response->assertStatus(200);
         $response->assertViewIs('app.organization.adminland.members.index');
         $response->assertViewHas(
             'members',
-            fn($members): bool => $members->count() === 2,
+            fn ($members): bool => $members->count() === 2,
         );
     }
 }

@@ -20,7 +20,7 @@ class DepartmentControllerTest extends TestCase
         $organization = $this->addOrganization($user);
 
         $response = $this->actingAs($user)
-            ->get('/organizations/' . $organization->slug . '/adminland/departments');
+            ->get('/organizations/'.$organization->slug.'/adminland/departments');
 
         $response->assertStatus(200);
         $response->assertViewIs('app.organization.adminland.departments.index');
@@ -33,7 +33,7 @@ class DepartmentControllerTest extends TestCase
         $organization = $this->addOrganization($user);
 
         $response = $this->actingAs($user)
-            ->get('/organizations/' . $organization->slug . '/adminland/departments/create');
+            ->get('/organizations/'.$organization->slug.'/adminland/departments/create');
 
         $response->assertStatus(200);
         $response->assertViewIs('app.organization.adminland.departments._create_department');
@@ -46,7 +46,7 @@ class DepartmentControllerTest extends TestCase
         $organization = $this->addOrganization($user);
 
         $response = $this->actingAs($user)
-            ->post('/organizations/' . $organization->slug . '/adminland/departments', [
+            ->post('/organizations/'.$organization->slug.'/adminland/departments', [
                 'name' => 'Engineering',
             ]);
 
@@ -64,7 +64,7 @@ class DepartmentControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->get('/organizations/' . $organization->slug . '/adminland/departments/' . $department->id);
+            ->get('/organizations/'.$organization->slug.'/adminland/departments/'.$department->id);
 
         $response->assertStatus(200);
         $response->assertViewIs('app.organization.adminland.departments._edit_department');
@@ -83,7 +83,7 @@ class DepartmentControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->get('/organizations/' . $organization->slug . '/adminland/departments/' . $department->id);
+            ->get('/organizations/'.$organization->slug.'/adminland/departments/'.$department->id);
 
         $response->assertStatus(404);
     }
@@ -99,7 +99,7 @@ class DepartmentControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->put('/organizations/' . $organization->slug . '/adminland/departments/' . $department->id, [
+            ->put('/organizations/'.$organization->slug.'/adminland/departments/'.$department->id, [
                 'name' => 'New Name',
             ]);
 
@@ -119,7 +119,7 @@ class DepartmentControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->put('/organizations/' . $organization->slug . '/adminland/departments/' . $department->id, [
+            ->put('/organizations/'.$organization->slug.'/adminland/departments/'.$department->id, [
                 'name' => 'New Name',
             ]);
 
@@ -136,7 +136,7 @@ class DepartmentControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->delete('/organizations/' . $organization->slug . '/adminland/departments/' . $department->id);
+            ->delete('/organizations/'.$organization->slug.'/adminland/departments/'.$department->id);
 
         $response->assertRedirect(route('organization.adminland.department.index', $organization->slug));
         $response->assertSessionHas('status', 'Changes saved');
@@ -154,7 +154,7 @@ class DepartmentControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->delete('/organizations/' . $organization->slug . '/adminland/departments/' . $department->id);
+            ->delete('/organizations/'.$organization->slug.'/adminland/departments/'.$department->id);
 
         $response->assertStatus(404);
     }

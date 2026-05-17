@@ -37,7 +37,7 @@ class DestroyOrganizationTest extends TestCase
         Queue::assertPushedOn(
             queue: 'low',
             job: LogUserAction::class,
-            callback: fn(LogUserAction $job): bool => $job->action === 'organization_deletion' && $job->user->id === $user->id,
+            callback: fn (LogUserAction $job): bool => $job->action === 'organization_deletion' && $job->user->id === $user->id,
         );
     }
 

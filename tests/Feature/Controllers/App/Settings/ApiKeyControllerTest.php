@@ -34,7 +34,7 @@ class ApiKeyControllerTest extends TestCase
         $token = $user->createToken('Test API Token');
 
         $response = $this->actingAs($user)
-            ->delete('/settings/api-keys/' . $token->accessToken->id);
+            ->delete('/settings/api-keys/'.$token->accessToken->id);
 
         $response->assertRedirect('/settings/security');
         $response->assertSessionHas('status', 'API key deleted');

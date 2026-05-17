@@ -36,7 +36,7 @@ class JoinOrganizationControllerTest extends TestCase
             'invitation_code' => 'ABC123',
         ]);
 
-        $response->assertRedirect('/organizations/' . $organization->slug);
+        $response->assertRedirect('/organizations/'.$organization->slug);
         $response->assertSessionHas('status');
     }
 

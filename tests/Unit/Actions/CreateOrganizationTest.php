@@ -30,7 +30,7 @@ class CreateOrganizationTest extends TestCase
             name: 'Dunder Mifflin',
         )->execute();
 
-        $expectedSlug = $organization->id . '-dunder-mifflin';
+        $expectedSlug = $organization->id.'-dunder-mifflin';
 
         $this->assertInstanceOf(Organization::class, $organization);
 
@@ -48,7 +48,7 @@ class CreateOrganizationTest extends TestCase
         Queue::assertPushedOn(
             queue: 'low',
             job: LogUserAction::class,
-            callback: fn(LogUserAction $job): bool => (
+            callback: fn (LogUserAction $job): bool => (
                 $job->action === 'organization_creation'
                 && $job->user->id === $user->id
                 && $job->organization->id === $organization->id
@@ -59,7 +59,7 @@ class CreateOrganizationTest extends TestCase
         Queue::assertPushedOn(
             queue: 'low',
             job: PopulateOrganization::class,
-            callback: fn(PopulateOrganization $job): bool => $job->organization->id === $organization->id,
+            callback: fn (PopulateOrganization $job): bool => $job->organization->id === $organization->id,
         );
     }
 

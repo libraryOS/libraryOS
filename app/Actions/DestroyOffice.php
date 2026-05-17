@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
-use App\Models\Member;
 use App\Jobs\LogUserAction;
+use App\Models\Member;
 use App\Models\Office;
 use App\Models\Organization;
 use App\Models\User;
@@ -34,7 +34,7 @@ class DestroyOffice
     {
         $member = $this->user->memberOf($this->organization);
 
-        if (!$member instanceof Member) {
+        if (! $member instanceof Member) {
             throw new ModelNotFoundException('Organization not found');
         }
 

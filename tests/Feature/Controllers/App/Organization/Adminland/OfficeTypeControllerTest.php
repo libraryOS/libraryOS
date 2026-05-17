@@ -20,7 +20,7 @@ class OfficeTypeControllerTest extends TestCase
         $organization = $this->addOrganization($user);
 
         $response = $this->actingAs($user)
-            ->get('/organizations/' . $organization->slug . '/adminland/office-types/create');
+            ->get('/organizations/'.$organization->slug.'/adminland/office-types/create');
 
         $response->assertStatus(200);
         $response->assertViewIs('app.organization.adminland.offices._create_office_type');
@@ -33,7 +33,7 @@ class OfficeTypeControllerTest extends TestCase
         $organization = $this->addOrganization($user);
 
         $response = $this->actingAs($user)
-            ->post('/organizations/' . $organization->slug . '/adminland/office-types', [
+            ->post('/organizations/'.$organization->slug.'/adminland/office-types', [
                 'name' => 'Branch Office',
             ]);
 
@@ -51,7 +51,7 @@ class OfficeTypeControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->get('/organizations/' . $organization->slug . '/adminland/office-types/' . $officeType->id);
+            ->get('/organizations/'.$organization->slug.'/adminland/office-types/'.$officeType->id);
 
         $response->assertStatus(200);
         $response->assertViewIs('app.organization.adminland.offices._edit_office_type');
@@ -70,7 +70,7 @@ class OfficeTypeControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->get('/organizations/' . $organization->slug . '/adminland/office-types/' . $officeType->id);
+            ->get('/organizations/'.$organization->slug.'/adminland/office-types/'.$officeType->id);
 
         $response->assertStatus(404);
     }
@@ -86,7 +86,7 @@ class OfficeTypeControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->put('/organizations/' . $organization->slug . '/adminland/office-types/' . $officeType->id, [
+            ->put('/organizations/'.$organization->slug.'/adminland/office-types/'.$officeType->id, [
                 'name' => 'New Name',
             ]);
 
@@ -106,7 +106,7 @@ class OfficeTypeControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->put('/organizations/' . $organization->slug . '/adminland/office-types/' . $officeType->id, [
+            ->put('/organizations/'.$organization->slug.'/adminland/office-types/'.$officeType->id, [
                 'name' => 'New Name',
             ]);
 
@@ -123,7 +123,7 @@ class OfficeTypeControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->delete('/organizations/' . $organization->slug . '/adminland/office-types/' . $officeType->id);
+            ->delete('/organizations/'.$organization->slug.'/adminland/office-types/'.$officeType->id);
 
         $response->assertRedirect(route('organization.adminland.office.index', $organization->slug));
         $response->assertSessionHas('status', 'Changes saved');
@@ -141,7 +141,7 @@ class OfficeTypeControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->delete('/organizations/' . $organization->slug . '/adminland/office-types/' . $officeType->id);
+            ->delete('/organizations/'.$organization->slug.'/adminland/office-types/'.$officeType->id);
 
         $response->assertStatus(404);
     }

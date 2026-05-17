@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
-use App\Models\Member;
 use App\Helpers\TextSanitizer;
 use App\Jobs\LogUserAction;
 use App\Models\Country;
+use App\Models\Member;
 use App\Models\Office;
 use App\Models\OfficeType;
 use App\Models\Organization;
@@ -54,7 +54,7 @@ class CreateOffice
 
         $member = $this->user->memberOf($this->organization);
 
-        if (!$member instanceof Member) {
+        if (! $member instanceof Member) {
             throw new ModelNotFoundException('Organization not found');
         }
 

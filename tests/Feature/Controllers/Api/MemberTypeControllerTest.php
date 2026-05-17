@@ -50,7 +50,7 @@ class MemberTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('GET', '/api/organizations/' . $organization->id . '/adminland/membertypes');
+        $response = $this->json('GET', '/api/organizations/'.$organization->id.'/adminland/membertypes');
 
         $response->assertStatus(200);
         $response->assertJsonStructure([
@@ -69,7 +69,7 @@ class MemberTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('GET', '/api/organizations/' . $organization->id . '/adminland/membertypes');
+        $response = $this->json('GET', '/api/organizations/'.$organization->id.'/adminland/membertypes');
 
         $response->assertStatus(200);
         $response->assertJsonCount(0, 'data');
@@ -83,7 +83,7 @@ class MemberTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('GET', '/api/organizations/' . $organization->id . '/adminland/membertypes');
+        $response = $this->json('GET', '/api/organizations/'.$organization->id.'/adminland/membertypes');
 
         $response->assertStatus(403);
     }
@@ -99,7 +99,7 @@ class MemberTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('GET', '/api/organizations/' . $organization->id . '/adminland/membertypes/' . $memberType->id);
+        $response = $this->json('GET', '/api/organizations/'.$organization->id.'/adminland/membertypes/'.$memberType->id);
 
         $response->assertStatus(200);
         $response->assertJsonStructure($this->jsonStructure);
@@ -114,7 +114,7 @@ class MemberTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('GET', '/api/organizations/' . $organization->id . '/adminland/membertypes/' . $otherMemberType->id);
+        $response = $this->json('GET', '/api/organizations/'.$organization->id.'/adminland/membertypes/'.$otherMemberType->id);
 
         $response->assertStatus(404);
     }
@@ -127,7 +127,7 @@ class MemberTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('POST', '/api/organizations/' . $organization->id . '/adminland/membertypes', [
+        $response = $this->json('POST', '/api/organizations/'.$organization->id.'/adminland/membertypes', [
             'name' => 'Contractor',
         ]);
 
@@ -143,7 +143,7 @@ class MemberTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('POST', '/api/organizations/' . $organization->id . '/adminland/membertypes', []);
+        $response = $this->json('POST', '/api/organizations/'.$organization->id.'/adminland/membertypes', []);
 
         $response->assertStatus(422);
     }
@@ -161,7 +161,7 @@ class MemberTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('POST', '/api/organizations/' . $organization->id . '/adminland/membertypes', [
+        $response = $this->json('POST', '/api/organizations/'.$organization->id.'/adminland/membertypes', [
             'name' => 'Contractor',
         ]);
 
@@ -179,7 +179,7 @@ class MemberTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('PUT', '/api/organizations/' . $organization->id . '/adminland/membertypes/' . $memberType->id, [
+        $response = $this->json('PUT', '/api/organizations/'.$organization->id.'/adminland/membertypes/'.$memberType->id, [
             'name' => 'Intern',
         ]);
 
@@ -198,7 +198,7 @@ class MemberTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('PUT', '/api/organizations/' . $organization->id . '/adminland/membertypes/' . $memberType->id, []);
+        $response = $this->json('PUT', '/api/organizations/'.$organization->id.'/adminland/membertypes/'.$memberType->id, []);
 
         $response->assertStatus(422);
     }
@@ -219,7 +219,7 @@ class MemberTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('PUT', '/api/organizations/' . $organization->id . '/adminland/membertypes/' . $memberType->id, [
+        $response = $this->json('PUT', '/api/organizations/'.$organization->id.'/adminland/membertypes/'.$memberType->id, [
             'name' => 'Intern',
         ]);
 
@@ -237,7 +237,7 @@ class MemberTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('DELETE', '/api/organizations/' . $organization->id . '/adminland/membertypes/' . $memberType->id);
+        $response = $this->json('DELETE', '/api/organizations/'.$organization->id.'/adminland/membertypes/'.$memberType->id);
 
         $response->assertNoContent();
     }
@@ -258,7 +258,7 @@ class MemberTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('DELETE', '/api/organizations/' . $organization->id . '/adminland/membertypes/' . $memberType->id);
+        $response = $this->json('DELETE', '/api/organizations/'.$organization->id.'/adminland/membertypes/'.$memberType->id);
 
         $response->assertStatus(404);
     }

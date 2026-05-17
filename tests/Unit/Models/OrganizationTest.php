@@ -6,9 +6,9 @@ namespace Tests\Unit\Models;
 
 use App\Models\Department;
 use App\Models\Member;
+use App\Models\MemberType;
 use App\Models\Office;
 use App\Models\OfficeType;
-use App\Models\MemberType;
 use App\Models\Organization;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;

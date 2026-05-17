@@ -19,7 +19,7 @@ class AdminlandControllerTest extends TestCase
         $user = $this->createUser();
         $organization = $this->addOrganization($user);
 
-        $response = $this->actingAs($user)->get('/organizations/' . $organization->slug . '/adminland');
+        $response = $this->actingAs($user)->get('/organizations/'.$organization->slug.'/adminland');
 
         $response->assertStatus(200);
     }
@@ -33,7 +33,7 @@ class AdminlandControllerTest extends TestCase
             permission: Permission::Member,
         );
 
-        $response = $this->actingAs($user)->get('/organizations/' . $organization->slug . '/adminland');
+        $response = $this->actingAs($user)->get('/organizations/'.$organization->slug.'/adminland');
 
         $response->assertStatus(403);
     }

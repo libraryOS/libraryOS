@@ -153,6 +153,6 @@ class Office extends Model implements HasAddress
      */
     protected function address(): Attribute
     {
-        return Attribute::get(fn(): Address => Address::fromModel($this));
+        return Attribute::get(fn (): Address => Address::fromModel($this));
     }
 }

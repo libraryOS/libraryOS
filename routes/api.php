@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\Api\HealthController;
 use App\Http\Controllers\Api\Adminland\DepartmentController;
 use App\Http\Controllers\Api\Adminland\MemberController;
 use App\Http\Controllers\Api\Adminland\MemberTypeController;
 use App\Http\Controllers\Api\Adminland\OfficeController;
 use App\Http\Controllers\Api\Adminland\OfficeTypeController;
+use App\Http\Controllers\Api\HealthController;
 use App\Http\Controllers\Api\OrganizationController;
 use Illuminate\Support\Facades\Route;
 

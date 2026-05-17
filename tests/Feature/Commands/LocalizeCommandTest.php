@@ -37,7 +37,7 @@ BLADE
                 json_encode([
                     'Localize test key' => 'Preserved English Value',
                     'Localize stale key' => 'Remove me',
-                ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) . PHP_EOL,
+                ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).PHP_EOL,
             );
 
             file_put_contents(
@@ -45,7 +45,7 @@ BLADE
                 json_encode([
                     'Localize test key' => 'Valeur Française Conservée',
                     'Localize stale key' => 'Supprime-moi',
-                ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) . PHP_EOL,
+                ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).PHP_EOL,
             );
 
             $this->artisan('libraryOS:localize en,fr')

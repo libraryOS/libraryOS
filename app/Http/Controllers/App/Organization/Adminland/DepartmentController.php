@@ -23,7 +23,7 @@ class DepartmentController extends Controller
         $departments = $organization->departments()
             ->orderBy('name')
             ->get()
-            ->map(fn($department) => (object) [
+            ->map(fn ($department) => (object) [
                 'id' => $department->id,
                 'name' => $department->name,
                 'edit_link' => route('organization.adminland.department.edit', [

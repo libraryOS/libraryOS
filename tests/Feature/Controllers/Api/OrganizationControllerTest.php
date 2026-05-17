@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers\Api;
 
-use Illuminate\Support\Facades\Date;
 use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Date;
 use Laravel\Sanctum\Sanctum;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -92,7 +92,7 @@ class OrganizationControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('GET', '/api/organizations/' . $organization->id);
+        $response = $this->json('GET', '/api/organizations/'.$organization->id);
 
         $response->assertStatus(200);
         $response->assertJsonStructure($this->jsonStructure);
@@ -106,7 +106,7 @@ class OrganizationControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('GET', '/api/organizations/' . $organization->id);
+        $response = $this->json('GET', '/api/organizations/'.$organization->id);
 
         $response->assertStatus(403);
     }
@@ -119,7 +119,7 @@ class OrganizationControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('PUT', '/api/organizations/' . $organization->id, [
+        $response = $this->json('PUT', '/api/organizations/'.$organization->id, [
             'name' => 'Dunder Mifflin Michael Scott Edition',
         ]);
 
@@ -135,7 +135,7 @@ class OrganizationControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('DELETE', '/api/organizations/' . $organization->id);
+        $response = $this->json('DELETE', '/api/organizations/'.$organization->id);
 
         $response->assertNoContent();
     }

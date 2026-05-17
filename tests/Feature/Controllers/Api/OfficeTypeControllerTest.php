@@ -50,7 +50,7 @@ class OfficeTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('GET', '/api/organizations/' . $organization->id . '/adminland/officetypes');
+        $response = $this->json('GET', '/api/organizations/'.$organization->id.'/adminland/officetypes');
 
         $response->assertStatus(200);
         $response->assertJsonStructure([
@@ -69,7 +69,7 @@ class OfficeTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('GET', '/api/organizations/' . $organization->id . '/adminland/officetypes');
+        $response = $this->json('GET', '/api/organizations/'.$organization->id.'/adminland/officetypes');
 
         $response->assertStatus(200);
         $response->assertJsonCount(0, 'data');
@@ -83,7 +83,7 @@ class OfficeTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('POST', '/api/organizations/' . $organization->id . '/adminland/officetypes', [
+        $response = $this->json('POST', '/api/organizations/'.$organization->id.'/adminland/officetypes', [
             'name' => 'Remote',
         ]);
 
@@ -99,7 +99,7 @@ class OfficeTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('POST', '/api/organizations/' . $organization->id . '/adminland/officetypes', []);
+        $response = $this->json('POST', '/api/organizations/'.$organization->id.'/adminland/officetypes', []);
 
         $response->assertStatus(422);
     }
@@ -117,7 +117,7 @@ class OfficeTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('POST', '/api/organizations/' . $organization->id . '/adminland/officetypes', [
+        $response = $this->json('POST', '/api/organizations/'.$organization->id.'/adminland/officetypes', [
             'name' => 'Remote',
         ]);
 
@@ -132,7 +132,7 @@ class OfficeTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('GET', '/api/organizations/' . $organization->id . '/adminland/officetypes');
+        $response = $this->json('GET', '/api/organizations/'.$organization->id.'/adminland/officetypes');
 
         $response->assertStatus(403);
     }
@@ -148,7 +148,7 @@ class OfficeTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('GET', '/api/organizations/' . $organization->id . '/adminland/officetypes/' . $officeType->id);
+        $response = $this->json('GET', '/api/organizations/'.$organization->id.'/adminland/officetypes/'.$officeType->id);
 
         $response->assertStatus(200);
         $response->assertJsonStructure($this->jsonStructure);
@@ -163,7 +163,7 @@ class OfficeTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('GET', '/api/organizations/' . $organization->id . '/adminland/officetypes/' . $otherOfficeType->id);
+        $response = $this->json('GET', '/api/organizations/'.$organization->id.'/adminland/officetypes/'.$otherOfficeType->id);
 
         $response->assertStatus(404);
     }
@@ -179,7 +179,7 @@ class OfficeTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('PUT', '/api/organizations/' . $organization->id . '/adminland/officetypes/' . $officeType->id, [
+        $response = $this->json('PUT', '/api/organizations/'.$organization->id.'/adminland/officetypes/'.$officeType->id, [
             'name' => 'Remote',
         ]);
 
@@ -198,7 +198,7 @@ class OfficeTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('PUT', '/api/organizations/' . $organization->id . '/adminland/officetypes/' . $officeType->id, []);
+        $response = $this->json('PUT', '/api/organizations/'.$organization->id.'/adminland/officetypes/'.$officeType->id, []);
 
         $response->assertStatus(422);
     }
@@ -214,7 +214,7 @@ class OfficeTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('DELETE', '/api/organizations/' . $organization->id . '/adminland/officetypes/' . $officeType->id);
+        $response = $this->json('DELETE', '/api/organizations/'.$organization->id.'/adminland/officetypes/'.$officeType->id);
 
         $response->assertNoContent();
     }
@@ -235,7 +235,7 @@ class OfficeTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('PUT', '/api/organizations/' . $organization->id . '/adminland/officetypes/' . $officeType->id, [
+        $response = $this->json('PUT', '/api/organizations/'.$organization->id.'/adminland/officetypes/'.$officeType->id, [
             'name' => 'Remote',
         ]);
 
@@ -258,7 +258,7 @@ class OfficeTypeControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->json('DELETE', '/api/organizations/' . $organization->id . '/adminland/officetypes/' . $officeType->id);
+        $response = $this->json('DELETE', '/api/organizations/'.$organization->id.'/adminland/officetypes/'.$officeType->id);
 
         $response->assertStatus(404);
     }

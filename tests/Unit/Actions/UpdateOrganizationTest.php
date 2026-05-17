@@ -29,7 +29,7 @@ class UpdateOrganizationTest extends TestCase
         )->execute();
 
         $this->assertEquals('Threat Level Midnight', $updatedOrganization->name);
-        $this->assertEquals($organization->id . '-threat-level-midnight', $updatedOrganization->slug);
+        $this->assertEquals($organization->id.'-threat-level-midnight', $updatedOrganization->slug);
     }
 
     #[Test]

@@ -23,7 +23,7 @@ use App\Http\Controllers\App\Settings\TwoFAController;
 use App\Http\Controllers\LocaleController;
 use Illuminate\Support\Facades\Route;
 
-require __DIR__ . '/marketing.php';
+require __DIR__.'/marketing.php';
 
 Route::put('/locale', [LocaleController::class, 'update'])->name('locale.update');
 
@@ -42,7 +42,7 @@ Route::middleware(['auth', 'verified', 'throttle:60,1', 'set.locale'])->group(fu
         Route::get('organizations/{slug}', [OrganizationController::class, 'show'])->name('organization.show');
 
         // adminland
-        Route::middleware(['permission:' . Permission::Owner->value . ',' . Permission::Admin->value])->group(function (): void {
+        Route::middleware(['permission:'.Permission::Owner->value.','.Permission::Admin->value])->group(function (): void {
             Route::get('organizations/{slug}/adminland', [AdminlandController::class, 'index'])->name('organization.adminland.index');
 
             // members
@@ -107,4 +107,4 @@ Route::middleware(['auth', 'verified', 'throttle:60,1', 'set.locale'])->group(fu
     Route::delete('settings/api-keys/{apiKey}', [ApiKeyController::class, 'destroy'])->name('settings.api-keys.destroy');
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

@@ -20,7 +20,7 @@ class MemberTypeControllerTest extends TestCase
         $organization = $this->addOrganization($user);
 
         $response = $this->actingAs($user)
-            ->get('/organizations/' . $organization->slug . '/adminland/member-types/create');
+            ->get('/organizations/'.$organization->slug.'/adminland/member-types/create');
 
         $response->assertStatus(200);
         $response->assertViewIs('app.organization.adminland.members._create_member_type');
@@ -33,7 +33,7 @@ class MemberTypeControllerTest extends TestCase
         $organization = $this->addOrganization($user);
 
         $response = $this->actingAs($user)
-            ->post('/organizations/' . $organization->slug . '/adminland/member-types', [
+            ->post('/organizations/'.$organization->slug.'/adminland/member-types', [
                 'name' => 'Contractor',
             ]);
 
@@ -51,7 +51,7 @@ class MemberTypeControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->get('/organizations/' . $organization->slug . '/adminland/member-types/' . $memberType->id);
+            ->get('/organizations/'.$organization->slug.'/adminland/member-types/'.$memberType->id);
 
         $response->assertStatus(200);
         $response->assertViewIs('app.organization.adminland.members._edit_member_type');
@@ -70,7 +70,7 @@ class MemberTypeControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->get('/organizations/' . $organization->slug . '/adminland/member-types/' . $memberType->id);
+            ->get('/organizations/'.$organization->slug.'/adminland/member-types/'.$memberType->id);
 
         $response->assertStatus(404);
     }
@@ -86,7 +86,7 @@ class MemberTypeControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->put('/organizations/' . $organization->slug . '/adminland/member-types/' . $memberType->id, [
+            ->put('/organizations/'.$organization->slug.'/adminland/member-types/'.$memberType->id, [
                 'name' => 'New Name',
             ]);
 
@@ -106,7 +106,7 @@ class MemberTypeControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->put('/organizations/' . $organization->slug . '/adminland/member-types/' . $memberType->id, [
+            ->put('/organizations/'.$organization->slug.'/adminland/member-types/'.$memberType->id, [
                 'name' => 'New Name',
             ]);
 
@@ -123,7 +123,7 @@ class MemberTypeControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->delete('/organizations/' . $organization->slug . '/adminland/member-types/' . $memberType->id);
+            ->delete('/organizations/'.$organization->slug.'/adminland/member-types/'.$memberType->id);
 
         $response->assertRedirect(route('organization.adminland.member.index', $organization->slug));
         $response->assertSessionHas('status', 'Changes saved');
@@ -141,7 +141,7 @@ class MemberTypeControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->delete('/organizations/' . $organization->slug . '/adminland/member-types/' . $memberType->id);
+            ->delete('/organizations/'.$organization->slug.'/adminland/member-types/'.$memberType->id);
 
         $response->assertStatus(404);
     }
@@ -161,7 +161,7 @@ class MemberTypeControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->put('/organizations/' . $organization->slug . '/adminland/member-types/' . $memberType->id, [
+            ->put('/organizations/'.$organization->slug.'/adminland/member-types/'.$memberType->id, [
                 'position' => 0,
             ]);
 
@@ -181,7 +181,7 @@ class MemberTypeControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)
-            ->put('/organizations/' . $organization->slug . '/adminland/member-types/' . $memberType->id, [
+            ->put('/organizations/'.$organization->slug.'/adminland/member-types/'.$memberType->id, [
                 'position' => 0,
             ]);
 

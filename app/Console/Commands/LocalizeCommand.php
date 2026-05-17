@@ -97,8 +97,8 @@ class LocalizeCommand extends Command
         $patterns = [];
 
         foreach ($functions as $function) {
-            $patterns[] = '/' . preg_quote($function, '/') . '\(\s*\'((?:\\\\.|[^\'\\\\])*)\'/';
-            $patterns[] = '/' . preg_quote($function, '/') . '\(\s*"((?:\\\\.|[^"\\\\])*)"/';
+            $patterns[] = '/'.preg_quote($function, '/').'\(\s*\'((?:\\\\.|[^\'\\\\])*)\'/';
+            $patterns[] = '/'.preg_quote($function, '/').'\(\s*"((?:\\\\.|[^"\\\\])*)"/';
         }
 
         $keys = [];
@@ -127,7 +127,7 @@ class LocalizeCommand extends Command
      */
     private function syncLocaleFile(string $locale, array $translationKeys): void
     {
-        $localeFile = lang_path($locale . '.json');
+        $localeFile = lang_path($locale.'.json');
         $existingTranslations = [];
 
         if (is_file($localeFile)) {
@@ -149,7 +149,7 @@ class LocalizeCommand extends Command
 
         file_put_contents(
             $localeFile,
-            json_encode($syncedTranslations, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) . PHP_EOL,
+            json_encode($syncedTranslations, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).PHP_EOL,
         );
     }
 
