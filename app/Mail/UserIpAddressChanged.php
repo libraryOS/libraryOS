@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Mail;
 
+use App\Interfaces\HasEnvelope;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -12,7 +13,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class UserIpAddressChanged extends Mailable implements ShouldQueue
+class UserIpAddressChanged extends Mailable implements HasEnvelope, ShouldQueue
 {
     use Queueable;
     use SerializesModels;
@@ -25,7 +26,7 @@ class UserIpAddressChanged extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'New sign-in detected on your ' . config('app.name') . ' account',
+            subject: 'New sign-in detected on your '.config('app.name').' account',
         );
     }
 

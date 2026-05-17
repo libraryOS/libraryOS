@@ -6,6 +6,7 @@ namespace App\Jobs;
 
 use App\Actions\CreateEmailSent;
 use App\Enums\EmailType;
+use App\Interfaces\HasEnvelope;
 use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -30,7 +31,7 @@ class SendEmail implements ShouldQueue
      * you to send emails the way Laravel Mail does.
      */
     public function __construct(
-        public Mailable $mailable,
+        public Mailable&HasEnvelope $mailable,
         public User $user,
         public EmailType $emailType,
     ) {}
