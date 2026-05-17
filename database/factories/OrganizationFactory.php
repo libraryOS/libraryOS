@@ -1,0 +1,39 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Database\Factories;
+
+use App\Models\Organization;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+
+/**
+ * @extends Factory<Organization>
+ */
+class OrganizationFactory extends Factory
+{
+    protected $model = Organization::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'name' => $this->faker->word(),
+            'slug' => null,
+        ];
+    }
+
+    public function configure(): static
+    {
+        // @phpstan-ignore-next-line return.type
+        return $this->afterCreating(function (Organization $organization): void {
+            $organization->slug = $organization->id . '-' . Str::lower($organization->name);
+            $organization->save();
+        });
+    }
+}
