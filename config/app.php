@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     /*
@@ -101,7 +103,7 @@ return [
 
     'previous_keys' => [
         ...array_filter(
-            explode(',', (string) env('APP_PREVIOUS_KEYS', ''))
+            explode(',', (string) env('APP_PREVIOUS_KEYS', '')),
         ),
     ],
 
@@ -122,5 +124,40 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Use Resend to send transactional emails
+    |--------------------------------------------------------------------------
+    |
+    | This value enables the use of Resend to send transactional emails.
+    | If you self host the application, you probably want to disable this
+    | since you don't need to send transactional emails.
+    |
+    */
+
+    'use_resend' => env('USE_RESEND', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Supported locales
+    |--------------------------------------------------------------------------
+    |
+    | This value enables the supported locales of the application.
+    |
+    */
+
+    'supported_locales' => ['en', 'fr'],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Email that receives account deletion notifications
+    |--------------------------------------------------------------------------
+    |
+    | This email is used to receive notifications when an account is deleted.
+    |
+    */
+
+    'account_deletion_notification_email' => env('ACCOUNT_DELETION_NOTIFICATION_EMAIL', 'hello@example.com'),
 
 ];
