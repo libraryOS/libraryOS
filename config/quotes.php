@@ -26,7 +26,7 @@ return [
         'file' => 'dwight',
         'tv_show' => 'The Office',
         'season_episode' => 'Season 4, Episode 13',
-        'description' => 'Dwight framing orgOS as a defensive tool.',
+        'description' => 'Dwight framing libraryOS as a defensive tool.',
     ],
 
     // Friends quotes
@@ -36,7 +36,7 @@ return [
         'file' => 'ross',
         'tv_show' => 'Friends',
         'season_episode' => 'Season 6, Episode 17',
-        'description' => 'Ross seeing orgOS as a missed analytical opportunity.',
+        'description' => 'Ross seeing libraryOS as a missed analytical opportunity.',
     ],
     [
         'sentence' => 'So this would tell me when I made a bad decision?',
@@ -70,6 +70,6 @@ return [
         'file' => 'barney',
         'tv_show' => 'How I Met Your Mother',
         'season_episode' => 'Season 3, Episode 10',
-        'description' => 'Barney treating orgOS as an evidence locker.',
+        'description' => 'Barney treating libraryOS as an evidence locker.',
     ],
 ];

@@ -9,8 +9,8 @@
     <!-- what is an organization -->
     <div class="mb-10 border-b border-gray-200 pb-10 dark:border-gray-700">
       <x-marketing.docs.h2 id="what-is-an-organization" title="What is an organization?" />
-      <p class="mb-4">An organization is the central workspace in orgOS. Everything — members, offices, departments, and all administrative settings — lives inside an organization. Think of it as your company's home inside the product.</p>
-      <p class="mb-4">When Michael Scott sets up Dunder Mifflin Paper Company in orgOS, he is creating an organization. Every person he invites, every office he registers, and every department he defines all belong to that one organization.</p>
+      <p class="mb-4">An organization is the central workspace in libraryOS. Everything — members, offices, departments, and all administrative settings — lives inside an organization. Think of it as your company's home inside the product.</p>
+      <p class="mb-4">When Michael Scott sets up Dunder Mifflin Paper Company in libraryOS, he is creating an organization. Every person he invites, every office he registers, and every department he defines all belong to that one organization.</p>
       <p>
         An organization has a
         <strong>name</strong>
@@ -25,7 +25,7 @@
     <!-- roles and permissions -->
     <div class="mb-10 border-b border-gray-200 pb-10 dark:border-gray-700">
       <x-marketing.docs.h2 id="roles-and-permissions" title="Roles and permissions" />
-      <p class="mb-6">Every person inside an organization has a role. The role determines what that person can see and do. orgOS defines four roles, from most to least privileged:</p>
+      <p class="mb-6">Every person inside an organization has a role. The role determines what that person can see and do. libraryOS defines four roles, from most to least privileged:</p>
 
       <div class="mb-6 overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
         <table class="w-full text-sm">
@@ -78,21 +78,21 @@
           .
         </li>
         <li>Enter the organization name. Names may contain letters, numbers, spaces, hyphens, and underscores.</li>
-        <li>Save. orgOS will automatically generate a unique URL slug and an invitation code for you.</li>
+        <li>Save. libraryOS will automatically generate a unique URL slug and an invitation code for you.</li>
       </ol>
-      <p>After creation, orgOS runs a background job to pre-populate the organization with sensible defaults so you can get started right away.</p>
+      <p>After creation, libraryOS runs a background job to pre-populate the organization with sensible defaults so you can get started right away.</p>
     </div>
 
     <!-- joining an organization -->
     <div class="mb-10 border-b border-gray-200 pb-10 dark:border-gray-700">
       <x-marketing.docs.h2 id="joining-an-organization" title="Joining an organization" />
       <p class="mb-4">
-        You do not need to create your own organization to use orgOS. If your company is already set up, an Owner or Administrator can share the organization's
+        You do not need to create your own organization to use libraryOS. If your company is already set up, an Owner or Administrator can share the organization's
         <strong>invitation code</strong>
         with you, and you can use it to join.
       </p>
       <p class="mb-4">
-        When Pam Beesly joins Dunder Mifflin in orgOS, Michael simply gives her the invitation code. She enters it on the
+        When Pam Beesly joins Dunder Mifflin in libraryOS, Michael simply gives her the invitation code. She enters it on the
         <em>Join an organization</em>
         screen, and she is immediately added as a
         <strong>Member</strong>
@@ -108,7 +108,7 @@
         <li>Confirm. You will be added to the organization as a Member and taken to its dashboard.</li>
       </ol>
       <p class="mb-4">The invitation code is a long random string — keep it private. Anyone who has it can join the organization. If the code is ever compromised, an Owner or Administrator can regenerate it from Adminland.</p>
-      <p>You cannot join an organization you are already a member of. orgOS will tell you so and prevent a duplicate membership from being created.</p>
+      <p>You cannot join an organization you are already a member of. libraryOS will tell you so and prevent a duplicate membership from being created.</p>
     </div>
 
     <!-- multiple organizations -->

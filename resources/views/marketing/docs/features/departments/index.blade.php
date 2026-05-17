@@ -32,7 +32,7 @@
     <!-- how they work -->
     <div class="mb-10 border-b border-gray-200 pb-10 dark:border-gray-700">
       <x-marketing.docs.h2 id="how-they-work" title="How they work" />
-      <p class="mb-4">Departments give your organization a single, authoritative list of the teams that exist. Rather than each person describing their group differently, departments create a consistent vocabulary used everywhere in orgOS.</p>
+      <p class="mb-4">Departments give your organization a single, authoritative list of the teams that exist. Rather than each person describing their group differently, departments create a consistent vocabulary used everywhere in libraryOS.</p>
       <p class="mb-4">At Dunder Mifflin Paper Company, several departments co-exist under the same roof at the Scranton branch:</p>
       <ul class="mb-4 list-disc space-y-1 pl-6">
         <li>
@@ -52,13 +52,13 @@
           — Pam Beesly's domain
         </li>
       </ul>
-      <p>Defining these as departments in orgOS means anyone can immediately see how the company is structured, who belongs where, and how many people are in each functional area.</p>
+      <p>Defining these as departments in libraryOS means anyone can immediately see how the company is structured, who belongs where, and how many people are in each functional area.</p>
     </div>
 
     <!-- what departments are not -->
     <div class="mb-10 border-b border-gray-200 pb-10 dark:border-gray-700">
       <x-marketing.docs.h2 id="what-departments-are-not" title="What departments are not" />
-      <p class="mb-4">Departments in orgOS are intentionally simple. They are flat labels — they do not enforce a reporting hierarchy, parent–child relationships, or budget structures. If you need a nested org chart, that is a separate concept.</p>
+      <p class="mb-4">Departments in libraryOS are intentionally simple. They are flat labels — they do not enforce a reporting hierarchy, parent–child relationships, or budget structures. If you need a nested org chart, that is a separate concept.</p>
       <p>You can arrange departments in any display order by adjusting their position. The order you choose has no functional effect on the product; it only affects how the list appears in the UI.</p>
     </div>
   </div>

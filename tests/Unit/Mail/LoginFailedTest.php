@@ -14,14 +14,14 @@ class LoginFailedTest extends TestCase
     #[Test]
     public function it_should_have_correct_envelope_subject(): void
     {
-        Config::set('app.name', 'orgOS');
+        Config::set('app.name', 'libraryOS');
 
         $mailable = new LoginFailed;
 
-        $this->assertEquals('Login attempt on orgOS', $mailable->envelope()->subject);
+        $this->assertEquals('Login attempt on libraryOS', $mailable->envelope()->subject);
 
         $rendered = $mailable->render();
 
-        $this->assertStringContainsString('Login attempt on orgOS', $rendered);
+        $this->assertStringContainsString('Login attempt on libraryOS', $rendered);
     }
 }

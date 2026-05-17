@@ -96,7 +96,7 @@
               <x-marketing.docs.json-line level="3" key="updated_at" value="1771898698" type="integer" />
             </x-marketing.docs.json-section>
             <x-marketing.docs.json-section level="2" name="links">
-              <x-marketing.docs.json-line level="3" key="self" value="http://orgos.test/api/organizations/1/adminland/members/1" type="string" />
+              <x-marketing.docs.json-line level="3" key="self" value="http://libraryOS.test/api/organizations/1/adminland/members/1" type="string" />
             </x-marketing.docs.json-section>
           </x-marketing.docs.json-section>
         </x-marketing.docs.code>
@@ -157,7 +157,7 @@
               <x-marketing.docs.json-line level="3" key="updated_at" value="1771898698" type="integer" />
             </x-marketing.docs.json-section>
             <x-marketing.docs.json-section level="2" name="links">
-              <x-marketing.docs.json-line level="3" key="self" value="http://orgos.test/api/organizations/1/adminland/members/1" type="string" />
+              <x-marketing.docs.json-line level="3" key="self" value="http://libraryOS.test/api/organizations/1/adminland/members/1" type="string" />
             </x-marketing.docs.json-section>
           </x-marketing.docs.json-section>
         </x-marketing.docs.code>
