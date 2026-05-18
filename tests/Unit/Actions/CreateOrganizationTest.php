@@ -75,4 +75,18 @@ class CreateOrganizationTest extends TestCase
             name: 'Dunder & Mifflin',
         )->execute();
     }
+
+    #[Test]
+    public function it_rejects_organization_names_with_reserved_keywords(): void
+    {
+        config(['app.reserved_organization_keywords' => ['admin', 'support', 'contact']]);
+        $user = $this->createUser();
+
+        $this->expectException(ValidationException::class);
+
+        new CreateOrganization(
+            user: $user,
+            name: 'Admin',
+        )->execute();
+    }
 }
