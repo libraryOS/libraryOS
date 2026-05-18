@@ -8,6 +8,13 @@ use App\Models\EmailSent;
 use App\Models\User;
 use Stevebauman\Purify\Facades\Purify;
 
+/**
+ * Create an Email Sent object.
+ * This lets the user know exactly which emails have been sent to him and the
+ * content of the emails.
+ * Links are purged in each email, since they could contain links that
+ * are not valid anymore.
+ */
 class CreateEmailSent
 {
     private EmailSent $emailSent;
