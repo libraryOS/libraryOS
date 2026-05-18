@@ -8,6 +8,10 @@ use App\Jobs\LogUserAction;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * Create an account for the user. That does not create an organization or a
+ * patron account. Only an access to the instance.
+ */
 class CreateAccount
 {
     private User $user;

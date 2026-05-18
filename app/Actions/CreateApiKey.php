@@ -12,6 +12,10 @@ use App\Mail\ApiKeyCreated;
 use App\Models\User;
 use Illuminate\Validation\ValidationException;
 
+/**
+ * Create an API key for the user, at the instance level. The key will have
+ * the permissions the user have.
+ */
 class CreateApiKey
 {
     public function __construct(
