@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers\App\Settings;
 
 use App\Actions\UpdateUserInformation;
-use App\Helpers\TextSanitizer;
 use App\Http\Controllers\Controller;
 use App\Models\EmailSent;
 use App\Models\Log;
@@ -96,11 +95,11 @@ class SettingsController extends Controller
 
         new UpdateUserInformation(
             user: $request->user(),
-            email: mb_strtolower(TextSanitizer::plainText($validated['email'])),
-            firstName: TextSanitizer::plainText($validated['first_name']),
-            lastName: TextSanitizer::plainText($validated['last_name']),
-            nickname: TextSanitizer::nullablePlainText($validated['nickname']),
-            locale: TextSanitizer::plainText($validated['locale']),
+            email: mb_strtolower($validated['email']),
+            firstName: $validated['first_name'],
+            lastName: $validated['last_name'],
+            nickname: $validated['nickname'],
+            locale: $validated['locale'],
             timeFormat24h: $validated['time_format_24h'] === 'true',
         )->execute();
 

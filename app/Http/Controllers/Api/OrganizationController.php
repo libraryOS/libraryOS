@@ -7,7 +7,6 @@ namespace App\Http\Controllers\Api;
 use App\Actions\CreateOrganization;
 use App\Actions\DestroyOrganization;
 use App\Actions\UpdateOrganization;
-use App\Helpers\TextSanitizer;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OrganizationResource;
 use Illuminate\Http\JsonResponse;
@@ -35,7 +34,7 @@ class OrganizationController extends Controller
 
         $organization = new CreateOrganization(
             user: $request->user(),
-            name: TextSanitizer::plainText($validated['name']),
+            name: $validated['name'],
         )->execute();
 
         return new OrganizationResource($organization)
@@ -63,7 +62,7 @@ class OrganizationController extends Controller
         new UpdateOrganization(
             user: $request->user(),
             organization: $organization,
-            name: TextSanitizer::plainText($validated['name']),
+            name: $validated['name'],
         )->execute();
 
         return new OrganizationResource($organization)
