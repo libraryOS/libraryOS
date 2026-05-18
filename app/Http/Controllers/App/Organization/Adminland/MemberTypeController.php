@@ -7,7 +7,6 @@ namespace App\Http\Controllers\App\Organization\Adminland;
 use App\Actions\CreateMemberType;
 use App\Actions\DestroyMemberType;
 use App\Actions\UpdateMemberType;
-use App\Helpers\TextSanitizer;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
@@ -32,7 +31,7 @@ class MemberTypeController extends Controller
         new CreateMemberType(
             user: $request->user(),
             organization: $organization,
-            name: TextSanitizer::plainText($validated['name']),
+            name: $validated['name'],
         )->execute();
 
         return to_route('organization.adminland.member.index', $organization->slug)
@@ -75,7 +74,7 @@ class MemberTypeController extends Controller
             user: $request->user(),
             organization: $organization,
             memberType: $memberType,
-            name: TextSanitizer::plainText($validated['name'] ?? $memberType->name),
+            name: $validated['name'] ?? $memberType->name,
             position: isset($validated['position']) ? (int) $validated['position'] : null,
         )->execute();
 

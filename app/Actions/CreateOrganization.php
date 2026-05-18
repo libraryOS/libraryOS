@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Actions;
 
 use App\Enums\Permission;
+use App\Helpers\TextSanitizer;
 use App\Jobs\LogUserAction;
 use App\Jobs\PopulateOrganization;
 use App\Models\Member;
@@ -28,6 +29,7 @@ class CreateOrganization
 
     public function execute(): Organization
     {
+        $this->sanitize();
         $this->validate();
         $this->create();
         $this->generateSlug();
@@ -37,6 +39,11 @@ class CreateOrganization
         $this->log();
 
         return $this->organization;
+    }
+
+    private function sanitize(): void
+    {
+        $this->name = TextSanitizer::plainText($this->name);
     }
 
     private function validate(): void

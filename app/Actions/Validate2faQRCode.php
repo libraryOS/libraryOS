@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Helpers\TextSanitizer;
 use App\Models\User;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
@@ -30,7 +31,9 @@ readonly class Validate2faQRCode
     {
         $google2fa = $this->google2fa ?? new Google2FA(request());
 
-        if (! $google2fa->verifyKey($this->user->two_factor_secret, $this->token)) {
+        $token = TextSanitizer::plainText($this->token);
+
+        if (! $google2fa->verifyKey($this->user->two_factor_secret, $token)) {
             throw new InvalidArgumentException(__('The provided token is invalid.'));
         }
 

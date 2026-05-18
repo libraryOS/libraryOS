@@ -7,7 +7,6 @@ namespace App\Http\Controllers\App\Settings;
 use App\Actions\Generate2faQRCode;
 use App\Actions\Remove2fa;
 use App\Actions\Validate2faQRCode;
-use App\Helpers\TextSanitizer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -37,7 +36,7 @@ class TwoFAController extends Controller
         try {
             new Validate2faQRCode(
                 user: $request->user(),
-                token: TextSanitizer::plainText((string) $request->input('token')),
+                token: (string) $request->input('token'),
             )->execute();
         } catch (InvalidArgumentException) {
             return back()

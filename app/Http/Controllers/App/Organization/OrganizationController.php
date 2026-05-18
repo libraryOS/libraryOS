@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers\App\Organization;
 
 use App\Actions\CreateOrganization;
-use App\Helpers\TextSanitizer;
 use App\Http\Controllers\Controller;
 use App\Models\Organization;
 use Illuminate\Http\RedirectResponse;
@@ -49,7 +48,7 @@ class OrganizationController extends Controller
 
         $organization = new CreateOrganization(
             user: $request->user(),
-            name: TextSanitizer::plainText($validated['organization_name']),
+            name: $validated['organization_name'],
         )->execute();
 
         return to_route('organization.show', $organization->slug)

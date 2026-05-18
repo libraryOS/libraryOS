@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Helpers\TextSanitizer;
 use App\Jobs\LogUserAction;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -13,14 +14,15 @@ class CreateAccount
     private User $user;
 
     public function __construct(
-        private readonly string $email,
+        private string $email,
         private readonly string $password,
-        private readonly string $firstName,
-        private readonly string $lastName,
+        private string $firstName,
+        private string $lastName,
     ) {}
 
     public function execute(): User
     {
+        $this->sanitize();
         $this->create();
         $this->log();
 
@@ -36,6 +38,13 @@ class CreateAccount
             'password' => Hash::make($this->password),
             'trial_ends_at' => now()->addDays(30),
         ]);
+    }
+
+    private function sanitize(): void
+    {
+        $this->firstName = TextSanitizer::plainText($this->firstName);
+        $this->lastName = TextSanitizer::plainText($this->lastName);
+        $this->email = mb_strtolower(TextSanitizer::plainText($this->email));
     }
 
     private function log(): void
