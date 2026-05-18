@@ -7,7 +7,6 @@ namespace App\Http\Controllers\App\Organization\Adminland;
 use App\Actions\CreateOfficeType;
 use App\Actions\DestroyOfficeType;
 use App\Actions\UpdateOfficeType;
-use App\Helpers\TextSanitizer;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
@@ -32,7 +31,7 @@ class OfficeTypeController extends Controller
         new CreateOfficeType(
             user: $request->user(),
             organization: $organization,
-            name: TextSanitizer::plainText($validated['name']),
+            name: $validated['name'],
         )->execute();
 
         return to_route('organization.adminland.office.index', $organization->slug)
@@ -74,7 +73,7 @@ class OfficeTypeController extends Controller
             user: $request->user(),
             organization: $organization,
             officeType: $officeType,
-            name: TextSanitizer::plainText($validated['name']),
+            name: $validated['name'],
         )->execute();
 
         return to_route('organization.adminland.office.index', $organization->slug)

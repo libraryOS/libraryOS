@@ -7,7 +7,6 @@ namespace App\Http\Controllers\App\Organization\Adminland;
 use App\Actions\CreateOffice;
 use App\Actions\DestroyOffice;
 use App\Actions\UpdateOffice;
-use App\Helpers\TextSanitizer;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Models\Organization;
@@ -50,13 +49,13 @@ class OfficeController extends Controller
         new CreateOffice(
             user: $request->user(),
             organization: $organization,
-            name: TextSanitizer::plainText($validated['name']),
-            addressLine1: TextSanitizer::plainText($validated['address_line_1']),
-            addressLine2: TextSanitizer::nullablePlainText($validated['address_line_2'] ?? null),
-            city: TextSanitizer::plainText($validated['city']),
-            stateProvince: TextSanitizer::nullablePlainText($validated['state_province'] ?? null),
-            postalCode: TextSanitizer::nullablePlainText($validated['postal_code'] ?? null),
-            timezone: TextSanitizer::nullablePlainText($validated['timezone'] ?? null),
+            name: $validated['name'],
+            addressLine1: $validated['address_line_1'],
+            addressLine2: $validated['address_line_2'] ?? null,
+            city: $validated['city'],
+            stateProvince: $validated['state_province'] ?? null,
+            postalCode: $validated['postal_code'] ?? null,
+            timezone: $validated['timezone'] ?? null,
             countryId: isset($validated['country_id']) ? (int) $validated['country_id'] : null,
             officeTypeId: isset($validated['office_type_id']) ? (int) $validated['office_type_id'] : null,
         )->execute();
@@ -102,13 +101,13 @@ class OfficeController extends Controller
             user: $request->user(),
             organization: $organization,
             office: $office,
-            name: TextSanitizer::plainText($validated['name']),
-            addressLine1: TextSanitizer::plainText($validated['address_line_1']),
-            addressLine2: TextSanitizer::nullablePlainText($validated['address_line_2'] ?? null),
-            city: TextSanitizer::plainText($validated['city']),
-            stateProvince: TextSanitizer::nullablePlainText($validated['state_province'] ?? null),
-            postalCode: TextSanitizer::nullablePlainText($validated['postal_code'] ?? null),
-            timezone: TextSanitizer::nullablePlainText($validated['timezone'] ?? null),
+            name: $validated['name'],
+            addressLine1: $validated['address_line_1'],
+            addressLine2: $validated['address_line_2'] ?? null,
+            city: $validated['city'],
+            stateProvince: $validated['state_province'] ?? null,
+            postalCode: $validated['postal_code'] ?? null,
+            timezone: $validated['timezone'] ?? null,
             countryId: isset($validated['country_id']) ? (int) $validated['country_id'] : null,
             officeTypeId: isset($validated['office_type_id']) ? (int) $validated['office_type_id'] : null,
         )->execute();

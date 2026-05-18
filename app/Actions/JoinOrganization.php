@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Actions;
 
 use App\Enums\Permission;
+use App\Helpers\TextSanitizer;
 use App\Jobs\LogUserAction;
 use App\Models\Member;
 use App\Models\Organization;
@@ -18,16 +19,22 @@ class JoinOrganization
 
     public function __construct(
         private readonly User $user,
-        private readonly string $invitationCode,
+        private string $invitationCode,
     ) {}
 
     public function execute(): Organization
     {
+        $this->sanitize();
         $this->validate();
         $this->join();
         $this->log();
 
         return $this->organization;
+    }
+
+    private function sanitize(): void
+    {
+        $this->invitationCode = TextSanitizer::plainText($this->invitationCode);
     }
 
     private function validate(): void

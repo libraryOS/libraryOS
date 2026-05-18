@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers\App\Auth;
 
 use App\Actions\VerifyTwoFactorCode;
-use App\Helpers\TextSanitizer;
 use App\Http\Controllers\Controller;
 use App\Jobs\CheckLastLogin;
 use App\Models\User;
@@ -43,7 +42,7 @@ class TwoFAChallengeController extends Controller
 
         if (! new VerifyTwoFactorCode(
             user: $user,
-            code: TextSanitizer::plainText((string) $request->input('code')),
+            code: (string) $request->input('code'),
         )->execute()) {
             return back()->withErrors(['code' => 'Invalid code']);
         }

@@ -7,7 +7,6 @@ namespace App\Http\Controllers\Api\Adminland;
 use App\Actions\CreateDepartment;
 use App\Actions\DestroyDepartment;
 use App\Actions\UpdateDepartment;
-use App\Helpers\TextSanitizer;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DepartmentResource;
 use Illuminate\Http\JsonResponse;
@@ -40,7 +39,7 @@ class DepartmentController extends Controller
         $department = new CreateDepartment(
             user: $request->user(),
             organization: $organization,
-            name: TextSanitizer::plainText($validated['name']),
+            name: $validated['name'],
             position: $validated['position'] ?? null,
         )->execute();
 
@@ -75,7 +74,7 @@ class DepartmentController extends Controller
             user: $request->user(),
             organization: $organization,
             department: $department,
-            name: TextSanitizer::plainText($validated['name']),
+            name: $validated['name'],
             position: $validated['position'] ?? null,
         )->execute();
 

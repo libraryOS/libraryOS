@@ -7,7 +7,6 @@ namespace App\Http\Controllers\Api\Adminland;
 use App\Actions\CreateOfficeType;
 use App\Actions\DestroyOfficeType;
 use App\Actions\UpdateOfficeType;
-use App\Helpers\TextSanitizer;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OfficeTypeResource;
 use Illuminate\Http\JsonResponse;
@@ -40,7 +39,7 @@ class OfficeTypeController extends Controller
         $officeType = new CreateOfficeType(
             user: $request->user(),
             organization: $organization,
-            name: TextSanitizer::plainText($validated['name']),
+            name: $validated['name'],
             position: $validated['position'] ?? null,
         )->execute();
 
@@ -75,7 +74,7 @@ class OfficeTypeController extends Controller
             user: $request->user(),
             organization: $organization,
             officeType: $officeType,
-            name: TextSanitizer::plainText($validated['name']),
+            name: $validated['name'],
             position: $validated['position'] ?? null,
         )->execute();
 

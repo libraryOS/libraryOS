@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Helpers\TextSanitizer;
 use App\Models\User;
 use PragmaRX\Google2FA\Google2FA;
 
@@ -40,7 +41,7 @@ readonly class VerifyTwoFactorCode
         $secret = $this->user->two_factor_secret;
         $google2fa = new Google2FA;
 
-        return $google2fa->verifyKey($secret, $this->code);
+        return $google2fa->verifyKey($secret, TextSanitizer::plainText($this->code));
     }
 
     private function verifyRescueCode(): bool
@@ -50,8 +51,10 @@ readonly class VerifyTwoFactorCode
         }
 
         $codes = $this->user->two_factor_recovery_codes;
-        if (in_array($this->code, $codes, true)) {
-            $this->user->two_factor_recovery_codes = array_values(array_diff($codes, [$this->code]));
+        $sanitizedCode = TextSanitizer::plainText($this->code);
+
+        if (in_array($sanitizedCode, $codes, true)) {
+            $this->user->two_factor_recovery_codes = array_values(array_diff($codes, [$sanitizedCode]));
             $this->user->save();
 
             return true;

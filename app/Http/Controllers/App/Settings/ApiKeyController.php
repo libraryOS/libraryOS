@@ -6,7 +6,6 @@ namespace App\Http\Controllers\App\Settings;
 
 use App\Actions\CreateApiKey;
 use App\Actions\DestroyApiKey;
-use App\Helpers\TextSanitizer;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -27,7 +26,7 @@ class ApiKeyController extends Controller
 
         $apiKey = new CreateApiKey(
             user: $request->user(),
-            label: TextSanitizer::plainText($validated['label']),
+            label: $validated['label'],
         )->execute();
 
         return to_route('settings.security.index')

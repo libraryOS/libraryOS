@@ -7,7 +7,6 @@ namespace App\Http\Controllers\App\Organization\Adminland;
 use App\Actions\CreateDepartment;
 use App\Actions\DestroyDepartment;
 use App\Actions\UpdateDepartment;
-use App\Helpers\TextSanitizer;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
@@ -57,7 +56,7 @@ class DepartmentController extends Controller
         new CreateDepartment(
             user: $request->user(),
             organization: $organization,
-            name: TextSanitizer::plainText($validated['name']),
+            name: $validated['name'],
         )->execute();
 
         return to_route('organization.adminland.department.index', $organization->slug)
@@ -99,7 +98,7 @@ class DepartmentController extends Controller
             user: $request->user(),
             organization: $organization,
             department: $department,
-            name: TextSanitizer::plainText($validated['name']),
+            name: $validated['name'],
         )->execute();
 
         return to_route('organization.adminland.department.index', $organization->slug)

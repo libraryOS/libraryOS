@@ -7,7 +7,6 @@ namespace App\Http\Controllers\Api\Adminland;
 use App\Actions\CreateMemberType;
 use App\Actions\DestroyMemberType;
 use App\Actions\UpdateMemberType;
-use App\Helpers\TextSanitizer;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MemberTypeResource;
 use Illuminate\Http\JsonResponse;
@@ -40,7 +39,7 @@ class MemberTypeController extends Controller
         $memberType = new CreateMemberType(
             user: $request->user(),
             organization: $organization,
-            name: TextSanitizer::plainText($validated['name']),
+            name: $validated['name'],
             position: $validated['position'] ?? null,
         )->execute();
 
@@ -75,7 +74,7 @@ class MemberTypeController extends Controller
             user: $request->user(),
             organization: $organization,
             memberType: $memberType,
-            name: TextSanitizer::plainText($validated['name']),
+            name: $validated['name'],
             position: $validated['position'] ?? null,
         )->execute();
 
