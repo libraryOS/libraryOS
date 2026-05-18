@@ -27,6 +27,7 @@ class UpdateDepartment
 
     public function execute(): Department
     {
+        $this->sanitize();
         $this->validate();
         $this->update();
         $this->log();
@@ -34,10 +35,13 @@ class UpdateDepartment
         return $this->department;
     }
 
-    private function validate(): void
+    private function sanitize(): void
     {
         $this->name = TextSanitizer::plainText($this->name);
+    }
 
+    private function validate(): void
+    {
         $member = $this->user->memberOf($this->organization);
 
         if (! $member instanceof Member) {

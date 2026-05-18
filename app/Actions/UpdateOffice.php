@@ -34,6 +34,7 @@ class UpdateOffice
 
     public function execute(): Office
     {
+        $this->sanitize();
         $this->validate();
         $this->update();
         $this->log();
@@ -41,7 +42,7 @@ class UpdateOffice
         return $this->office;
     }
 
-    private function validate(): void
+    private function sanitize(): void
     {
         $this->name = TextSanitizer::plainText($this->name);
         $this->addressLine1 = TextSanitizer::plainText($this->addressLine1);
@@ -50,7 +51,10 @@ class UpdateOffice
         $this->stateProvince = TextSanitizer::nullablePlainText($this->stateProvince);
         $this->postalCode = TextSanitizer::nullablePlainText($this->postalCode);
         $this->timezone = TextSanitizer::nullablePlainText($this->timezone);
+    }
 
+    private function validate(): void
+    {
         $member = $this->user->memberOf($this->organization);
 
         if (! $member instanceof Member) {

@@ -22,6 +22,7 @@ class UpdateOrganization
 
     public function execute(): Organization
     {
+        $this->sanitize();
         $this->validate();
         $this->rename();
         $this->log();
@@ -29,10 +30,13 @@ class UpdateOrganization
         return $this->organization;
     }
 
-    private function validate(): void
+    private function sanitize(): void
     {
         $this->name = TextSanitizer::plainText($this->name);
+    }
 
+    private function validate(): void
+    {
         if ($this->user->isPartOfOrganization($this->organization) === false) {
             throw new ModelNotFoundException('Organization not found');
         }
