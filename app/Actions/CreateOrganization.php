@@ -54,6 +54,14 @@ class CreateOrganization
                 'organization_name' => 'Organization name can only contain letters, numbers, spaces, hyphens and underscores',
             ]);
         }
+
+        // make sure the organization name is not part of a reserved list of keywords
+        $reservedNames = config('app.reserved_organization_keywords', []);
+        if (Str::is($reservedNames, Str::lower($this->name))) {
+            throw ValidationException::withMessages([
+                'organization_name' => 'Organization name cannot contain reserved words like admin, support, contact, etc.',
+            ]);
+        }
     }
 
     private function create(): void

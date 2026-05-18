@@ -46,10 +46,10 @@ class OrganizationControllerTest extends TestCase
         $user = $this->createUser();
 
         $response = $this->actingAs($user)->post('/organizations', [
-            'organization_name' => 'My Organization',
+            'organization_name' => 'Super Library',
         ]);
 
-        $organization = Organization::query()->where('name', 'My Organization')->first();
+        $organization = Organization::query()->where('name', 'Super Library')->first();
         $response->assertRedirect('/organizations/'.$organization->slug);
         $response->assertSessionHas('status', 'Organization created successfully');
     }
