@@ -29,6 +29,7 @@ class UpdateUserInformation
      */
     public function execute(): User
     {
+        $this->sanitize();
         $this->validate();
         $emailChanged = $this->user->email !== $this->email;
         $this->update();
@@ -38,13 +39,16 @@ class UpdateUserInformation
         return $this->user;
     }
 
-    private function validate(): void
+    private function sanitize(): void
     {
         $this->firstName = TextSanitizer::plainText($this->firstName);
         $this->lastName = TextSanitizer::plainText($this->lastName);
         $this->nickname = TextSanitizer::nullablePlainText($this->nickname);
         $this->locale = TextSanitizer::plainText($this->locale);
+    }
 
+    private function validate(): void
+    {
         $messages = [];
 
         if ($this->firstName === '') {

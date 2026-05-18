@@ -28,6 +28,7 @@ class CreateOfficeType
 
     public function execute(): OfficeType
     {
+        $this->sanitize();
         $this->validate();
         $this->shiftDown();
         $this->create();
@@ -36,10 +37,13 @@ class CreateOfficeType
         return $this->officeType;
     }
 
-    private function validate(): void
+    private function sanitize(): void
     {
         $this->name = TextSanitizer::plainText($this->name);
+    }
 
+    private function validate(): void
+    {
         $member = $this->user->memberOf($this->organization);
 
         if (! $member instanceof Member) {
