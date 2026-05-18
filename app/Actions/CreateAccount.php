@@ -33,6 +33,13 @@ class CreateAccount
         return $this->user;
     }
 
+    private function sanitize(): void
+    {
+        $this->firstName = TextSanitizer::plainText($this->firstName);
+        $this->lastName = TextSanitizer::plainText($this->lastName);
+        $this->email = mb_strtolower(TextSanitizer::plainText($this->email));
+    }
+
     private function create(): void
     {
         $this->user = User::query()->create([
@@ -42,13 +49,6 @@ class CreateAccount
             'password' => Hash::make($this->password),
             'trial_ends_at' => now()->addDays(30),
         ]);
-    }
-
-    private function sanitize(): void
-    {
-        $this->firstName = TextSanitizer::plainText($this->firstName);
-        $this->lastName = TextSanitizer::plainText($this->lastName);
-        $this->email = mb_strtolower(TextSanitizer::plainText($this->email));
     }
 
     private function log(): void
