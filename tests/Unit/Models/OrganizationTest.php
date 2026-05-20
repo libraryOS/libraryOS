@@ -11,6 +11,7 @@ use App\Models\Office;
 use App\Models\OfficeType;
 use App\Models\Organization;
 use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -83,6 +84,19 @@ class OrganizationTest extends TestCase
         ]);
 
         $this->assertTrue($organization->permissions()->exists());
+    }
+
+    #[Test]
+    public function it_has_many_roles(): void
+    {
+        $organization = Organization::factory()->create(['name' => 'Dunder Mifflin']);
+        Role::factory()->create([
+            'organization_id' => $organization->id,
+            'key' => 'assistant_regional_manager',
+            'name' => 'Assistant to the Regional Manager',
+        ]);
+
+        $this->assertTrue($organization->roles()->exists());
     }
 
     #[Test]
