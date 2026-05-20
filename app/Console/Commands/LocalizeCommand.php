@@ -58,6 +58,7 @@ class LocalizeCommand extends Command
             base_path('resources/views'),
             base_path('app/Http/Controllers'),
             base_path('app/Actions'),
+            base_path('app/Jobs'),
         ];
 
         $keysByValue = [];

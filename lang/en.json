@@ -16,6 +16,8 @@
     "Adminland": "Adminland",
     "All actions performed on your account are logged here.": "All actions performed on your account are logged here.",
     "All the members": "All the members",
+    "Allows the user to update the organization settings and information.": "Allows the user to update the organization settings and information.",
+    "Allows the user to view the organization settings and information.": "Allows the user to view the organization settings and information.",
     "Already have an account?": "Already have an account?",
     "Authenticator app": "Authenticator app",
     "Auto delete account": "Auto delete account",
@@ -145,10 +147,12 @@
     "Two-factor authentication": "Two-factor authentication",
     "Two-factor authentication has been enabled successfully.": "Two-factor authentication has been enabled successfully.",
     "Update": "Update",
+    "Update organization": "Update organization",
     "Use an authentication app to get two-factor authentication codes when prompted.": "Use an authentication app to get two-factor authentication codes when prompted.",
     "Use any authenticator app to scan your QR code, or manually use the setup key.": "Use any authenticator app to scan your QR code, or manually use the setup key.",
     "Use these codes to access your account if you lose access to your authenticator app.": "Use these codes to access your account if you lose access to your authenticator app.",
     "Verify": "Verify",
+    "View organization": "View organization",
     "Wanna skip the password?": "Wanna skip the password?",
     "Want to use your password instead?": "Want to use your password instead?",
     "We automatically remove links in this email since they are probably invalid at this time": "We automatically remove links in this email since they are probably invalid at this time",
@@ -163,5 +167,7 @@
     "Your organizations": "Your organizations",
     "auth.failed": "auth.failed",
     "auth.throttle": "auth.throttle",
-    "optional": "optional"
+    "optional": "optional",
+    "role_administrator": "role_administrator",
+    "role_owner": "role_owner"
 }

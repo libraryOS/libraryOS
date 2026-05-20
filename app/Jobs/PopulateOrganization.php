@@ -21,8 +21,41 @@ class PopulateOrganization implements ShouldQueue
      */
     public function handle(): void
     {
+        $this->addDefaultRoles();
+        $this->addDefaultPermissions();
         $this->addOfficeTypes();
         $this->addMemberTypes();
+    }
+
+    private function addDefaultRoles(): void
+    {
+        $rolesData = [
+            ['key' => 'owner', 'name_translation_key' => trans_key('role_owner')],
+            ['key' => 'administrator', 'name_translation_key' => trans_key('role_administrator')],
+        ];
+
+        $this->organization->roles()->createMany($rolesData);
+    }
+
+    private function addDefaultPermissions(): void
+    {
+        $permissionsData = [
+            [
+                'key' => 'organization.view',
+                'name' => trans_key('View organization'),
+                'description' => trans_key('Allows the user to view the organization settings and information.'),
+                'is_system' => true,
+            ],
+
+            [
+                'key' => 'organization.update',
+                'name' => trans_key('Update organization'),
+                'description' => trans_key('Allows the user to update the organization settings and information.'),
+                'is_system' => true,
+            ],
+        ];
+
+        $this->organization->permissions()->createMany($permissionsData);
     }
 
     private function addOfficeTypes(): void
