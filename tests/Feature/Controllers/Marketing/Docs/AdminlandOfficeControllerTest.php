@@ -15,7 +15,7 @@ class AdminlandOfficeControllerTest extends TestCase
     #[Test]
     public function it_renders_the_adminland_office_page(): void
     {
-        $response = $this->get('/docs/offices');
+        $response = $this->get('/docs/1.x/offices');
         $response->assertOk();
     }
 }

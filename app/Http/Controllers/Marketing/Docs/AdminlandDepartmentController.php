@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Marketing\Docs;
 
-use App\Http\Controllers\Controller;
 use Illuminate\View\View;
 
-class AdminlandDepartmentController extends Controller
+class AdminlandDepartmentController extends DocsController
 {
-    public function index(): View
+    public function index(string $version): View
     {
-        return view('marketing.docs.features.departments.index');
+        return $this->renderDoc($version, 'features/departments/index', [
+            ['label' => 'Home', 'route' => route('marketing.index')],
+            ['label' => 'Documentation', 'route' => route('marketing.docs.index')],
+            ['label' => 'Departments'],
+        ]);
     }
 }
