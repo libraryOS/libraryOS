@@ -105,6 +105,16 @@ class Organization extends Model
     }
 
     /**
+     * Get the permissions of the organization.
+     *
+     * @return HasMany<Permission, $this>
+     */
+    public function permissions(): HasMany
+    {
+        return $this->hasMany(Permission::class);
+    }
+
+    /**
      * Gets the avatar of the organization.
      */
     public function getAvatar(): string

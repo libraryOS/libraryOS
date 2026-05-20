@@ -10,6 +10,7 @@ use App\Models\MemberType;
 use App\Models\Office;
 use App\Models\OfficeType;
 use App\Models\Organization;
+use App\Models\Permission;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -71,6 +72,17 @@ class OrganizationTest extends TestCase
         ]);
 
         $this->assertTrue($organization->departments()->exists());
+    }
+
+    #[Test]
+    public function it_has_many_permissions(): void
+    {
+        $organization = Organization::factory()->create();
+        Permission::factory()->create([
+            'organization_id' => $organization->id,
+        ]);
+
+        $this->assertTrue($organization->permissions()->exists());
     }
 
     #[Test]
