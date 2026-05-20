@@ -25,7 +25,7 @@ class RoleFactory extends Factory
         return [
             'organization_id' => Organization::factory(),
             'key' => fake()->unique()->slug(2),
-            'name' => fake()->randomElement([
+            'name' => fake()->optional()->randomElement([
                 'Regional Manager',
                 'Assistant to the Regional Manager',
                 'Sales Representative',
@@ -34,6 +34,7 @@ class RoleFactory extends Factory
                 'HR Representative',
                 'Warehouse Supervisor',
             ]),
+            'name_translation_key' => null,
             'description' => fake()->optional()->sentence(),
             'is_system' => false,
         ];

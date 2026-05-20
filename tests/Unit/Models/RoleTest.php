@@ -38,4 +38,39 @@ class RoleTest extends TestCase
         $this->assertNull($role->organization_id);
         $this->assertTrue($role->is_system);
     }
+
+    #[Test]
+    public function it_can_use_a_translation_key_instead_of_a_name(): void
+    {
+        $role = Role::factory()->create([
+            'key' => 'receptionist',
+            'name' => null,
+            'name_translation_key' => 'roles.receptionist',
+        ]);
+
+        $this->assertNull($role->name);
+        $this->assertEquals('roles.receptionist', $role->name_translation_key);
+    }
+
+    #[Test]
+    public function it_returns_name_when_set(): void
+    {
+        $role = Role::factory()->make([
+            'name' => 'Regional Manager',
+            'name_translation_key' => null,
+        ]);
+
+        $this->assertEquals('Regional Manager', $role->getName());
+    }
+
+    #[Test]
+    public function it_returns_translated_name_when_name_is_null(): void
+    {
+        $role = Role::factory()->make([
+            'name' => null,
+            'name_translation_key' => 'Receptionist',
+        ]);
+
+        $this->assertEquals('Receptionist', $role->getName());
+    }
 }

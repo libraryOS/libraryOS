@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id()->comment('unique identifier of the role.');
             $table->unsignedBigInteger('organization_id')->nullable()->comment('the organization this role belongs to.');
             $table->string('key')->comment('stable machine-readable role key, such as owner, administrator, librarian, or circulation_staff.');
-            $table->string('name')->comment('human-readable role name shown in the interface.');
+            $table->string('name')->comment('human-readable role name shown in the interface.')->nullable();
+            $table->string('name_translation_key')->comment('translation key for the role name.')->nullable();
             $table->text('description')->nullable()->comment('optional explanation of the purpose of this role.');
             $table->boolean('is_system')->default(true)->comment('indicates whether this role is managed by LibraryOS and should not be deleted or modified by organizations.');
             $table->timestamps();

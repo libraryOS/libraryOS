@@ -16,6 +16,8 @@
     "Adminland": "Adminland",
     "All actions performed on your account are logged here.": "Toutes les actions effectuées sur votre compte sont enregistrées ici.",
     "All the members": "Tous les membres",
+    "Allows the user to update the organization settings and information.": "Permet à l'utilisateur de mettre à jour les paramètres et les informations de l'organisation.",
+    "Allows the user to view the organization settings and information.": "Permet à l'utilisateur de voir les paramètres et les informations de l'organisation.",
     "Already have an account?": "Vous avez déjà un compte ?",
     "Authenticator app": "Application d'authentification",
     "Auto delete account": "Suppression automatique du compte",
@@ -145,10 +147,12 @@
     "Two-factor authentication": "Authentification à deux facteurs",
     "Two-factor authentication has been enabled successfully.": "L'authentification à deux facteurs a été activée avec succès.",
     "Update": "Mettre à jour",
+    "Update organization": "Mettre à jour l'organisation",
     "Use an authentication app to get two-factor authentication codes when prompted.": "Utilisez une application d'authentification pour obtenir des codes d'authentification à deux facteurs lorsqu'on vous le demande.",
     "Use any authenticator app to scan your QR code, or manually use the setup key.": "Utilisez n'importe quelle application d'authentification pour scanner votre code QR, ou utilisez manuellement la clé de configuration.",
     "Use these codes to access your account if you lose access to your authenticator app.": "Utilisez ces codes pour accéder à votre compte si vous perdez l'accès à votre application d'authentification.",
     "Verify": "Vérifier",
+    "View organization": "Voir l'organisation",
     "Wanna skip the password?": "Envie de passer le mot de passe ?",
     "Want to use your password instead?": "Préférez-vous utiliser votre mot de passe ?",
     "We automatically remove links in this email since they are probably invalid at this time": "Nous supprimons automatiquement les liens dans cet e-mail car ils sont probablement invalides à ce moment-là",
@@ -163,5 +167,7 @@
     "Your organizations": "Vos organisations",
     "auth.failed": "Ces identifiants ne correspondent pas à nos enregistrements.",
     "auth.throttle": "Trop de tentatives de connexion. Veuillez réessayer dans :seconds secondes.",
-    "optional": "facultatif"
+    "optional": "facultatif",
+    "role_administrator": "Administrateur",
+    "role_owner": "Propriétaire"
 }

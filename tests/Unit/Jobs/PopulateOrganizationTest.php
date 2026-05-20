@@ -14,6 +14,34 @@ class PopulateOrganizationTest extends TestCase
     use RefreshDatabase;
 
     #[Test]
+    public function it_creates_default_roles(): void
+    {
+        $user = $this->createUser();
+        $organization = $this->addOrganization($user);
+
+        new PopulateOrganization($organization)->handle();
+
+        $this->assertDatabaseHas('roles', ['organization_id' => $organization->id, 'key' => 'owner', 'name_translation_key' => 'role_owner']);
+        $this->assertDatabaseHas('roles', ['organization_id' => $organization->id, 'key' => 'administrator', 'name_translation_key' => 'role_administrator']);
+
+        $this->assertEquals(2, $organization->roles()->count());
+    }
+
+    #[Test]
+    public function it_creates_default_permissions(): void
+    {
+        $user = $this->createUser();
+        $organization = $this->addOrganization($user);
+
+        new PopulateOrganization($organization)->handle();
+
+        $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'organization.view', 'name' => 'View organization', 'is_system' => true]);
+        $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'organization.update', 'name' => 'Update organization', 'is_system' => true]);
+
+        $this->assertEquals(2, $organization->permissions()->count());
+    }
+
+    #[Test]
     public function it_creates_default_office_types(): void
     {
         $user = $this->createUser();

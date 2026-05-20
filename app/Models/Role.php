@@ -16,7 +16,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $id
  * @property int|null $organization_id
  * @property string $key
- * @property string $name
+ * @property string|null $name
+ * @property string|null $name_translation_key
  * @property string|null $description
  * @property bool $is_system
  * @property Carbon $created_at
@@ -43,6 +44,7 @@ class Role extends Model
         'organization_id',
         'key',
         'name',
+        'name_translation_key',
         'description',
         'is_system',
     ];
@@ -67,5 +69,19 @@ class Role extends Model
     public function organization(): BelongsTo
     {
         return $this->belongsTo(Organization::class);
+    }
+
+    /**
+     * Get the display name of the role.
+     * Returns the name field if set, otherwise returns the translated value of
+     * name_translation_key.
+     */
+    public function getName(): string
+    {
+        if ($this->name !== null) {
+            return $this->name;
+        }
+
+        return __($this->name_translation_key ?? '');
     }
 }
