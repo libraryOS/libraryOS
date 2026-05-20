@@ -15,7 +15,7 @@ class AdminlandDepartmentControllerTest extends TestCase
     #[Test]
     public function it_renders_the_adminland_department_page(): void
     {
-        $response = $this->get('/docs/departments');
+        $response = $this->get('/docs/1.x/departments');
         $response->assertOk();
     }
 }

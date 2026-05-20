@@ -23,7 +23,17 @@ Route::middleware(['marketing'])->group(function (): void {
 
     // docs index
     Route::get('/docs', [DocsIndexController::class, 'index'])->name('marketing.docs.index');
-    Route::get('/docs/organizations', [DocsOrganizationController::class, 'index'])->name('marketing.docs.organizations.index');
+
+    // versioned feature docs
+    Route::prefix('docs/{version}')
+        ->where(['version' => implode('|', array_map(fn (string $v) => preg_quote($v), config('docs.versions')))])
+        ->group(function (): void {
+            Route::get('/organizations', [DocsOrganizationController::class, 'index'])->name('marketing.docs.organizations.index');
+            Route::get('/offices', [AdminlandOfficeController::class, 'index'])->name('marketing.docs.offices.index');
+            Route::get('/offices/manage', [AdminlandOfficeManageController::class, 'index'])->name('marketing.docs.offices.manage');
+            Route::get('/departments', [AdminlandDepartmentController::class, 'index'])->name('marketing.docs.departments.index');
+            Route::get('/departments/manage', [AdminlandDepartmentManageController::class, 'index'])->name('marketing.docs.departments.manage');
+        });
 
     // api docs
     Route::get('/docs/api', [ApiIntroductionController::class, 'index'])->name('marketing.docs.api.index');
@@ -33,10 +43,4 @@ Route::middleware(['marketing'])->group(function (): void {
     Route::get('/docs/api/organizations/members', [ApiMemberController::class, 'index'])->name('marketing.docs.api.organizations.members.index');
     Route::get('/docs/api/organizations/membertypes', [ApiMemberTypeController::class, 'index'])->name('marketing.docs.api.organizations.membertypes.index');
     Route::get('/docs/api/organizations/departments', [ApiDepartmentController::class, 'index'])->name('marketing.docs.api.organizations.departments.index');
-
-    // adminland docs
-    Route::get('/docs/offices', [AdminlandOfficeController::class, 'index'])->name('marketing.docs.offices.index');
-    Route::get('/docs/offices/manage', [AdminlandOfficeManageController::class, 'index'])->name('marketing.docs.offices.manage');
-    Route::get('/docs/departments', [AdminlandDepartmentController::class, 'index'])->name('marketing.docs.departments.index');
-    Route::get('/docs/departments/manage', [AdminlandDepartmentManageController::class, 'index'])->name('marketing.docs.departments.manage');
 });

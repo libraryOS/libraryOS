@@ -44,6 +44,20 @@
               'true',
           }"
           class="bg-light dark:bg-dark z-10 pt-16">
+
+          @if (request()->route('version'))
+            <div class="mb-6">
+              <p class="mb-2 text-xs tracking-widest text-gray-400 uppercase dark:text-gray-500">Version</p>
+              <div class="flex gap-3">
+                @foreach (config('docs.versions') as $v)
+                  <a href="{{ route(request()->route()->getName(), ['version' => $v]) }}" class="{{ request()->route('version') === $v ? 'font-semibold text-blue-600 dark:text-blue-400' : 'text-gray-500 hover:text-gray-900 dark:hover:text-white' }}">
+                    {{ $v }}
+                  </a>
+                @endforeach
+              </div>
+            </div>
+          @endif
+
           <!-- product documentation -->
           <div @click="productDocumentation = !productDocumentation" class="mb-2 flex cursor-pointer items-center justify-between rounded-md border border-transparent px-2 py-1 hover:border-gray-200 hover:bg-blue-50 dark:hover:border-gray-700 dark:hover:bg-gray-800">
             <h3>Product documentation</h3>
@@ -65,25 +79,25 @@
             <div x-show="manageYourOrganizationDocumentation" class="mb-3 flex flex-col gap-y-2">
               {{-- getting started --}}
               <div>
-                <a href="{{ route('marketing.docs.organizations.index') }}" class="{{ request()->routeIs('marketing.docs.organizations.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-6 hover:border-l-blue-400 hover:underline">Getting started</a>
+                <a href="{{ route('marketing.docs.organizations.index', ['version' => request()->route('version') ?? config('docs.default_version')]) }}" class="{{ request()->routeIs('marketing.docs.organizations.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-6 hover:border-l-blue-400 hover:underline">Getting started</a>
               </div>
 
               {{-- manage offices --}}
               <p class="mt-2 pl-6 text-xs font-semibold tracking-widest text-gray-400 uppercase dark:text-gray-500">Manage offices</p>
               <div>
-                <a href="{{ route('marketing.docs.offices.index') }}" class="{{ request()->routeIs('marketing.docs.offices.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-6 hover:border-l-blue-400 hover:underline">Getting started</a>
+                <a href="{{ route('marketing.docs.offices.index', ['version' => request()->route('version') ?? config('docs.default_version')]) }}" class="{{ request()->routeIs('marketing.docs.offices.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-6 hover:border-l-blue-400 hover:underline">Getting started</a>
               </div>
               <div>
-                <a href="{{ route('marketing.docs.offices.manage') }}" class="{{ request()->routeIs('marketing.docs.offices.manage') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-6 hover:border-l-blue-400 hover:underline">Manage offices</a>
+                <a href="{{ route('marketing.docs.offices.manage', ['version' => request()->route('version') ?? config('docs.default_version')]) }}" class="{{ request()->routeIs('marketing.docs.offices.manage') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-6 hover:border-l-blue-400 hover:underline">Manage offices</a>
               </div>
 
               {{-- manage departments --}}
               <p class="mt-2 pl-6 text-xs font-semibold tracking-widest text-gray-400 uppercase dark:text-gray-500">Manage departments</p>
               <div>
-                <a href="{{ route('marketing.docs.departments.index') }}" class="{{ request()->routeIs('marketing.docs.departments.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-6 hover:border-l-blue-400 hover:underline">Getting started</a>
+                <a href="{{ route('marketing.docs.departments.index', ['version' => request()->route('version') ?? config('docs.default_version')]) }}" class="{{ request()->routeIs('marketing.docs.departments.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-6 hover:border-l-blue-400 hover:underline">Getting started</a>
               </div>
               <div>
-                <a href="{{ route('marketing.docs.departments.manage') }}" class="{{ request()->routeIs('marketing.docs.departments.manage') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-6 hover:border-l-blue-400 hover:underline">Manage departments</a>
+                <a href="{{ route('marketing.docs.departments.manage', ['version' => request()->route('version') ?? config('docs.default_version')]) }}" class="{{ request()->routeIs('marketing.docs.departments.manage') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-6 hover:border-l-blue-400 hover:underline">Manage departments</a>
               </div>
             </div>
           </div>

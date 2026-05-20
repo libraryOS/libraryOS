@@ -15,7 +15,7 @@ class AdminlandOfficeTypeManageControllerTest extends TestCase
     #[Test]
     public function it_renders_the_manage_office_types_page(): void
     {
-        $response = $this->get('/docs/offices/manage');
+        $response = $this->get('/docs/1.x/offices/manage');
         $response->assertOk();
     }
 }
