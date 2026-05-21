@@ -13,18 +13,18 @@
     <!-- json-ld -->
     @yield('json-ld')
   </head>
-  <body class="font-sans antialiased">
-    <div class="min-h-screen bg-white dark:bg-gray-900">
+  <body>
+    <div layout="skeleton">
       @include('components.marketing.header')
 
       <!-- Page Content -->
-      <main>
+      <div>
         @if (! empty($breadcrumbItems))
           <x-breadcrumb :items="$breadcrumbItems" />
         @endif
 
         {{ $slot }}
-      </main>
+      </div>
 
       @include('components.marketing.footer')
     </div>

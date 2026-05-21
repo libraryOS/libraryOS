@@ -3,10 +3,10 @@
     <x-breadcrumb :items="$breadcrumbItems" />
   @endif
 
-  <div class="relative mx-auto max-w-7xl px-6 lg:px-8 xl:px-0">
-    <div class="grid grid-cols-1 gap-x-16 {{ isset($rightSidebar) ? 'lg:grid-cols-[300px_1fr_250px]' : 'lg:grid-cols-[300px_1fr]' }}">
+  <main layout="marketing-main-layout">
+    <div layout="marketing-doc" data-sidebar="{{ isset($rightSidebar) ? 'three-column' : 'two-column' }}">
       <!-- Sidebar -->
-      <div class="hidden w-full shrink-0 flex-col justify-self-end sm:border-r sm:border-gray-200 sm:pr-3 lg:flex dark:sm:border-gray-700">
+      <div layout="marketing-sidebar">
         <div
           x-data="{
             productDocumentation:
@@ -42,93 +42,90 @@
             departmentsDocumentation:
               '{{ request()->routeIs('marketing.docs.api.organizations.departments.*') ? 'true' : 'false' }}' ===
               'true',
-          }"
-          class="bg-light dark:bg-dark z-10 pt-16">
+          }">
 
           @if (request()->route('version'))
-            <div class="mb-6">
-              <p class="mb-2 text-xs tracking-widest text-gray-400 uppercase dark:text-gray-500">Version</p>
-              <div class="flex gap-3">
+            <div class="version-selector">
+              <p>Version</p>
+              <ul>
                 @foreach (config('docs.versions') as $v)
-                  <a href="{{ route(request()->route()->getName(), ['version' => $v]) }}" class="{{ request()->route('version') === $v ? 'font-semibold text-blue-600 dark:text-blue-400' : 'text-gray-500 hover:text-gray-900 dark:hover:text-white' }}">
-                    {{ $v }}
-                  </a>
+                  <li>
+                    <a href="{{ route(request()->route()->getName(), ['version' => $v]) }}">
+                      {{ $v }}
+                    </a>
+                  </li>
                 @endforeach
-              </div>
+              </ul>
             </div>
           @endif
 
           <!-- product documentation -->
-          <div @click="productDocumentation = !productDocumentation" class="mb-2 flex cursor-pointer items-center justify-between rounded-md border border-transparent px-2 py-1 hover:border-gray-200 hover:bg-blue-50 dark:hover:border-gray-700 dark:hover:bg-gray-800">
+          <div @click="productDocumentation = !productDocumentation" class="doc-section">
             <h3>Product documentation</h3>
-            <x-phosphor-caret-right x-bind:class="productDocumentation ? 'rotate-90' : ''" class="h-4 w-4 text-gray-500 transition-transform duration-300" />
+            <x-phosphor-caret-right x-bind:data-open="productDocumentation ? 'true' : 'false'" />
           </div>
 
-          <div x-show="productDocumentation" x-cloak class="mb-10 ml-3">
-            <div class="mb-3 flex flex-col gap-y-2">
-              <div>
-                <a href="{{ route('marketing.docs.index') }}" class="{{ request()->routeIs('marketing.docs.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-3 hover:border-l-blue-400 hover:underline">Introduction</a>
-              </div>
-            </div>
+          <ul x-show="productDocumentation" x-cloak class="doc-section-content">
+            <li>
+              <a href="{{ route('marketing.docs.index') }}" data-turbo="true">Introduction</a>
+            </li>
 
             <!-- manage your organization -->
-            <div @click.stop="manageYourOrganizationDocumentation = !manageYourOrganizationDocumentation" class="mb-3 flex cursor-pointer items-center justify-between rounded-md border border-transparent px-2 py-1 pl-3 text-xs text-gray-500 uppercase hover:border-gray-200 hover:bg-blue-50 dark:text-gray-400 dark:hover:border-gray-700 dark:hover:bg-gray-800">
+            <div @click.stop="manageYourOrganizationDocumentation = !manageYourOrganizationDocumentation" class="doc-section">
               <h3>Manage your organization</h3>
-              <x-phosphor-caret-right x-bind:class="manageYourOrganizationDocumentation ? 'rotate-90' : ''" class="h-4 w-4 text-gray-500 transition-transform duration-300" />
+              <x-phosphor-caret-right x-bind:data-open="manageYourOrganizationDocumentation ? 'true' : 'false'" />
             </div>
-            <div x-show="manageYourOrganizationDocumentation" class="mb-3 flex flex-col gap-y-2">
+            <ul x-show="manageYourOrganizationDocumentation" class="doc-section-content">
               {{-- getting started --}}
               <div>
-                <a href="{{ route('marketing.docs.organizations.index', ['version' => request()->route('version') ?? config('docs.default_version')]) }}" class="{{ request()->routeIs('marketing.docs.organizations.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-6 hover:border-l-blue-400 hover:underline">Getting started</a>
+                <a href="{{ route('marketing.docs.organizations.index', ['version' => request()->route('version') ?? config('docs.default_version')]) }}" data-turbo="true">Getting started</a>
               </div>
 
               {{-- manage offices --}}
-              <p class="mt-2 pl-6 text-xs font-semibold tracking-widest text-gray-400 uppercase dark:text-gray-500">Manage offices</p>
-              <div>
-                <a href="{{ route('marketing.docs.offices.index', ['version' => request()->route('version') ?? config('docs.default_version')]) }}" class="{{ request()->routeIs('marketing.docs.offices.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-6 hover:border-l-blue-400 hover:underline">Getting started</a>
-              </div>
-              <div>
-                <a href="{{ route('marketing.docs.offices.manage', ['version' => request()->route('version') ?? config('docs.default_version')]) }}" class="{{ request()->routeIs('marketing.docs.offices.manage') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-6 hover:border-l-blue-400 hover:underline">Manage offices</a>
-              </div>
+              <p class="subsection-title">Manage offices</p>
+              <li>
+                <a href="{{ route('marketing.docs.offices.index', ['version' => request()->route('version') ?? config('docs.default_version')]) }}">Getting started</a>
+              </li>
+              <li>
+                <a href="{{ route('marketing.docs.offices.manage', ['version' => request()->route('version') ?? config('docs.default_version')]) }}">Manage offices</a>
+              </li>
 
               {{-- manage departments --}}
-              <p class="mt-2 pl-6 text-xs font-semibold tracking-widest text-gray-400 uppercase dark:text-gray-500">Manage departments</p>
-              <div>
-                <a href="{{ route('marketing.docs.departments.index', ['version' => request()->route('version') ?? config('docs.default_version')]) }}" class="{{ request()->routeIs('marketing.docs.departments.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-6 hover:border-l-blue-400 hover:underline">Getting started</a>
-              </div>
-              <div>
-                <a href="{{ route('marketing.docs.departments.manage', ['version' => request()->route('version') ?? config('docs.default_version')]) }}" class="{{ request()->routeIs('marketing.docs.departments.manage') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-6 hover:border-l-blue-400 hover:underline">Manage departments</a>
-              </div>
-            </div>
-          </div>
+              <p class="subsection-title">Manage departments</p>
+              <li>
+                <a href="{{ route('marketing.docs.departments.index', ['version' => request()->route('version') ?? config('docs.default_version')]) }}">Getting started</a>
+              </li>
+              <li>
+                <a href="{{ route('marketing.docs.departments.manage', ['version' => request()->route('version') ?? config('docs.default_version')]) }}">Manage departments</a>
+              </li>
+            </ul>
+          </ul>
 
           <!-- api documentation -->
-          <div @click="openApiDocumentation = !openApiDocumentation" class="mb-2 flex cursor-pointer items-center justify-between rounded-md border border-transparent px-2 py-1 hover:border-gray-200 hover:bg-blue-50 dark:hover:border-gray-700 dark:hover:bg-gray-800">
+          <div @click="openApiDocumentation = !openApiDocumentation" class="doc-section">
             <h3>API documentation</h3>
-            <x-phosphor-caret-right x-bind:class="openApiDocumentation ? 'rotate-90' : ''" class="h-4 w-4 text-gray-500 transition-transform duration-300" />
+            <x-phosphor-caret-right x-bind:data-open="openApiDocumentation ? 'true' : 'false'" />
           </div>
 
-          <div x-show="openApiDocumentation" x-cloak class="mb-10 ml-3">
-            <div class="mb-3 flex flex-col gap-y-2">
-              <div>
-                <a href="{{ route('marketing.docs.api.index') }}" class="{{ request()->routeIs('marketing.docs.api.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-3 hover:border-l-blue-400 hover:underline">Introduction</a>
-              </div>
-            </div>
+          <div x-show="openApiDocumentation" x-cloak class="doc-section-content">
+            <li>
+              <a href="{{ route('marketing.docs.api.index') }}">Introduction</a>
+            </li>
 
             <!-- organizations -->
-            <div @click="organizationsDocumentation = !organizationsDocumentation" class="mb-3 flex cursor-pointer items-center justify-between rounded-md border border-transparent px-2 py-1 pl-3 text-xs text-gray-500 uppercase hover:border-gray-200 hover:bg-blue-50 dark:text-gray-400 dark:hover:border-gray-700 dark:hover:bg-gray-800">
+            <div @click="organizationsDocumentation = !organizationsDocumentation" class="doc-section">
               <h3>Organizations</h3>
-              <x-phosphor-caret-right x-bind:class="organizationsDocumentation ? 'rotate-90' : ''" class="h-4 w-4 text-gray-500 transition-transform duration-300" />
+              <x-phosphor-caret-right x-bind:data-open="organizationsDocumentation ? 'true' : 'false'" />
             </div>
-            <div x-show="organizationsDocumentation" class="mb-3 flex flex-col gap-y-2">
-              <div>
-                <a href="{{ route('marketing.docs.api.organizations.index') }}" class="{{ request()->routeIs('marketing.docs.api.organizations.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-6 hover:border-l-blue-400 hover:underline">Organizations</a>
-              </div>
+            <ul x-show="organizationsDocumentation" class="doc-section-content">
+              <li>
+                <a href="{{ route('marketing.docs.api.organizations.index') }}">Organizations</a>
+              </li>
 
               <!-- adminland (api) -->
-              <div @click.stop="officeTypesDocumentation = !officeTypesDocumentation; officesDocumentation = !officesDocumentation; membersDocumentation = !membersDocumentation; memberTypesDocumentation = !memberTypesDocumentation; departmentsDocumentation = !departmentsDocumentation" class="flex cursor-pointer items-center justify-between rounded-md border border-transparent px-2 py-1 pl-6 text-xs text-gray-500 uppercase hover:border-gray-200 hover:bg-blue-50 dark:text-gray-400 dark:hover:border-gray-700 dark:hover:bg-gray-800">
+              <div @click.stop="officeTypesDocumentation = !officeTypesDocumentation; officesDocumentation = !officesDocumentation; membersDocumentation = !membersDocumentation; memberTypesDocumentation = !memberTypesDocumentation; departmentsDocumentation = !departmentsDocumentation">
                 <h3>Adminland</h3>
-                <x-phosphor-caret-right x-bind:class="officeTypesDocumentation || officesDocumentation || membersDocumentation || memberTypesDocumentation || departmentsDocumentation ? 'rotate-90' : ''" class="h-4 w-4 text-gray-500 transition-transform duration-300" />
+                <x-phosphor-caret-right x-bind:data-open="officeTypesDocumentation || officesDocumentation || membersDocumentation || memberTypesDocumentation || departmentsDocumentation ? 'true' : 'false'" />
               </div>
               <div x-show="officeTypesDocumentation || officesDocumentation || membersDocumentation || memberTypesDocumentation || departmentsDocumentation" class="flex flex-col gap-y-2">
                 <div>
@@ -147,7 +144,7 @@
                   <a href="{{ route('marketing.docs.api.organizations.departments.index') }}" class="{{ request()->routeIs('marketing.docs.api.organizations.departments.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-9 hover:border-l-blue-400 hover:underline">Departments</a>
                 </div>
               </div>
-            </div>
+            </ul>
           </div>
         </div>
       </div>
@@ -158,11 +155,11 @@
       </div>
 
       <!-- Sidebar -->
-        @if ($rightSidebar ?? false)
-          <div class="hidden w-full shrink-0 flex-col justify-self-end py-16 sm:border-l sm:border-gray-200 sm:pl-6 lg:flex">
-            {{ $rightSidebar ?? '' }}
-          </div>
-        @endif
+      @if ($rightSidebar ?? false)
+        <div class="hidden w-full shrink-0 flex-col justify-self-end py-16 sm:border-l sm:border-gray-200 sm:pl-6 lg:flex">
+          {{ $rightSidebar ?? '' }}
+        </div>
+      @endif
     </div>
-  </div>
+  </main>
 </x-marketing-layout>
