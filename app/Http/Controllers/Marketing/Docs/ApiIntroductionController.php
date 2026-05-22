@@ -11,6 +11,6 @@ class ApiIntroductionController extends Controller
 {
     public function index(string $version): View
     {
-        return view('marketing.docs.api.introduction');
+        return view()->file(resource_path("views/marketing/docs/{$version}/api/introduction.blade.php"));
     }
 }

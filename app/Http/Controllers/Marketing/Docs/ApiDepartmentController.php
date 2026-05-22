@@ -11,6 +11,6 @@ class ApiDepartmentController extends Controller
 {
     public function index(string $version): View
     {
-        return view('marketing.docs.api.organizations.departments.index');
+        return view()->file(resource_path("views/marketing/docs/{$version}/api/organizations/departments/index.blade.php"));
     }
 }

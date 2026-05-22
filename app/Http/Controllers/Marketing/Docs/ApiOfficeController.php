@@ -11,6 +11,6 @@ class ApiOfficeController extends Controller
 {
     public function index(string $version): View
     {
-        return view('marketing.docs.api.organizations.offices.index');
+        return view()->file(resource_path("views/marketing/docs/{$version}/api/organizations/offices/index.blade.php"));
     }
 }

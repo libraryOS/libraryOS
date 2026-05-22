@@ -11,6 +11,6 @@ class ApiMemberController extends Controller
 {
     public function index(string $version): View
     {
-        return view('marketing.docs.api.organizations.members.index');
+        return view()->file(resource_path("views/marketing/docs/{$version}/api/organizations/members/index.blade.php"));
     }
 }

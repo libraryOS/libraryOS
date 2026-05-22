@@ -1,6 +1,6 @@
 <x-marketing-docs-layout :breadcrumbItems="[
   ['label' => 'Home', 'route' => route('marketing.index')],
-  ['label' => 'Documentation', 'route' => route('marketing.docs.api.index')],
+  ['label' => 'Documentation', 'route' => route('marketing.docs.api.index', ['version' => request()->route('version')])],
   ['label' => 'Organizations'],
 ]" >
   <div class="py-16">
@@ -76,7 +76,7 @@
         <p class="mb-2">This endpoint gets the organizations of the current user.</p>
         <p class="mb-10">
           This call is not
-          <x-link href="{{ route('marketing.docs.api.index') }}#pagination">paginated</x-link>
+          <x-link href="{{ route('marketing.docs.api.index', ['version' => request()->route('version')]) }}#pagination">paginated</x-link>
           at the moment.
         </p>
 
