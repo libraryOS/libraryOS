@@ -9,7 +9,7 @@ use Illuminate\View\View;
 
 class ApiOfficeController extends Controller
 {
-    public function index(): View
+    public function index(string $version): View
     {
         return view('marketing.docs.api.organizations.offices.index');
     }
