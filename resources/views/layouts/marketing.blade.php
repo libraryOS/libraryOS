@@ -8,23 +8,23 @@
     @include('partials.meta', ['title' => $title ?? null])
 
     <!-- Scripts -->
-    @vite(['resources/css/marketing.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- json-ld -->
     @yield('json-ld')
   </head>
-  <body>
-    <div layout="skeleton">
+  <body class="font-sans antialiased">
+    <div class="min-h-screen bg-white dark:bg-gray-900">
       @include('components.marketing.header')
 
       <!-- Page Content -->
-      <div>
+      <main>
         @if (! empty($breadcrumbItems))
           <x-breadcrumb :items="$breadcrumbItems" />
         @endif
 
         {{ $slot }}
-      </div>
+      </main>
 
       @include('components.marketing.footer')
     </div>
