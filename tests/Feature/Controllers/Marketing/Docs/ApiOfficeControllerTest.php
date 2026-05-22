@@ -16,6 +16,11 @@ class ApiOfficeControllerTest extends TestCase
     public function it_renders_the_api_office_page(): void
     {
         $response = $this->get('/docs/1.x/api/organizations/offices');
+
         $response->assertOk();
+        $response->assertSeeText('API documentation');
+        $response->assertSeeText('Organizations');
+        $response->assertSeeText('Adminland');
+        $response->assertSeeText('Office Types');
     }
 }
