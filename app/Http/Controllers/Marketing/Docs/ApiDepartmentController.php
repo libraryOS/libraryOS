@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Marketing\Docs;
 
 use App\Http\Controllers\Controller;
-use Illuminate\View\View;
+use Illuminate\Contracts\View\View;
 
 class ApiDepartmentController extends Controller
 {
-    public function index(): View
+    public function index(string $version): View
     {
-        return view('marketing.docs.api.organizations.departments.index');
+        return view()->file(resource_path("views/marketing/docs/{$version}/api/organizations/departments/index.blade.php"));
     }
 }

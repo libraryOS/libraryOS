@@ -1,6 +1,6 @@
 <x-marketing-docs-layout :breadcrumbItems="[
   ['label' => 'Home', 'route' => route('marketing.index')],
-  ['label' => 'Documentation', 'route' => route('marketing.docs.api.index')],
+  ['label' => 'Documentation', 'route' => route('marketing.docs.api.index', ['version' => request()->route('version')])],
   ['label' => 'Introduction'],
 ]">
   <div class="py-16">

@@ -1,3 +1,3 @@
 <x-marketing-docs-layout :breadcrumbItems="$breadcrumbs">
-    {!! $content !!}
+  {!! $content !!}
 </x-marketing-docs-layout>

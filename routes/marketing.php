@@ -24,7 +24,7 @@ Route::middleware(['marketing'])->group(function (): void {
     // docs index
     Route::get('/docs', [DocsIndexController::class, 'index'])->name('marketing.docs.index');
 
-    // versioned feature docs
+    // versioned docs
     Route::prefix('docs/{version}')
         ->where(['version' => implode('|', array_map(fn (string $v) => preg_quote($v), config('docs.versions')))])
         ->group(function (): void {
@@ -33,14 +33,13 @@ Route::middleware(['marketing'])->group(function (): void {
             Route::get('/offices/manage', [AdminlandOfficeManageController::class, 'index'])->name('marketing.docs.offices.manage');
             Route::get('/departments', [AdminlandDepartmentController::class, 'index'])->name('marketing.docs.departments.index');
             Route::get('/departments/manage', [AdminlandDepartmentManageController::class, 'index'])->name('marketing.docs.departments.manage');
-        });
 
-    // api docs
-    Route::get('/docs/api', [ApiIntroductionController::class, 'index'])->name('marketing.docs.api.index');
-    Route::get('/docs/api/organizations', [ApiOrganizationController::class, 'index'])->name('marketing.docs.api.organizations.index');
-    Route::get('/docs/api/organizations/officetypes', [ApiOfficeTypeController::class, 'index'])->name('marketing.docs.api.organizations.officetypes.index');
-    Route::get('/docs/api/organizations/offices', [ApiOfficeController::class, 'index'])->name('marketing.docs.api.organizations.offices.index');
-    Route::get('/docs/api/organizations/members', [ApiMemberController::class, 'index'])->name('marketing.docs.api.organizations.members.index');
-    Route::get('/docs/api/organizations/membertypes', [ApiMemberTypeController::class, 'index'])->name('marketing.docs.api.organizations.membertypes.index');
-    Route::get('/docs/api/organizations/departments', [ApiDepartmentController::class, 'index'])->name('marketing.docs.api.organizations.departments.index');
+            Route::get('/api', [ApiIntroductionController::class, 'index'])->name('marketing.docs.api.index');
+            Route::get('/api/organizations', [ApiOrganizationController::class, 'index'])->name('marketing.docs.api.organizations.index');
+            Route::get('/api/organizations/officetypes', [ApiOfficeTypeController::class, 'index'])->name('marketing.docs.api.organizations.officetypes.index');
+            Route::get('/api/organizations/offices', [ApiOfficeController::class, 'index'])->name('marketing.docs.api.organizations.offices.index');
+            Route::get('/api/organizations/members', [ApiMemberController::class, 'index'])->name('marketing.docs.api.organizations.members.index');
+            Route::get('/api/organizations/membertypes', [ApiMemberTypeController::class, 'index'])->name('marketing.docs.api.organizations.membertypes.index');
+            Route::get('/api/organizations/departments', [ApiDepartmentController::class, 'index'])->name('marketing.docs.api.organizations.departments.index');
+        });
 });

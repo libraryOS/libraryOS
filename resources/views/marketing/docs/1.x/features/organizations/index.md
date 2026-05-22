@@ -12,12 +12,12 @@ An organization has a **name** and a unique **slug** that is used in URLs. It al
 
 Every person inside an organization has a role. The role determines what that person can see and do. libraryOS defines four roles, from most to least privileged:
 
-| Role | What they can do |
-|------|------------------|
-| Owner | Full access. Can manage everything in Adminland, including deleting the organization. Typically the person who created it. |
-| Administrator | Can manage most Adminland settings — offices, office types, departments, member types, and members — but cannot delete the organization. |
-| Member | Can view the organization and its data. Cannot modify Adminland settings. This is the default role when someone joins via an invitation code. |
-| Guest | Limited read-only access. Useful for contractors or external collaborators who need visibility without full membership. |
+| Role          | What they can do                                                                                                                              |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Owner         | Full access. Can manage everything in Adminland, including deleting the organization. Typically the person who created it.                    |
+| Administrator | Can manage most Adminland settings — offices, office types, departments, member types, and members — but cannot delete the organization.      |
+| Member        | Can view the organization and its data. Cannot modify Adminland settings. This is the default role when someone joins via an invitation code. |
+| Guest         | Limited read-only access. Useful for contractors or external collaborators who need visibility without full membership.                       |
 
 The person who creates an organization is automatically given the **Owner** role. Owners and Administrators can update the roles of other members from Adminland.
 
@@ -35,7 +35,7 @@ After creation, libraryOS runs a background job to pre-populate the organization
 
 You do not need to create your own organization to use libraryOS. If your company is already set up, an Owner or Administrator can share the organization's **invitation code** with you, and you can use it to join.
 
-When Pam Beesly joins Dunder Mifflin in libraryOS, Michael simply gives her the invitation code. She enters it on the *Join an organization* screen, and she is immediately added as a **Member**.
+When Pam Beesly joins Dunder Mifflin in libraryOS, Michael simply gives her the invitation code. She enters it on the _Join an organization_ screen, and she is immediately added as a **Member**.
 
 1. From your dashboard, click **Join an organization**.
 2. Paste or type the invitation code you received.

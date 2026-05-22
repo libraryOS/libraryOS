@@ -1,0 +1,33 @@
+:root {
+  /* type scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+
+  /* main colors */
+  --bg-main: #fff;
+  --text-main: #404040;
+
+  /* marketing */
+  --bg-marketing-nav: #f4f4f5;
+  --border-marketing-nav: #d1d5db;
+  --text-marketing-nav: #1f2937;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* main colors */
+    --bg-main: #171717;
+    --text-main: #d4d4d8;
+
+    /* marketing */
+    --bg-marketing-nav: #262626;
+    --border-marketing-nav: #475569;
+    --text-marketing-nav: #e2e8f0;
+  }
+}

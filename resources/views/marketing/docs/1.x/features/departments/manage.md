@@ -12,7 +12,7 @@ Only users with the **Owner** or **Administrator** role can create, edit, or del
 2. In the Adminland sidebar, click **Departments**.
 3. Click the **Add** button on the right side of the **Departments** section header.
 4. A form appears inline. Fill in the following field:
-   1. **Name** (required) — the name of the department. Example: *Engineering*, *Sales*, or *Human Resources*.
+   1. **Name** (required) — the name of the department. Example: _Engineering_, _Sales_, or _Human Resources_.
 5. Click **Create** to save. The new department appears at the bottom of the list.
 
 Each department is assigned a **position** automatically. Position controls the display order of departments in the list. You can change a department's position by editing it.

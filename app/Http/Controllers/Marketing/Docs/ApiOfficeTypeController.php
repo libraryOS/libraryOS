@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Marketing\Docs;
 
 use App\Http\Controllers\Controller;
-use Illuminate\View\View;
+use Illuminate\Contracts\View\View;
 
 class ApiOfficeTypeController extends Controller
 {
-    public function index(): View
+    public function index(string $version): View
     {
-        return view('marketing.docs.api.organizations.officetypes.index');
+        return view()->file(resource_path("views/marketing/docs/{$version}/api/organizations/officetypes/index.blade.php"));
     }
 }
