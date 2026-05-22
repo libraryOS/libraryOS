@@ -4,7 +4,9 @@ a {
   text-decoration: underline;
   text-underline-offset: 4px;
   text-decoration-color: #d4d4d8;
-  transition: color 200ms ease, text-decoration-color 200ms ease;
+  transition:
+    color 200ms ease,
+    text-decoration-color 200ms ease;
 
   &:visited {
     color: #2563eb;
@@ -17,11 +19,11 @@ a {
   }
 
   @media (prefers-color-scheme: dark) {
-    color: #478bE6;
+    color: #478be6;
     text-decoration-color: #52525b;
 
     &:visited {
-      color: #478bE6;
+      color: #478be6;
     }
 
     &:hover {

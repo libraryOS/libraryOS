@@ -14,7 +14,7 @@ Only users with the **Owner** or **Administrator** role can create, edit, or del
 2. In the Adminland sidebar, click **Offices**.
 3. On the Offices page you will see an **Office types** section at the top. Click the **Add** button on the right side of that section header.
 4. A form appears inline. Fill in the following field:
-   1. **Name** (required) — the name for the office type. Example: *Branch*, *Headquarters*, or *Warehouse*.
+   1. **Name** (required) — the name for the office type. Example: _Branch_, _Headquarters_, or _Warehouse_.
 5. Click **Create** to save. The new office type appears at the bottom of the list.
 
 ### Edit an office type
@@ -43,14 +43,14 @@ Deleting an office type removes the classification from the system. Any offices 
 2. In the Adminland sidebar, click **Offices**.
 3. Scroll past the Office types section to the **Offices** section. Click the **Add** button on the right side of the section header.
 4. A form appears inline. Fill in the fields:
-   1. **Name** (required) — a recognizable label for the office. Example: *Scranton Branch* or *New York Headquarters*.
+   1. **Name** (required) — a recognizable label for the office. Example: _Scranton Branch_ or _New York Headquarters_.
    2. **Office type** (optional) — select a classification from the dropdown. Leave blank if you do not need a classification.
-   3. **Address line 1** (required) — the street address. Example: *1725 Slough Avenue*.
+   3. **Address line 1** (required) — the street address. Example: _1725 Slough Avenue_.
    4. **Address line 2** (optional) — suite number, floor, or building identifier.
-   5. **City** (required) — the city where the office is located. Example: *Scranton*.
-   6. **State / Province** (optional) — the state, province, or region. Example: *PA*.
-   7. **Postal code** (optional) — the ZIP or postal code. Example: *18505*.
-   8. **Timezone** (optional) — the IANA time zone identifier for this location. Example: *America/New_York*, *Europe/London*, or *Asia/Tokyo*.
+   5. **City** (required) — the city where the office is located. Example: _Scranton_.
+   6. **State / Province** (optional) — the state, province, or region. Example: _PA_.
+   7. **Postal code** (optional) — the ZIP or postal code. Example: _18505_.
+   8. **Timezone** (optional) — the IANA time zone identifier for this location. Example: _America/New_York_, _Europe/London_, or _Asia/Tokyo_.
    9. **Country** (optional) — select the country from the dropdown list.
 5. Click **Create** to save. The new office appears in the list.
 

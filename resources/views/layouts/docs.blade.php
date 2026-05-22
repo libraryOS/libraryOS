@@ -8,9 +8,9 @@
       <!-- Sidebar -->
       <div layout="marketing-sidebar">
         @php
-            $currentVersion = request()->route('version') ?? config('docs.default_version');
-            $productNav = require resource_path("views/marketing/docs/{$currentVersion}/nav.php");
-            $apiNav = require resource_path("views/marketing/docs/{$currentVersion}/api-nav.php");
+          $currentVersion = request()->route('version') ?? config('docs.default_version');
+          $productNav = require resource_path("views/marketing/docs/{$currentVersion}/nav.php");
+          $apiNav = require resource_path("views/marketing/docs/{$currentVersion}/api-nav.php");
         @endphp
 
         @if (request()->route('version'))
@@ -19,7 +19,7 @@
             <ul>
               @foreach (config('docs.versions') as $v)
                 <li>
-                  <a href="{{ route(request()->route()->getName(), ['version' => $v]) }}">
+                  <a href="{{ route( request()->route()->getName(),['version' => $v],) }}">
                     {{ $v }}
                   </a>
                 </li>

@@ -12,22 +12,22 @@
     <!-- Main navigation - centered (hidden on mobile) -->
     <div layout="marketing-nav-links">
       <div>
-        <a href="" data-turbo="true" data-active="{{ str_starts_with(request()->route()->getName(), 'marketing.docs.') ? 'true' : 'false' }}">
+        <a href="" data-turbo="true" data-active="{{ str_starts_with( request()->route()->getName(),'marketing.docs.',) ? 'true' : 'false' }}">
           <x-phosphor-squares-four variant="modules" />
           <span>Modules</span>
         </a>
 
-        <a href="" data-turbo="true" data-active="{{ str_starts_with(request()->route()->getName(), 'marketing.pricing.') ? 'true' : 'false' }}">
+        <a href="" data-turbo="true" data-active="{{ str_starts_with( request()->route()->getName(),'marketing.pricing.',) ? 'true' : 'false' }}">
           <x-phosphor-credit-card variant="pricing" />
           <span>Pricing</span>
         </a>
 
-        <a href="{{ route('marketing.docs.index') }}" data-turbo="true" data-active="{{ str_starts_with(request()->route()->getName(), 'marketing.docs.') ? 'true' : 'false' }}">
+        <a href="{{ route('marketing.docs.index') }}" data-turbo="true" data-active="{{ str_starts_with( request()->route()->getName(),'marketing.docs.',) ? 'true' : 'false' }}">
           <x-phosphor-book-open variant="docs" />
           <span>Docs</span>
         </a>
 
-        <a href="" data-turbo="true" data-active="{{ str_starts_with(request()->route()->getName(), 'marketing.company.') ? 'true' : 'false' }}">
+        <a href="" data-turbo="true" data-active="{{ str_starts_with( request()->route()->getName(),'marketing.company.',) ? 'true' : 'false' }}">
           <x-phosphor-building variant="company" />
           <span>Company</span>
         </a>

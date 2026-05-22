@@ -26,7 +26,7 @@ An office type is optional on an office. Deleting an office type does not delete
 
 An office can represent anything from a corporate building with a precise street address to a country-level entry for a fully remote team. Each office stores:
 
-- **Name** — a human-readable label, such as *Scranton Branch* or *New York HQ*.
+- **Name** — a human-readable label, such as _Scranton Branch_ or _New York HQ_.
 - **Address** — up to two address lines, city, state or province, and postal code.
 - **Country** — the country the office is located in.
 - **Time zone** — the IANA time zone identifier for the office (for example, `America/New_York` or `Europe/London`). This lets the rest of the organization know what local time applies to that location.

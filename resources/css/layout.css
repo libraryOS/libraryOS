@@ -3,7 +3,7 @@ body {
   font-size: 16px;
 }
 
-[layout="skeleton"] {
+[layout='skeleton'] {
   min-height: 100vh;
   background-color: var(--bg-main);
 }
