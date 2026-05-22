@@ -1,4 +1,4 @@
-<header x-data="{ mobileMenuOpen: false }">
+<header>
   <!-- main nav -->
   <nav layout="marketing-nav">
     <!-- Logo -->

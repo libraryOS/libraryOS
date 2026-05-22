@@ -50,7 +50,7 @@ $url = function (array $item) use ($version): string {
               <ul x-show="open" class="doc-section-content">
                 @foreach ($child['children'] as $grandchild)
                 <li>
-                  <a href="{{ $url($grandchild) }}" data-active="{{ $isActive($grandchild) ? 'true' : 'false' }}">
+                  <a href="{{ $url($grandchild) }}" data-active="{{ $isActive($grandchild) ? 'true' : 'false' }}" data-turbo="true">
                     {{ $grandchild['label'] }}
                   </a>
                 </li>
@@ -59,7 +59,7 @@ $url = function (array $item) use ($version): string {
             </li>
             @else
             <li>
-              <a href="{{ $url($child) }}" data-active="{{ $isActive($child) ? 'true' : 'false' }}">
+              <a href="{{ $url($child) }}" data-active="{{ $isActive($child) ? 'true' : 'false' }}" data-turbo="true">
                 {{ $child['label'] }}
               </a>
             </li>
@@ -69,7 +69,7 @@ $url = function (array $item) use ($version): string {
       </li>
       @else
       <li>
-        <a href="{{ $url($item) }}" data-active="{{ $isActive($item) ? 'true' : 'false' }}">
+        <a href="{{ $url($item) }}" data-active="{{ $isActive($item) ? 'true' : 'false' }}" data-turbo="true">
           {{ $item['label'] }}
         </a>
       </li>
