@@ -1,87 +1,42 @@
 @props([
-  'label',
-  'nav',
-  'version' => null,
+  'items' => [],
+  'version' => '',
+  'depth' => 0,
 ])
 
-@php
-  $isActive = fn (array $item): bool => request()->routeIs(...$item['active_routes']);
-
-  $anyActive = function (array $items) use (&$anyActive, $isActive): bool {
-    foreach ($items as $item) {
-      if ($isActive($item)) {
-        return true;
-      }
-      if (isset($item['children']) && $anyActive($item['children'])) {
-        return true;
-      }
-    }
-
-    return false;
-  };
-
-  $url = function (array $item) use ($version): string {
-    $params = $item['versioned'] ?? false ? ['version' => $version] : [];
-
-    return route($item['route'], $params);
-  };
-@endphp
-
-<div x-data="{ open: {{ $anyActive($nav) ? 'true' : 'false' }} }">
-  <div @click="open = !open" class="doc-section">
-    <h3>{{ $label }}</h3>
-    <x-phosphor-caret-right x-bind:data-open="open ? 'true' : 'false'" />
-  </div>
-
-  <ul x-show="open" x-cloak class="doc-section-content">
-    @foreach ($nav as $item)
-      @if (isset($item['children']))
-        <li x-data="{
-          open: {{ $anyActive($item['children']) ? 'true' : 'false' }},
-        }">
-          <div @click.stop="open = !open" class="doc-section">
-            <h3>{{ $item['label'] }}</h3>
-            <x-phosphor-caret-right x-bind:data-open="open ? 'true' : 'false'" />
-          </div>
-
-          <ul x-show="open" class="doc-section-content">
-            @foreach ($item['children'] as $child)
-              @if (isset($child['children']))
-                <li x-data="{
-                  open: {{ $anyActive($child['children']) ? 'true' : 'false' }},
-                }">
-                  <div @click.stop="open = !open" class="doc-section">
-                    <h3>{{ $child['label'] }}</h3>
-                    <x-phosphor-caret-right x-bind:data-open="open ? 'true' : 'false'" />
-                  </div>
-
-                  <ul x-show="open" class="doc-section-content">
-                    @foreach ($child['children'] as $grandchild)
-                      <li>
-                        <a href="{{ $url($grandchild) }}" data-active="{{ $isActive($grandchild) ? 'true' : 'false' }}" data-turbo="true">
-                          {{ $grandchild['label'] }}
-                        </a>
-                      </li>
-                    @endforeach
-                  </ul>
-                </li>
-              @else
-                <li>
-                  <a href="{{ $url($child) }}" data-active="{{ $isActive($child) ? 'true' : 'false' }}" data-turbo="true">
-                    {{ $child['label'] }}
-                  </a>
-                </li>
-              @endif
-            @endforeach
-          </ul>
-        </li>
-      @else
-        <li>
-          <a href="{{ $url($item) }}" data-active="{{ $isActive($item) ? 'true' : 'false' }}" data-turbo="true">
-            {{ $item['label'] }}
-          </a>
-        </li>
-      @endif
-    @endforeach
-  </ul>
-</div>
+@foreach ($items as $item)
+  @if (count($item['children']) > 0)
+    @php
+      $sectionIsActive = $item['url'] !== null && request()->is("docs/{$version}/{$item['url']}*");
+    @endphp
+    <div x-data="{ open: {{ $sectionIsActive ? 'true' : 'false' }} }" class="mb-1">
+      <div
+        @click="open = !open"
+        class="mb-1 flex cursor-pointer items-center justify-between rounded-md border border-transparent px-2 py-1 text-xs font-semibold tracking-widest text-gray-500 uppercase hover:border-gray-200 hover:bg-blue-50 dark:text-gray-400 dark:hover:border-gray-700 dark:hover:bg-gray-800"
+        style="padding-left: {{ 8 + $depth * 12 }}px">
+        @if ($item['url'])
+          <a href="/docs/{{ $version }}/{{ $item['url'] }}" @click.stop data-turbo="true">{{ $item['label'] }}</a>
+        @else
+          <span>{{ $item['label'] }}</span>
+        @endif
+        <x-phosphor-caret-right x-bind:class="open ? 'rotate-90' : ''" class="h-4 w-4 text-gray-500 transition-transform duration-300" />
+      </div>
+      <div x-show="open" x-cloak class="mb-2">
+        <x-marketing.docs-nav :items="$item['children']" :version="$version" :depth="$depth + 1" />
+      </div>
+    </div>
+  @else
+    @php
+      $isActive = request()->is("docs/{$version}/{$item['url']}");
+    @endphp
+    <div class="mb-1">
+      <a
+        href="/docs/{{ $version }}/{{ $item['url'] }}"
+        data-turbo="true"
+        class="{{ $isActive ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 hover:border-l-blue-400 hover:underline"
+        style="padding-left: {{ 12 + $depth * 12 }}px">
+        {{ $item['label'] }}
+      </a>
+    </div>
+  @endif
+@endforeach
