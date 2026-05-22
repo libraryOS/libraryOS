@@ -111,7 +111,7 @@
           <div x-show="openApiDocumentation" x-cloak class="mb-10 ml-3">
             <div class="mb-3 flex flex-col gap-y-2">
               <div>
-                <a href="{{ route('marketing.docs.api.index') }}" class="{{ request()->routeIs('marketing.docs.api.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-3 hover:border-l-blue-400 hover:underline">Introduction</a>
+                <a href="{{ route('marketing.docs.api.index', ['version' => request()->route('version') ?? config('docs.default_version')]) }}" class="{{ request()->routeIs('marketing.docs.api.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-3 hover:border-l-blue-400 hover:underline">Introduction</a>
               </div>
             </div>
 
@@ -122,7 +122,7 @@
             </div>
             <div x-show="organizationsDocumentation" class="mb-3 flex flex-col gap-y-2">
               <div>
-                <a href="{{ route('marketing.docs.api.organizations.index') }}" class="{{ request()->routeIs('marketing.docs.api.organizations.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-6 hover:border-l-blue-400 hover:underline">Organizations</a>
+                <a href="{{ route('marketing.docs.api.organizations.index', ['version' => request()->route('version') ?? config('docs.default_version')]) }}" class="{{ request()->routeIs('marketing.docs.api.organizations.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-6 hover:border-l-blue-400 hover:underline">Organizations</a>
               </div>
 
               <!-- adminland (api) -->
@@ -132,19 +132,19 @@
               </div>
               <div x-show="officeTypesDocumentation || officesDocumentation || membersDocumentation || memberTypesDocumentation || departmentsDocumentation" class="flex flex-col gap-y-2">
                 <div>
-                  <a href="{{ route('marketing.docs.api.organizations.officetypes.index') }}" class="{{ request()->routeIs('marketing.docs.api.organizations.officetypes.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-9 hover:border-l-blue-400 hover:underline">Office Types</a>
+                  <a href="{{ route('marketing.docs.api.organizations.officetypes.index', ['version' => request()->route('version') ?? config('docs.default_version')]) }}" class="{{ request()->routeIs('marketing.docs.api.organizations.officetypes.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-9 hover:border-l-blue-400 hover:underline">Office Types</a>
                 </div>
                 <div>
-                  <a href="{{ route('marketing.docs.api.organizations.offices.index') }}" class="{{ request()->routeIs('marketing.docs.api.organizations.offices.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-9 hover:border-l-blue-400 hover:underline">Offices</a>
+                  <a href="{{ route('marketing.docs.api.organizations.offices.index', ['version' => request()->route('version') ?? config('docs.default_version')]) }}" class="{{ request()->routeIs('marketing.docs.api.organizations.offices.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-9 hover:border-l-blue-400 hover:underline">Offices</a>
                 </div>
                 <div>
-                  <a href="{{ route('marketing.docs.api.organizations.members.index') }}" class="{{ request()->routeIs('marketing.docs.api.organizations.members.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-9 hover:border-l-blue-400 hover:underline">Members</a>
+                  <a href="{{ route('marketing.docs.api.organizations.members.index', ['version' => request()->route('version') ?? config('docs.default_version')]) }}" class="{{ request()->routeIs('marketing.docs.api.organizations.members.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-9 hover:border-l-blue-400 hover:underline">Members</a>
                 </div>
                 <div>
-                  <a href="{{ route('marketing.docs.api.organizations.membertypes.index') }}" class="{{ request()->routeIs('marketing.docs.api.organizations.membertypes.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-9 hover:border-l-blue-400 hover:underline">Member Types</a>
+                  <a href="{{ route('marketing.docs.api.organizations.membertypes.index', ['version' => request()->route('version') ?? config('docs.default_version')]) }}" class="{{ request()->routeIs('marketing.docs.api.organizations.membertypes.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-9 hover:border-l-blue-400 hover:underline">Member Types</a>
                 </div>
                 <div>
-                  <a href="{{ route('marketing.docs.api.organizations.departments.index') }}" class="{{ request()->routeIs('marketing.docs.api.organizations.departments.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-9 hover:border-l-blue-400 hover:underline">Departments</a>
+                  <a href="{{ route('marketing.docs.api.organizations.departments.index', ['version' => request()->route('version') ?? config('docs.default_version')]) }}" class="{{ request()->routeIs('marketing.docs.api.organizations.departments.index') ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 pl-9 hover:border-l-blue-400 hover:underline">Departments</a>
                 </div>
               </div>
             </div>
