@@ -42,7 +42,7 @@ class DocsPageController extends DocsController
         $cumulativePath = '';
 
         foreach ($segments as $i => $segment) {
-            $cumulativePath = $cumulativePath !== '' ? $cumulativePath . '/' . $segment : $segment;
+            $cumulativePath = $cumulativePath !== '' ? $cumulativePath.'/'.$segment : $segment;
             $label = $builder->toLabel($segment);
             $isLast = $i === count($segments) - 1;
 

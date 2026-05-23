@@ -39,11 +39,11 @@ class DocNavigationBuilder
         $items = [];
 
         foreach ($this->getSortedEntries($dir) as $entry) {
-            $fullPath = $dir . '/' . $entry;
+            $fullPath = $dir.'/'.$entry;
 
             if (is_dir($fullPath)) {
                 $slug = strtolower($this->stripPrefix($entry));
-                $urlPath = $urlPrefix !== '' ? $urlPrefix . '/' . $slug : $slug;
+                $urlPath = $urlPrefix !== '' ? $urlPrefix.'/'.$slug : $slug;
                 $children = $this->scanDirectory($fullPath, $urlPath);
 
                 $items[] = [
@@ -53,7 +53,7 @@ class DocNavigationBuilder
                 ];
             } elseif ($this->isDocFile($entry)) {
                 $slug = $this->toSlug($entry);
-                $urlPath = $urlPrefix !== '' ? $urlPrefix . '/' . $slug : $slug;
+                $urlPath = $urlPrefix !== '' ? $urlPrefix.'/'.$slug : $slug;
 
                 $items[] = [
                     'label' => $this->toLabel($entry),
@@ -75,7 +75,7 @@ class DocNavigationBuilder
         $segment = array_shift($segments);
 
         foreach ($this->getSortedEntries($currentDir) as $entry) {
-            $fullPath = $currentDir . '/' . $entry;
+            $fullPath = $currentDir.'/'.$entry;
 
             if (is_dir($fullPath)) {
                 if (strtolower($this->stripPrefix($entry)) === $segment) {
