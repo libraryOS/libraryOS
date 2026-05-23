@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Marketing\Docs;
 
 use App\Services\DocNavigationBuilder;
-use Illuminate\View\View;
+use Illuminate\Contracts\View\View;
 
 class DocsPageController extends DocsController
 {
