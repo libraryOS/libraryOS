@@ -44,7 +44,7 @@ class DocNavigationBuilder
             if (is_dir($fullPath)) {
                 $slug = strtolower($this->stripPrefix($entry));
                 $urlPath = $urlPrefix !== '' ? $urlPrefix . '/' . $slug : $slug;
-                $hasIndex = file_exists($fullPath . '/index.md') || file_exists($fullPath . '/index.blade.php');
+                $hasIndex = $this->findIndexFile($fullPath) !== null;
                 $children = $this->scanDirectory($fullPath, $urlPath);
 
                 $items[] = [
@@ -70,14 +70,7 @@ class DocNavigationBuilder
     private function resolveSegments(string $currentDir, array $segments): ?string
     {
         if (empty($segments)) {
-            if (file_exists($currentDir . '/index.md')) {
-                return $currentDir . '/index.md';
-            }
-            if (file_exists($currentDir . '/index.blade.php')) {
-                return $currentDir . '/index.blade.php';
-            }
-
-            return null;
+            return $this->findIndexFile($currentDir);
         }
 
         $segment = array_shift($segments);
@@ -148,8 +141,21 @@ class DocNavigationBuilder
         return str_ends_with($entry, '.md') || str_ends_with($entry, '.blade.php');
     }
 
+    private function findIndexFile(string $dir): ?string
+    {
+        foreach ($this->getSortedEntries($dir) as $entry) {
+            if ($this->isIndexFile($entry)) {
+                return $dir . '/' . $entry;
+            }
+        }
+
+        return null;
+    }
+
     private function isIndexFile(string $entry): bool
     {
-        return $entry === 'index.md' || $entry === 'index.blade.php';
+        $bare = $this->stripPrefix($entry);
+
+        return $bare === 'index.md' || $bare === 'index.blade.php';
     }
 }
