@@ -15,7 +15,7 @@ class ApiOfficeTypeControllerTest extends TestCase
     #[Test]
     public function it_renders_the_api_office_type_page(): void
     {
-        $response = $this->get('/docs/1.x/api/organizations/officetypes/index');
+        $response = $this->get('/docs/1.x/api/organizations/office-types');
         $response->assertOk();
     }
 }
