@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Models;
 
 use App\Models\Organization;
+use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
@@ -72,5 +73,29 @@ class RoleTest extends TestCase
         ]);
 
         $this->assertEquals('Receptionist', $role->getName());
+    }
+
+    #[Test]
+    public function it_belongs_to_many_permissions(): void
+    {
+        $organization = Organization::factory()->create();
+        $role = Role::factory()->create(['organization_id' => $organization->id]);
+        $permission = Permission::factory()->create(['organization_id' => $organization->id]);
+
+        $role->permissions()->attach($permission);
+
+        $this->assertTrue($role->permissions()->where('permissions.id', $permission->id)->exists());
+    }
+
+    #[Test]
+    public function it_can_have_multiple_permissions(): void
+    {
+        $organization = Organization::factory()->create();
+        $role = Role::factory()->create(['organization_id' => $organization->id]);
+        $permissions = Permission::factory()->count(3)->create(['organization_id' => $organization->id]);
+
+        $role->permissions()->attach($permissions->pluck('id'));
+
+        $this->assertCount(3, $role->permissions);
     }
 }

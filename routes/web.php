@@ -48,6 +48,9 @@ Route::middleware(['auth', 'verified', 'throttle:60,1', 'set.locale'])->group(fu
             // members
             Route::get('organizations/{slug}/adminland/members', [MemberController::class, 'index'])->name('organization.adminland.member.index');
 
+            // roles
+            Route::get('organizations/{slug}/adminland/roles', [RoleController::class, 'index'])->name('organization.adminland.role.index');
+
             // member types
             Route::get('organizations/{slug}/adminland/member-types/create', [MemberTypeController::class, 'create'])->name('organization.adminland.member_type.create');
             Route::post('organizations/{slug}/adminland/member-types', [MemberTypeController::class, 'store'])->name('organization.adminland.member_type.store');

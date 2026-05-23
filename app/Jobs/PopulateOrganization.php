@@ -30,8 +30,16 @@ class PopulateOrganization implements ShouldQueue
     private function addDefaultRoles(): void
     {
         $rolesData = [
-            ['key' => 'owner', 'name_translation_key' => trans_key('role_owner')],
-            ['key' => 'administrator', 'name_translation_key' => trans_key('role_administrator')],
+            [
+                'key' => 'owner',
+                'name_translation_key' => trans_key('role_owner'),
+                'description' => 'Full control over the organization. Can manage settings, staff, roles, domains, billing, and ownership transfer.',
+            ],
+            [
+                'key' => 'administrator',
+                'name_translation_key' => trans_key('role_administrator'),
+                'description' => 'Operational administrator of the library. Can manage catalog, patrons, circulation, branches, and most settings.',
+            ],
         ];
 
         $this->organization->roles()->createMany($rolesData);
