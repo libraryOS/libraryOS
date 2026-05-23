@@ -7,7 +7,7 @@
 @foreach ($items as $item)
   @if (count($item['children']) > 0)
     <p class="{{ $loop->first && $depth === 0 ? '' : 'mt-4' }} mb-1 border-b border-gray-200 pb-2 font-mono text-xs font-bold tracking-wider text-gray-600 uppercase dark:border-gray-700 dark:text-gray-300"
-       style="margin-left: {{ $depth * 22 }}px">
+       style="margin-left: {{ $depth * 18 }}px">
       {{ $item['label'] }}
     </p>
     <div class="mb-3">
@@ -22,7 +22,7 @@
         href="/docs/{{ $version }}/{{ $item['url'] }}"
         data-turbo="true"
         class="{{ $isActive ? 'border-l-blue-400' : 'border-l-transparent' }} block border-l-3 hover:border-l-blue-400 hover:underline"
-        style="padding-left: {{ 8 + $depth * 12 }}px">
+        style="padding-left: {{ $depth * 12 }}px">
         {{ $item['label'] }}
       </a>
     </div>
