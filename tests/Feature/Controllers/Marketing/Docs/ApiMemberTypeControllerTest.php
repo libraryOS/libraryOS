@@ -15,7 +15,7 @@ class ApiMemberTypeControllerTest extends TestCase
     #[Test]
     public function it_renders_the_api_member_type_page(): void
     {
-        $response = $this->get('/docs/1.x/api/organizations/membertypes');
+        $response = $this->get('/docs/1.x/api/organizations/membertypes/index');
         $response->assertOk();
     }
 }

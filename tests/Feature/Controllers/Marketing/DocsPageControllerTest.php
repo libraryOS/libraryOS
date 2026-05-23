@@ -23,7 +23,7 @@ class DocsPageControllerTest extends TestCase
     #[Test]
     public function it_shows_a_markdown_doc_page(): void
     {
-        $response = $this->get('/docs/1.x/organizations');
+        $response = $this->get('/docs/1.x/organizations/index');
 
         $response->assertOk();
     }
@@ -39,9 +39,17 @@ class DocsPageControllerTest extends TestCase
     #[Test]
     public function it_shows_a_blade_doc_page(): void
     {
-        $response = $this->get('/docs/1.x/api/organizations');
+        $response = $this->get('/docs/1.x/api/organizations/index');
 
         $response->assertOk();
+    }
+
+    #[Test]
+    public function it_returns_404_for_directory_only_path(): void
+    {
+        $response = $this->get('/docs/1.x/organizations');
+
+        $response->assertNotFound();
     }
 
     #[Test]

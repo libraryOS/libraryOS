@@ -15,7 +15,7 @@ class ApiIntroductionControllerTest extends TestCase
     #[Test]
     public function it_renders_the_api_introduction_page(): void
     {
-        $response = $this->get('/docs/1.x/api');
+        $response = $this->get('/docs/1.x/api/index');
         $response->assertOk();
     }
 }

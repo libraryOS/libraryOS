@@ -44,15 +44,14 @@ class DocNavigationBuilder
             if (is_dir($fullPath)) {
                 $slug = strtolower($this->stripPrefix($entry));
                 $urlPath = $urlPrefix !== '' ? $urlPrefix . '/' . $slug : $slug;
-                $hasIndex = $this->findIndexFile($fullPath) !== null;
                 $children = $this->scanDirectory($fullPath, $urlPath);
 
                 $items[] = [
                     'label' => $this->toLabel($entry),
-                    'url' => $hasIndex ? $urlPath : null,
+                    'url' => null,
                     'children' => $children,
                 ];
-            } elseif ($this->isDocFile($entry) && ! $this->isIndexFile($entry)) {
+            } elseif ($this->isDocFile($entry)) {
                 $slug = $this->toSlug($entry);
                 $urlPath = $urlPrefix !== '' ? $urlPrefix . '/' . $slug : $slug;
 
@@ -70,7 +69,7 @@ class DocNavigationBuilder
     private function resolveSegments(string $currentDir, array $segments): ?string
     {
         if (empty($segments)) {
-            return $this->findIndexFile($currentDir);
+            return null;
         }
 
         $segment = array_shift($segments);
@@ -82,7 +81,7 @@ class DocNavigationBuilder
                 if (strtolower($this->stripPrefix($entry)) === $segment) {
                     return $this->resolveSegments($fullPath, $segments);
                 }
-            } elseif (empty($segments) && $this->isDocFile($entry) && ! $this->isIndexFile($entry)) {
+            } elseif (empty($segments) && $this->isDocFile($entry)) {
                 if ($this->toSlug($entry) === $segment) {
                     return $fullPath;
                 }
@@ -92,9 +91,6 @@ class DocNavigationBuilder
         return null;
     }
 
-    /**
-     * @return list<string>
-     */
     private function toSlug(string $name): string
     {
         $bare = (string) preg_replace('/\.(blade\.php|md)$/', '', $name);
@@ -139,23 +135,5 @@ class DocNavigationBuilder
     private function isDocFile(string $entry): bool
     {
         return str_ends_with($entry, '.md') || str_ends_with($entry, '.blade.php');
-    }
-
-    private function findIndexFile(string $dir): ?string
-    {
-        foreach ($this->getSortedEntries($dir) as $entry) {
-            if ($this->isIndexFile($entry)) {
-                return $dir . '/' . $entry;
-            }
-        }
-
-        return null;
-    }
-
-    private function isIndexFile(string $entry): bool
-    {
-        $bare = $this->stripPrefix($entry);
-
-        return $bare === 'index.md' || $bare === 'index.blade.php';
     }
 }

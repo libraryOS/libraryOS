@@ -15,7 +15,7 @@ class ApiDepartmentControllerTest extends TestCase
     #[Test]
     public function it_renders_the_api_department_page(): void
     {
-        $response = $this->get('/docs/1.x/api/organizations/departments');
+        $response = $this->get('/docs/1.x/api/organizations/departments/index');
         $response->assertOk();
     }
 }

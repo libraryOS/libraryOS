@@ -85,12 +85,12 @@ class DocNavigationBuilderTest extends TestCase
     #[Test]
     public function it_builds_leaf_nodes_from_markdown_files(): void
     {
-        touch($this->tmpDir . '/01-index.md');
-        touch($this->tmpDir . '/02-getting-started.md');
+        touch($this->tmpDir . '/01-getting-started.md');
+        touch($this->tmpDir . '/02-advanced.md');
 
         $nav = $this->builder->build('1.x', $this->tmpDir);
 
-        $this->assertCount(1, $nav);
+        $this->assertCount(2, $nav);
         $this->assertSame('Getting started', $nav[0]['label']);
         $this->assertSame('getting-started', $nav[0]['url']);
         $this->assertEmpty($nav[0]['children']);
@@ -107,22 +107,25 @@ class DocNavigationBuilderTest extends TestCase
 
         $this->assertCount(1, $nav);
         $this->assertSame('Offices', $nav[0]['label']);
-        $this->assertSame('offices', $nav[0]['url']);
-        $this->assertCount(1, $nav[0]['children']);
-        $this->assertSame('Manage', $nav[0]['children'][0]['label']);
-        $this->assertSame('offices/manage', $nav[0]['children'][0]['url']);
+        $this->assertNull($nav[0]['url']);
+        $this->assertCount(2, $nav[0]['children']);
+        $this->assertSame('Index', $nav[0]['children'][0]['label']);
+        $this->assertSame('offices/index', $nav[0]['children'][0]['url']);
+        $this->assertSame('Manage', $nav[0]['children'][1]['label']);
+        $this->assertSame('offices/manage', $nav[0]['children'][1]['url']);
     }
 
     #[Test]
-    public function it_sets_url_to_null_for_sections_without_index(): void
+    public function it_always_sets_url_to_null_for_sections(): void
     {
         mkdir($this->tmpDir . '/01-group');
+        touch($this->tmpDir . '/01-group/01-index.md');
         touch($this->tmpDir . '/01-group/02-item.md');
 
         $nav = $this->builder->build('1.x', $this->tmpDir);
 
         $this->assertNull($nav[0]['url']);
-        $this->assertCount(1, $nav[0]['children']);
+        $this->assertCount(2, $nav[0]['children']);
     }
 
     #[Test]
@@ -179,42 +182,42 @@ class DocNavigationBuilderTest extends TestCase
     }
 
     #[Test]
-    public function it_resolves_a_directory_index_md(): void
+    public function it_resolves_a_prefixed_index_file_by_its_slug(): void
+    {
+        mkdir($this->tmpDir . '/01-organizations');
+        touch($this->tmpDir . '/01-organizations/01-index.md');
+
+        $result = $this->builder->resolve('1.x', 'organizations/index', $this->tmpDir);
+
+        $this->assertSame($this->tmpDir . '/01-organizations/01-index.md', $result);
+    }
+
+    #[Test]
+    public function it_resolves_a_blade_file_by_its_slug(): void
+    {
+        mkdir($this->tmpDir . '/04-API');
+        touch($this->tmpDir . '/04-API/01-index.blade.php');
+
+        $result = $this->builder->resolve('1.x', 'api/index', $this->tmpDir);
+
+        $this->assertSame($this->tmpDir . '/04-API/01-index.blade.php', $result);
+    }
+
+    #[Test]
+    public function it_returns_null_for_a_directory_path_with_no_file_segment(): void
     {
         mkdir($this->tmpDir . '/01-organizations');
         touch($this->tmpDir . '/01-organizations/01-index.md');
 
         $result = $this->builder->resolve('1.x', 'organizations', $this->tmpDir);
 
-        $this->assertSame($this->tmpDir . '/01-organizations/01-index.md', $result);
-    }
-
-    #[Test]
-    public function it_resolves_a_blade_index_file(): void
-    {
-        mkdir($this->tmpDir . '/04-API');
-        touch($this->tmpDir . '/04-API/01-index.blade.php');
-
-        $result = $this->builder->resolve('1.x', 'api', $this->tmpDir);
-
-        $this->assertSame($this->tmpDir . '/04-API/01-index.blade.php', $result);
+        $this->assertNull($result);
     }
 
     #[Test]
     public function it_returns_null_for_missing_path(): void
     {
         $result = $this->builder->resolve('1.x', 'nonexistent', $this->tmpDir);
-
-        $this->assertNull($result);
-    }
-
-    #[Test]
-    public function it_returns_null_for_directory_without_index(): void
-    {
-        mkdir($this->tmpDir . '/01-empty');
-        touch($this->tmpDir . '/01-empty/02-child.md'); // has a child but no index file
-
-        $result = $this->builder->resolve('1.x', 'empty', $this->tmpDir);
 
         $this->assertNull($result);
     }

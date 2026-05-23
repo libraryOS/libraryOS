@@ -15,7 +15,7 @@ class ApiMemberControllerTest extends TestCase
     #[Test]
     public function it_renders_the_api_member_page(): void
     {
-        $response = $this->get('/docs/1.x/api/organizations/members');
+        $response = $this->get('/docs/1.x/api/organizations/members/index');
         $response->assertOk();
     }
 }
