@@ -2,44 +2,20 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\Marketing\Docs\AdminlandDepartmentController;
-use App\Http\Controllers\Marketing\Docs\AdminlandDepartmentManageController;
-use App\Http\Controllers\Marketing\Docs\AdminlandOfficeController;
-use App\Http\Controllers\Marketing\Docs\AdminlandOfficeManageController;
-use App\Http\Controllers\Marketing\Docs\ApiDepartmentController;
-use App\Http\Controllers\Marketing\Docs\ApiIntroductionController;
-use App\Http\Controllers\Marketing\Docs\ApiMemberController;
-use App\Http\Controllers\Marketing\Docs\ApiMemberTypeController;
-use App\Http\Controllers\Marketing\Docs\ApiOfficeController;
-use App\Http\Controllers\Marketing\Docs\ApiOfficeTypeController;
-use App\Http\Controllers\Marketing\Docs\ApiOrganizationController;
 use App\Http\Controllers\Marketing\Docs\DocsIndexController;
-use App\Http\Controllers\Marketing\Docs\DocsOrganizationController;
+use App\Http\Controllers\Marketing\Docs\DocsPageController;
 use App\Http\Controllers\Marketing\MarketingController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['marketing'])->group(function (): void {
     Route::get('/', [MarketingController::class, 'index'])->name('marketing.index');
 
-    // docs index
     Route::get('/docs', [DocsIndexController::class, 'index'])->name('marketing.docs.index');
 
-    // versioned docs
-    Route::prefix('docs/{version}')
-        ->where(['version' => implode('|', array_map(fn (string $v) => preg_quote($v), config('docs.versions')))])
-        ->group(function (): void {
-            Route::get('/organizations', [DocsOrganizationController::class, 'index'])->name('marketing.docs.organizations.index');
-            Route::get('/offices', [AdminlandOfficeController::class, 'index'])->name('marketing.docs.offices.index');
-            Route::get('/offices/manage', [AdminlandOfficeManageController::class, 'index'])->name('marketing.docs.offices.manage');
-            Route::get('/departments', [AdminlandDepartmentController::class, 'index'])->name('marketing.docs.departments.index');
-            Route::get('/departments/manage', [AdminlandDepartmentManageController::class, 'index'])->name('marketing.docs.departments.manage');
-
-            Route::get('/api', [ApiIntroductionController::class, 'index'])->name('marketing.docs.api.index');
-            Route::get('/api/organizations', [ApiOrganizationController::class, 'index'])->name('marketing.docs.api.organizations.index');
-            Route::get('/api/organizations/officetypes', [ApiOfficeTypeController::class, 'index'])->name('marketing.docs.api.organizations.officetypes.index');
-            Route::get('/api/organizations/offices', [ApiOfficeController::class, 'index'])->name('marketing.docs.api.organizations.offices.index');
-            Route::get('/api/organizations/members', [ApiMemberController::class, 'index'])->name('marketing.docs.api.organizations.members.index');
-            Route::get('/api/organizations/membertypes', [ApiMemberTypeController::class, 'index'])->name('marketing.docs.api.organizations.membertypes.index');
-            Route::get('/api/organizations/departments', [ApiDepartmentController::class, 'index'])->name('marketing.docs.api.organizations.departments.index');
-        });
+    Route::get('/docs/{version}/{path?}', [DocsPageController::class, 'show'])
+        ->where([
+            'version' => implode('|', array_map(fn (string $v) => preg_quote($v), config('docs.versions'))),
+            'path' => '.*',
+        ])
+        ->name('marketing.docs.show');
 });

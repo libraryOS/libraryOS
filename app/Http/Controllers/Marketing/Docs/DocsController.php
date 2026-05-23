@@ -11,10 +11,10 @@ use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
 
 class DocsController extends Controller
 {
-    protected function renderDoc(string $version, string $markdownPath, array $breadcrumbs): View
+    protected function renderDoc(string $absoluteFilePath, array $breadcrumbs): View
     {
         $content = Str::of(
-            file_get_contents(resource_path("views/marketing/docs/{$version}/{$markdownPath}.md"))
+            file_get_contents($absoluteFilePath)
         )->markdown(
             [
                 'html_input' => 'strip',

@@ -15,7 +15,7 @@ class ApiOrganizationControllerTest extends TestCase
     #[Test]
     public function it_renders_the_api_organization_page(): void
     {
-        $response = $this->get('/docs/1.x/api/organizations');
+        $response = $this->get('/docs/1.x/api/organizations/index');
         $response->assertOk();
     }
 }
