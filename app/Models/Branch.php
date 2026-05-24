@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Interfaces\HasAddress;
 use Carbon\Carbon;
+use Database\Factories\BranchFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

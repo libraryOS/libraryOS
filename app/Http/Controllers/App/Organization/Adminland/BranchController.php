@@ -151,7 +151,7 @@ class BranchController extends Controller
     }
 
     /**
-     * @return array{0: mixed, 1: mixed, 2: mixed}
+     * @return array{0: mixed, 1: mixed}
      */
     private function viewData(Organization $organization): array
     {

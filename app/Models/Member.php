@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,7 +16,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $organization_id
  * @property int|null $user_id
  * @property int|null $role_id
- * @property int|null $member_type_id
  * @property string|null $timezone
  * @property Carbon|null $birthdate
  * @property Carbon|null $joined_at
@@ -36,7 +36,6 @@ class Member extends Model
     protected $fillable = [
         'organization_id',
         'user_id',
-        'member_type_id',
         'role_id',
         'timezone',
         'birthdate',
@@ -52,16 +51,6 @@ class Member extends Model
         'birthdate' => 'date',
         'joined_at' => 'datetime',
     ];
-
-    /**
-     * Get the member type associated with the member.
-     *
-     * @return BelongsTo<MemberType, $this>
-     */
-    public function memberType(): BelongsTo
-    {
-        return $this->belongsTo(MemberType::class);
-    }
 
     /**
      * Get the user record associated with the member.

@@ -5,7 +5,6 @@ declare(strict_types=1);
 use App\Http\Controllers\App\Organization\Adminland\AdminlandController;
 use App\Http\Controllers\App\Organization\Adminland\BranchController;
 use App\Http\Controllers\App\Organization\Adminland\MemberController;
-use App\Http\Controllers\App\Organization\Adminland\MemberTypeController;
 use App\Http\Controllers\App\Organization\Adminland\RoleController;
 use App\Http\Controllers\App\Organization\JoinOrganizationController;
 use App\Http\Controllers\App\Organization\OrganizationController;
@@ -48,13 +47,6 @@ Route::middleware(['auth', 'verified', 'throttle:60,1', 'set.locale'])->group(fu
 
             // roles
             Route::get('/roles', [RoleController::class, 'index'])->name('organization.adminland.role.index');
-
-            // member types
-            Route::get('/member-types/create', [MemberTypeController::class, 'create'])->name('organization.adminland.member_type.create');
-            Route::post('/member-types', [MemberTypeController::class, 'store'])->name('organization.adminland.member_type.store');
-            Route::get('/member-types/{memberType}', [MemberTypeController::class, 'edit'])->name('organization.adminland.member_type.edit');
-            Route::put('/member-types/{memberType}', [MemberTypeController::class, 'update'])->name('organization.adminland.member_type.update');
-            Route::delete('/member-types/{memberType}', [MemberTypeController::class, 'destroy'])->name('organization.adminland.member_type.destroy');
 
             // branches
             Route::get('/branches', [BranchController::class, 'index'])->name('organization.adminland.branch.index');
