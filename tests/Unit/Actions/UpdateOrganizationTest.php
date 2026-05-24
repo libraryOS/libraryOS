@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Actions;
 
 use App\Actions\UpdateOrganization;
-use App\Models\Organization;
+use App\Enums\PermissionEnum;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Validation\ValidationException;
@@ -20,7 +20,12 @@ class UpdateOrganizationTest extends TestCase
     public function it_updates_an_organization(): void
     {
         $user = $this->createUser();
-        $organization = $this->addOrganization($user);
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [PermissionEnum::OrganizationUpdate->value]
+        );
 
         $updatedOrganization = new UpdateOrganization(
             user: $user,
@@ -38,7 +43,12 @@ class UpdateOrganizationTest extends TestCase
         $this->expectException(ValidationException::class);
 
         $user = $this->createUser();
-        $organization = $this->addOrganization($user);
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [PermissionEnum::OrganizationUpdate->value]
+        );
 
         new UpdateOrganization(
             user: $user,
@@ -53,7 +63,13 @@ class UpdateOrganizationTest extends TestCase
         $this->expectException(ModelNotFoundException::class);
 
         $user = $this->createUser();
-        $otherOrganization = Organization::factory()->create();
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [PermissionEnum::OrganizationUpdate->value]
+        );
+        $otherOrganization = $this->createOrganization(name: 'Other Organization');
 
         new UpdateOrganization(
             user: $user,

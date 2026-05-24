@@ -2,13 +2,10 @@
 
 declare(strict_types=1);
 
-use App\Enums\Permission;
 use App\Http\Controllers\App\Organization\Adminland\AdminlandController;
-use App\Http\Controllers\App\Organization\Adminland\DepartmentController;
+use App\Http\Controllers\App\Organization\Adminland\BranchController;
 use App\Http\Controllers\App\Organization\Adminland\MemberController;
-use App\Http\Controllers\App\Organization\Adminland\MemberTypeController;
-use App\Http\Controllers\App\Organization\Adminland\OfficeController;
-use App\Http\Controllers\App\Organization\Adminland\OfficeTypeController;
+use App\Http\Controllers\App\Organization\Adminland\RoleController;
 use App\Http\Controllers\App\Organization\JoinOrganizationController;
 use App\Http\Controllers\App\Organization\OrganizationController;
 use App\Http\Controllers\App\Settings\ApiKeyController;
@@ -42,39 +39,22 @@ Route::middleware(['auth', 'verified', 'throttle:60,1', 'set.locale'])->group(fu
         Route::get('organizations/{slug}', [OrganizationController::class, 'show'])->name('organization.show');
 
         // adminland
-        Route::middleware(['permission:'.Permission::Owner->value.','.Permission::Admin->value])->group(function (): void {
-            Route::get('organizations/{slug}/adminland', [AdminlandController::class, 'index'])->name('organization.adminland.index');
+        Route::prefix('organizations/{slug}/adminland')->group(function (): void {
+            Route::get('', [AdminlandController::class, 'index'])->name('organization.adminland.index');
 
             // members
-            Route::get('organizations/{slug}/adminland/members', [MemberController::class, 'index'])->name('organization.adminland.member.index');
+            Route::get('/members', [MemberController::class, 'index'])->name('organization.adminland.member.index');
 
-            // member types
-            Route::get('organizations/{slug}/adminland/member-types/create', [MemberTypeController::class, 'create'])->name('organization.adminland.member_type.create');
-            Route::post('organizations/{slug}/adminland/member-types', [MemberTypeController::class, 'store'])->name('organization.adminland.member_type.store');
-            Route::get('organizations/{slug}/adminland/member-types/{memberType}', [MemberTypeController::class, 'edit'])->name('organization.adminland.member_type.edit');
-            Route::put('organizations/{slug}/adminland/member-types/{memberType}', [MemberTypeController::class, 'update'])->name('organization.adminland.member_type.update');
-            Route::delete('organizations/{slug}/adminland/member-types/{memberType}', [MemberTypeController::class, 'destroy'])->name('organization.adminland.member_type.destroy');
+            // roles
+            Route::get('/roles', [RoleController::class, 'index'])->name('organization.adminland.role.index');
 
-            // departments
-            Route::get('organizations/{slug}/adminland/departments', [DepartmentController::class, 'index'])->name('organization.adminland.department.index');
-            Route::get('organizations/{slug}/adminland/departments/create', [DepartmentController::class, 'create'])->name('organization.adminland.department.create');
-            Route::post('organizations/{slug}/adminland/departments', [DepartmentController::class, 'store'])->name('organization.adminland.department.store');
-            Route::get('organizations/{slug}/adminland/departments/{department}', [DepartmentController::class, 'edit'])->name('organization.adminland.department.edit');
-            Route::put('organizations/{slug}/adminland/departments/{department}', [DepartmentController::class, 'update'])->name('organization.adminland.department.update');
-            Route::delete('organizations/{slug}/adminland/departments/{department}', [DepartmentController::class, 'destroy'])->name('organization.adminland.department.destroy');
-
-            // offices
-            Route::get('organizations/{slug}/adminland/offices', [OfficeController::class, 'index'])->name('organization.adminland.office.index');
-            Route::get('organizations/{slug}/adminland/offices/create', [OfficeController::class, 'create'])->name('organization.adminland.office.create');
-            Route::post('organizations/{slug}/adminland/offices', [OfficeController::class, 'store'])->name('organization.adminland.office.store');
-            Route::get('organizations/{slug}/adminland/offices/{office}', [OfficeController::class, 'edit'])->name('organization.adminland.office.edit');
-            Route::put('organizations/{slug}/adminland/offices/{office}', [OfficeController::class, 'update'])->name('organization.adminland.office.update');
-            Route::delete('organizations/{slug}/adminland/offices/{office}', [OfficeController::class, 'destroy'])->name('organization.adminland.office.destroy');
-            Route::get('organizations/{slug}/adminland/office-types/create', [OfficeTypeController::class, 'create'])->name('organization.adminland.office_type.create');
-            Route::post('organizations/{slug}/adminland/office-types', [OfficeTypeController::class, 'store'])->name('organization.adminland.office_type.store');
-            Route::get('organizations/{slug}/adminland/office-types/{officeType}', [OfficeTypeController::class, 'edit'])->name('organization.adminland.office_type.edit');
-            Route::put('organizations/{slug}/adminland/office-types/{officeType}', [OfficeTypeController::class, 'update'])->name('organization.adminland.office_type.update');
-            Route::delete('organizations/{slug}/adminland/office-types/{officeType}', [OfficeTypeController::class, 'destroy'])->name('organization.adminland.office_type.destroy');
+            // branches
+            Route::get('/branches', [BranchController::class, 'index'])->name('organization.adminland.branch.index');
+            Route::get('/branches/create', [BranchController::class, 'create'])->name('organization.adminland.branch.create');
+            Route::post('/branches', [BranchController::class, 'store'])->name('organization.adminland.branch.store');
+            Route::get('/branches/{branch}', [BranchController::class, 'edit'])->name('organization.adminland.branch.edit');
+            Route::put('/branches/{branch}', [BranchController::class, 'update'])->name('organization.adminland.branch.update');
+            Route::delete('/branches/{branch}', [BranchController::class, 'destroy'])->name('organization.adminland.branch.destroy');
         });
     });
 

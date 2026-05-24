@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Enums\PermissionEnum;
 use App\Helpers\TextSanitizer;
 use App\Jobs\LogUserAction;
 use App\Models\Member;
@@ -55,8 +56,8 @@ class CreateRole
             throw new ModelNotFoundException('Organization not found');
         }
 
-        if ($member->isOwner() === false && $member->isAdministrator() === false) {
-            throw new ModelNotFoundException('Organization not found');
+        if (! $member->hasPermission(PermissionEnum::RoleManage->value)) {
+            throw new ModelNotFoundException('Permission denied');
         }
     }
 

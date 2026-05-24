@@ -16,11 +16,9 @@
       </div>
 
       @if (isset($member))
-        @if ($member->isOwner() || $member->isAdministrator())
-          <div class="ml-4">
-            <a href="{{ route('organization.adminland.index', $organization) }}" data-turbo="true" class="rounded-md border border-transparent px-2 py-1 font-medium hover:border-gray-200 hover:bg-gray-100 dark:hover:border-gray-700 dark:hover:bg-gray-800">{{ __('Adminland') }}</a>
-          </div>
-        @endif
+        <div class="ml-4">
+          <a href="{{ route('organization.adminland.index', $organization) }}" data-turbo="true" class="rounded-md border border-transparent px-2 py-1 font-medium hover:border-gray-200 hover:bg-gray-100 dark:hover:border-gray-700 dark:hover:bg-gray-800">{{ __('Adminland') }}</a>
+        </div>
       @endif
     @endif
 

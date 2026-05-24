@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Actions;
 
 use App\Actions\JoinOrganization;
+use App\Enums\PermissionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Organization;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -68,7 +69,12 @@ class JoinOrganizationTest extends TestCase
     public function it_rejects_if_user_is_already_a_member(): void
     {
         $user = $this->createUser();
-        $organization = $this->addOrganization($user);
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [PermissionEnum::RoleManage->value]
+        );
         $organization->update(['invitation_code' => 'ABC123']);
 
         $this->expectException(ValidationException::class);

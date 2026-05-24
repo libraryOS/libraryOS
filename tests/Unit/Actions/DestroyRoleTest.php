@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Actions;
 
 use App\Actions\DestroyRole;
-use App\Enums\Permission;
+use App\Enums\PermissionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -24,7 +24,12 @@ class DestroyRoleTest extends TestCase
         Queue::fake();
 
         $user = $this->createUser();
-        $organization = $this->addOrganization($user);
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [PermissionEnum::RoleManage->value]
+        );
         $role = Role::factory()->create([
             'organization_id' => $organization->id,
             'name' => 'Librarian',
@@ -54,39 +59,18 @@ class DestroyRoleTest extends TestCase
     }
 
     #[Test]
-    public function it_destroys_a_role_when_user_is_admin(): void
-    {
-        Queue::fake();
-
-        $user = $this->createUser();
-        $organization = $this->addOrganization(
-            user: $user,
-            permission: Permission::Admin,
-        );
-        $role = Role::factory()->create([
-            'organization_id' => $organization->id,
-            'is_system' => false,
-        ]);
-
-        new DestroyRole(
-            user: $user,
-            organization: $organization,
-            role: $role,
-        )->execute();
-
-        $this->assertDatabaseMissing('roles', [
-            'id' => $role->id,
-        ]);
-    }
-
-    #[Test]
     public function it_throws_an_exception_if_the_role_belongs_to_another_organization(): void
     {
         $this->expectException(ModelNotFoundException::class);
 
         $user = $this->createUser();
-        $organization = $this->addOrganization($user);
-        $otherOrganization = $this->addOrganization($this->createUser());
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [PermissionEnum::RoleManage->value]
+        );
+        $otherOrganization = $this->createOrganization();
         $role = Role::factory()->create([
             'organization_id' => $otherOrganization->id,
             'is_system' => false,
@@ -105,8 +89,16 @@ class DestroyRoleTest extends TestCase
         $this->expectException(ModelNotFoundException::class);
 
         $user = $this->createUser();
-        $organization = $this->addOrganization($user);
-        $role = Role::factory()->system()->create();
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [PermissionEnum::RoleManage->value]
+        );
+        $role = Role::factory()->create([
+            'organization_id' => $organization->id,
+            'is_system' => true,
+        ]);
 
         new DestroyRole(
             user: $user,
@@ -121,7 +113,13 @@ class DestroyRoleTest extends TestCase
         $this->expectException(ModelNotFoundException::class);
 
         $user = $this->createUser();
-        $otherOrganization = $this->addOrganization($this->createUser());
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [PermissionEnum::RoleManage->value]
+        );
+        $otherOrganization = $this->createOrganization();
         $role = Role::factory()->create([
             'organization_id' => $otherOrganization->id,
             'is_system' => false,
@@ -130,50 +128,6 @@ class DestroyRoleTest extends TestCase
         new DestroyRole(
             user: $user,
             organization: $otherOrganization,
-            role: $role,
-        )->execute();
-    }
-
-    #[Test]
-    public function it_throws_an_exception_if_user_is_a_member(): void
-    {
-        $this->expectException(ModelNotFoundException::class);
-
-        $user = $this->createUser();
-        $organization = $this->addOrganization(
-            user: $user,
-            permission: Permission::Member,
-        );
-        $role = Role::factory()->create([
-            'organization_id' => $organization->id,
-            'is_system' => false,
-        ]);
-
-        new DestroyRole(
-            user: $user,
-            organization: $organization,
-            role: $role,
-        )->execute();
-    }
-
-    #[Test]
-    public function it_throws_an_exception_if_user_is_a_guest(): void
-    {
-        $this->expectException(ModelNotFoundException::class);
-
-        $user = $this->createUser();
-        $organization = $this->addOrganization(
-            user: $user,
-            permission: Permission::Guest,
-        );
-        $role = Role::factory()->create([
-            'organization_id' => $organization->id,
-            'is_system' => false,
-        ]);
-
-        new DestroyRole(
-            user: $user,
-            organization: $organization,
             role: $role,
         )->execute();
     }

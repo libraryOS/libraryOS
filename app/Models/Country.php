@@ -57,12 +57,12 @@ class Country extends Model
     }
 
     /**
-     * Get the offices in this country.
+     * Get the branches in this country.
      *
-     * @return HasMany<Office, $this>
+     * @return HasMany<Branch, $this>
      */
-    public function offices(): HasMany
+    public function branches(): HasMany
     {
-        return $this->hasMany(Office::class);
+        return $this->hasMany(Branch::class);
     }
 }

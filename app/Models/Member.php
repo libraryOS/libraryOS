@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Enums\Permission;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,8 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $id
  * @property int $organization_id
  * @property int|null $user_id
- * @property int|null $member_type_id
- * @property Permission $permission
+ * @property int|null $role_id
  * @property string|null $timezone
  * @property Carbon|null $birthdate
  * @property Carbon|null $joined_at
@@ -38,8 +36,7 @@ class Member extends Model
     protected $fillable = [
         'organization_id',
         'user_id',
-        'member_type_id',
-        'permission',
+        'role_id',
         'timezone',
         'birthdate',
         'joined_at',
@@ -53,18 +50,7 @@ class Member extends Model
     protected $casts = [
         'birthdate' => 'date',
         'joined_at' => 'datetime',
-        'permission' => Permission::class,
     ];
-
-    /**
-     * Get the member type associated with the member.
-     *
-     * @return BelongsTo<MemberType, $this>
-     */
-    public function memberType(): BelongsTo
-    {
-        return $this->belongsTo(MemberType::class);
-    }
 
     /**
      * Get the user record associated with the member.
@@ -87,18 +73,26 @@ class Member extends Model
     }
 
     /**
-     * Check if the member has admin permissions.
+     * Get the role record associated with the member.
+     *
+     * @return BelongsTo<Role, $this>
      */
-    public function isAdministrator(): bool
+    public function role(): BelongsTo
     {
-        return $this->permission === Permission::Admin;
+        return $this->belongsTo(Role::class);
     }
 
     /**
-     * Check if the member has owner permissions.
+     * Determine whether the member has a given permission key through their assigned role.
      */
-    public function isOwner(): bool
+    public function hasPermission(string $key): bool
     {
-        return $this->permission === Permission::Owner;
+        if ($this->role_id === null) {
+            return false;
+        }
+
+        return $this->role()
+            ->whereHas('permissions', fn ($query) => $query->where('permissions.key', $key))
+            ->exists();
     }
 }

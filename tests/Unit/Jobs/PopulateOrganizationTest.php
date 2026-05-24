@@ -17,7 +17,7 @@ class PopulateOrganizationTest extends TestCase
     public function it_creates_default_roles(): void
     {
         $user = $this->createUser();
-        $organization = $this->addOrganization($user);
+        $organization = $this->createOrganization();
 
         new PopulateOrganization($organization)->handle();
 
@@ -31,46 +31,29 @@ class PopulateOrganizationTest extends TestCase
     public function it_creates_default_permissions(): void
     {
         $user = $this->createUser();
-        $organization = $this->addOrganization($user);
+        $organization = $this->createOrganization();
 
         new PopulateOrganization($organization)->handle();
 
-        $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'organization.view', 'name' => 'View organization', 'is_system' => true]);
-        $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'organization.update', 'name' => 'Update organization', 'is_system' => true]);
+        $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'organization.update', 'name_translation_key' => 'Update organization']);
+        $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'organization.delete', 'name_translation_key' => 'Delete organization']);
 
-        $this->assertEquals(2, $organization->permissions()->count());
+        $this->assertEquals(4, $organization->permissions()->count());
     }
 
     #[Test]
-    public function it_creates_default_office_types(): void
+    public function it_maps_default_permissions_to_roles(): void
     {
         $user = $this->createUser();
-        $organization = $this->addOrganization($user);
+        $organization = $this->createOrganization();
 
         new PopulateOrganization($organization)->handle();
 
-        $this->assertDatabaseHas('office_types', ['organization_id' => $organization->id, 'name' => 'Headquarters', 'position' => 0]);
-        $this->assertDatabaseHas('office_types', ['organization_id' => $organization->id, 'name' => 'Office', 'position' => 1]);
-        $this->assertDatabaseHas('office_types', ['organization_id' => $organization->id, 'name' => 'Remote', 'position' => 2]);
-        $this->assertDatabaseHas('office_types', ['organization_id' => $organization->id, 'name' => 'Coworking', 'position' => 3]);
-        $this->assertDatabaseHas('office_types', ['organization_id' => $organization->id, 'name' => 'Other', 'position' => 4]);
+        $owner = $organization->roles()->where('key', 'owner')->first();
+        $administrator = $organization->roles()->where('key', 'administrator')->first();
 
-        $this->assertEquals(5, $organization->officeTypes()->count());
-    }
-
-    #[Test]
-    public function it_creates_default_member_types(): void
-    {
-        $user = $this->createUser();
-        $organization = $this->addOrganization($user);
-
-        new PopulateOrganization($organization)->handle();
-
-        $this->assertDatabaseHas('member_types', ['organization_id' => $organization->id, 'name' => 'Member', 'position' => 0]);
-        $this->assertDatabaseHas('member_types', ['organization_id' => $organization->id, 'name' => 'Employee', 'position' => 1]);
-        $this->assertDatabaseHas('member_types', ['organization_id' => $organization->id, 'name' => 'Student', 'position' => 2]);
-        $this->assertDatabaseHas('member_types', ['organization_id' => $organization->id, 'name' => 'Freelance', 'position' => 3]);
-
-        $this->assertEquals(4, $organization->memberTypes()->count());
+        $this->assertCount(4, $owner->permissions);
+        $this->assertCount(3, $administrator->permissions);
+        $this->assertEquals('organization.update', $administrator->permissions->first()->key);
     }
 }

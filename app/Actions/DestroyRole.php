@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Enums\PermissionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Member;
 use App\Models\Organization;
@@ -41,16 +42,16 @@ class DestroyRole
             throw new ModelNotFoundException('Organization not found');
         }
 
-        if ($member->isOwner() === false && $member->isAdministrator() === false) {
-            throw new ModelNotFoundException('Organization not found');
-        }
-
         if ($this->role->organization_id !== $this->organization->id) {
             throw new ModelNotFoundException('Role not found');
         }
 
         if ($this->role->is_system) {
             throw new ModelNotFoundException('Role not found');
+        }
+
+        if (! $member->hasPermission(PermissionEnum::RoleManage->value)) {
+            throw new ModelNotFoundException('Permission denied');
         }
     }
 

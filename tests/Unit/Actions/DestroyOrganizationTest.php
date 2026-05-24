@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Actions;
 
 use App\Actions\DestroyOrganization;
+use App\Enums\PermissionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Organization;
 use App\Models\User;
@@ -23,7 +24,12 @@ class DestroyOrganizationTest extends TestCase
     {
         Queue::fake();
         $user = $this->createUser();
-        $organization = $this->addOrganization($user);
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [PermissionEnum::OrganizationDelete->value]
+        );
 
         new DestroyOrganization(
             user: $user,

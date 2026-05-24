@@ -17,7 +17,12 @@ class OrganizationControllerTest extends TestCase
     public function it_shows_the_list_of_organizations(): void
     {
         $user = $this->createUser();
-        $this->addOrganization($user);
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [],
+        );
 
         $response = $this->actingAs($user)->get('/organizations');
 
@@ -58,7 +63,12 @@ class OrganizationControllerTest extends TestCase
     public function it_shows_a_single_organization(): void
     {
         $user = $this->createUser();
-        $organization = $this->addOrganization($user, 'Dunder Mifflin');
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [],
+        );
 
         $response = $this->actingAs($user)
             ->get('/organizations/'.$organization->slug);
