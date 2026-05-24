@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Enums\PermissionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Organization;
 use App\Models\User;
@@ -31,6 +32,12 @@ class DestroyOrganization
     {
         if ($this->user->isPartOfOrganization($this->organization) === false) {
             throw new ModelNotFoundException('Organization not found');
+        }
+
+        $member = $this->user->memberOf($this->organization);
+
+        if (! $member->hasPermission(PermissionEnum::OrganizationDelete->value)) {
+            throw new ModelNotFoundException('Permission denied');
         }
     }
 

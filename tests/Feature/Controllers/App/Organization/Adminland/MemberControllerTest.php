@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Controllers\App\Organization\Adminland;
 
 use App\Models\Member;
+use App\Models\Organization;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -17,7 +18,12 @@ class MemberControllerTest extends TestCase
     public function it_lists_the_members_of_an_organization(): void
     {
         $user = $this->createUser();
-        $organization = $this->addOrganization($user);
+        $organization = Organization::factory()->create();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [],
+        );
 
         $otherUser = $this->createUser();
         Member::factory()->create([

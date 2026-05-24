@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Enums\PermissionEnum;
 use App\Helpers\TextSanitizer;
 use App\Jobs\LogUserAction;
 use App\Models\Organization;
@@ -45,6 +46,12 @@ class UpdateOrganization
             throw ValidationException::withMessages([
                 'organization_name' => 'Organization name can only contain letters, numbers, spaces, hyphens and underscores',
             ]);
+        }
+
+        $member = $this->user->memberOf($this->organization);
+
+        if (! $member->hasPermission(PermissionEnum::OrganizationUpdate->value)) {
+            throw new ModelNotFoundException('Permission denied');
         }
     }
 

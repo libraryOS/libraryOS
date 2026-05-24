@@ -12,6 +12,5 @@ Use the following checklist
 - [ ] Add the corresponding model factory. Use fake data to populate the factory for testing purposes.
 - [ ] Create the test file for the model. It is located in /tests/Unit/Models/ and should be named after the model (e.g., UserTest.php for a User model).
 - [ ] Add test methods to test the existence of relationships.
-- [ ] When using fake fata in tests, use reference to the tv show The Office.
 - [ ] Check each related model in the migration to add the proper tests in those models. For instance, if the new model has a belongsTo relationship with another model, add a test in that model to check the hasMany relationship.
 ```

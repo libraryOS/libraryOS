@@ -65,43 +65,13 @@ class Organization extends Model
     }
 
     /**
-     * Get the offices of the organization.
+     * Get the branches of the organization.
      *
-     * @return HasMany<Office, $this>
+     * @return HasMany<Branch, $this>
      */
-    public function offices(): HasMany
+    public function branches(): HasMany
     {
-        return $this->hasMany(Office::class);
-    }
-
-    /**
-     * Get the office types of the organization.
-     *
-     * @return HasMany<OfficeType, $this>
-     */
-    public function officeTypes(): HasMany
-    {
-        return $this->hasMany(OfficeType::class);
-    }
-
-    /**
-     * Get the employee types of the organization.
-     *
-     * @return HasMany<MemberType, $this>
-     */
-    public function memberTypes(): HasMany
-    {
-        return $this->hasMany(MemberType::class);
-    }
-
-    /**
-     * Get the departments of the organization.
-     *
-     * @return HasMany<Department, $this>
-     */
-    public function departments(): HasMany
-    {
-        return $this->hasMany(Department::class);
+        return $this->hasMany(Branch::class);
     }
 
     /**

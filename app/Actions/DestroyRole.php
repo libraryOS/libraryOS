@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Enums\PermissionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Member;
 use App\Models\Organization;
@@ -47,6 +48,10 @@ class DestroyRole
 
         if ($this->role->is_system) {
             throw new ModelNotFoundException('Role not found');
+        }
+
+        if (! $member->hasPermission(PermissionEnum::RoleManage->value)) {
+            throw new ModelNotFoundException('Permission denied');
         }
     }
 

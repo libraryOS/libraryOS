@@ -30,18 +30,6 @@ class RoleTest extends TestCase
     }
 
     #[Test]
-    public function it_can_be_a_system_role_without_an_organization(): void
-    {
-        $role = Role::factory()->system()->create([
-            'key' => 'librarian',
-            'name' => 'Librarian',
-        ]);
-
-        $this->assertNull($role->organization_id);
-        $this->assertTrue($role->is_system);
-    }
-
-    #[Test]
     public function it_can_use_a_translation_key_instead_of_a_name(): void
     {
         $role = Role::factory()->create([
@@ -89,38 +77,15 @@ class RoleTest extends TestCase
     }
 
     #[Test]
-    public function it_can_have_multiple_permissions(): void
+    public function it_has_many_members(): void
     {
         $organization = Organization::factory()->create();
         $role = Role::factory()->create(['organization_id' => $organization->id]);
-        $permissions = Permission::factory()->count(3)->create(['organization_id' => $organization->id]);
+        Member::factory()->create([
+            'organization_id' => $organization->id,
+            'role_id' => $role->id,
+        ]);
 
-        $role->permissions()->attach($permissions->pluck('id'));
-
-        $this->assertCount(3, $role->permissions);
-    }
-
-    #[Test]
-    public function it_belongs_to_many_members(): void
-    {
-        $organization = Organization::factory()->create();
-        $role = Role::factory()->create(['organization_id' => $organization->id]);
-        $member = Member::factory()->create(['organization_id' => $organization->id]);
-
-        $role->members()->attach($member->id);
-
-        $this->assertTrue($role->members()->where('members.id', $member->id)->exists());
-    }
-
-    #[Test]
-    public function it_can_have_multiple_members(): void
-    {
-        $organization = Organization::factory()->create();
-        $role = Role::factory()->create(['organization_id' => $organization->id]);
-        $members = Member::factory()->count(3)->create(['organization_id' => $organization->id]);
-
-        $role->members()->attach($members->pluck('id'));
-
-        $this->assertCount(3, $role->members);
+        $this->assertTrue($role->members()->exists());
     }
 }

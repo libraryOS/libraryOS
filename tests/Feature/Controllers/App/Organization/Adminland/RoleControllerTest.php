@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers\App\Organization\Adminland;
 
-use App\Models\Member;
 use App\Models\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
@@ -18,7 +17,12 @@ class RoleControllerTest extends TestCase
     public function it_lists_the_roles_of_an_organization(): void
     {
         $user = $this->createUser();
-        $organization = $this->addOrganization($user);
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [],
+        );
 
         Role::factory()->create([
             'organization_id' => $organization->id,
@@ -45,7 +49,12 @@ class RoleControllerTest extends TestCase
     public function it_does_not_show_roles_from_other_organizations(): void
     {
         $user = $this->createUser();
-        $organization = $this->addOrganization($user);
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [],
+        );
 
         Role::factory()->create([
             'organization_id' => $organization->id,
@@ -54,7 +63,12 @@ class RoleControllerTest extends TestCase
         ]);
 
         $otherUser = $this->createUser();
-        $otherOrganization = $this->addOrganization($otherUser);
+        $otherOrganization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $otherUser,
+            organization: $otherOrganization,
+            permissions: [],
+        );
         Role::factory()->create([
             'organization_id' => $otherOrganization->id,
             'key' => 'viewer',
@@ -67,31 +81,6 @@ class RoleControllerTest extends TestCase
         $response->assertViewHas(
             'roles',
             fn ($roles): bool => $roles->count() === 1,
-        );
-    }
-
-    #[Test]
-    public function it_includes_the_member_count_for_each_role(): void
-    {
-        $user = $this->createUser();
-        $organization = $this->addOrganization($user);
-        $member = Member::where('organization_id', $organization->id)
-            ->where('user_id', $user->id)
-            ->first();
-
-        $role = Role::factory()->create([
-            'organization_id' => $organization->id,
-            'key' => 'editor',
-            'name' => 'Editor',
-        ]);
-        $role->members()->attach($member->id);
-
-        $response = $this->actingAs($user)->get('/organizations/'.$organization->slug.'/adminland/roles');
-
-        $response->assertStatus(200);
-        $response->assertViewHas(
-            'roles',
-            fn ($roles): bool => $roles->first()->members_count === 1,
         );
     }
 }

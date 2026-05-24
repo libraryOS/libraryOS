@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('roles', function (Blueprint $table): void {
             $table->id()->comment('unique identifier of the role.');
-            $table->unsignedBigInteger('organization_id')->nullable()->comment('the organization this role belongs to.');
+            $table->unsignedBigInteger('organization_id')->comment('the organization this role belongs to.');
             $table->string('key')->comment('stable machine-readable role key, such as owner, administrator, librarian, or circulation_staff.');
-            $table->string('name')->comment('human-readable role name shown in the interface.')->nullable();
-            $table->string('name_translation_key')->comment('translation key for the role name.')->nullable();
+            $table->string('name')->nullable()->comment('human-readable role name shown in the interface.');
+            $table->string('name_translation_key')->nullable()->comment('translation key for the role name.');
             $table->text('description')->nullable()->comment('optional explanation of the purpose of this role.');
             $table->boolean('is_system')->default(true)->comment('indicates whether this role is managed by LibraryOS and should not be deleted or modified by organizations.');
             $table->timestamps();
 
-            $table->foreign('organization_id')->references('id')->on('organizations')->nullOnDelete();
+            $table->foreign('organization_id')->references('id')->on('organizations')->cascadeOnDelete();
         });
     }
 

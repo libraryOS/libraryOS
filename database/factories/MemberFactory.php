@@ -6,8 +6,8 @@ namespace Database\Factories;
 
 use App\Models\Member;
 use App\Models\Organization;
-use App\Models\User;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Models;
 
-use App\Models\Department;
+use App\Models\Branch;
 use App\Models\Member;
-use App\Models\MemberType;
-use App\Models\Office;
-use App\Models\OfficeType;
 use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Role;
@@ -32,47 +29,14 @@ class OrganizationTest extends TestCase
     }
 
     #[Test]
-    public function it_has_many_offices(): void
+    public function it_has_many_branches(): void
     {
         $organization = Organization::factory()->create();
-        Office::factory()->create([
+        Branch::factory()->create([
             'organization_id' => $organization->id,
         ]);
 
-        $this->assertTrue($organization->offices()->exists());
-    }
-
-    #[Test]
-    public function it_has_many_office_types(): void
-    {
-        $organization = Organization::factory()->create();
-        OfficeType::factory()->create([
-            'organization_id' => $organization->id,
-        ]);
-
-        $this->assertTrue($organization->officeTypes()->exists());
-    }
-
-    #[Test]
-    public function it_has_many_member_types(): void
-    {
-        $organization = Organization::factory()->create();
-        MemberType::factory()->create([
-            'organization_id' => $organization->id,
-        ]);
-
-        $this->assertTrue($organization->memberTypes()->exists());
-    }
-
-    #[Test]
-    public function it_has_many_departments(): void
-    {
-        $organization = Organization::factory()->create();
-        Department::factory()->create([
-            'organization_id' => $organization->id,
-        ]);
-
-        $this->assertTrue($organization->departments()->exists());
+        $this->assertTrue($organization->branches()->exists());
     }
 
     #[Test]

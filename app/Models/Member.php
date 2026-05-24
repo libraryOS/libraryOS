@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Enums\Permission;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Class Member
@@ -94,5 +91,19 @@ class Member extends Model
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
+    }
+
+    /**
+     * Determine whether the member has a given permission key through their assigned role.
+     */
+    public function hasPermission(string $key): bool
+    {
+        if ($this->role_id === null) {
+            return false;
+        }
+
+        return $this->role()
+            ->whereHas('permissions', fn ($query) => $query->where('permissions.key', $key))
+            ->exists();
     }
 }

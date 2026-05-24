@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
-use App\Enums\Permission;
 use App\Helpers\TextSanitizer;
 use App\Jobs\LogUserAction;
 use App\Jobs\PopulateOrganization;
@@ -90,7 +89,6 @@ class CreateOrganization
             'organization_id' => $this->organization->id,
             'user_id' => $this->user->id,
             'joined_at' => now(),
-            'permission' => Permission::Owner,
         ]);
     }
 

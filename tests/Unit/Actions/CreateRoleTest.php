@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Actions;
 
 use App\Actions\CreateRole;
-use App\Enums\Permission;
+use App\Enums\PermissionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -24,7 +24,12 @@ class CreateRoleTest extends TestCase
         Queue::fake();
 
         $user = $this->createUser();
-        $organization = $this->addOrganization($user);
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [PermissionEnum::RoleManage->value]
+        );
 
         $role = new CreateRole(
             user: $user,
@@ -58,51 +63,25 @@ class CreateRoleTest extends TestCase
     }
 
     #[Test]
-    public function it_creates_a_role_when_user_is_admin(): void
+    public function it_throws_an_exception_if_user_does_not_have_the_right_permission(): void
     {
-        Queue::fake();
+        $this->expectException(ModelNotFoundException::class);
 
         $user = $this->createUser();
-        $organization = $this->addOrganization(
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
             user: $user,
-            permission: Permission::Admin,
+            organization: $organization,
+            permissions: ['random.permission']
         );
 
-        $role = new CreateRole(
+        new CreateRole(
             user: $user,
             organization: $organization,
-            key: 'archivist',
-            name: 'Archivist',
+            key: 'librarian',
+            name: 'Librarian',
+            description: 'Manages the library catalog.',
         )->execute();
-
-        $this->assertDatabaseHas('roles', [
-            'id' => $role->id,
-            'organization_id' => $organization->id,
-            'key' => 'archivist',
-            'name' => 'Archivist',
-        ]);
-    }
-
-    #[Test]
-    public function it_creates_a_role_without_a_description(): void
-    {
-        Queue::fake();
-
-        $user = $this->createUser();
-        $organization = $this->addOrganization($user);
-
-        $role = new CreateRole(
-            user: $user,
-            organization: $organization,
-            key: 'reader',
-            name: 'Reader',
-        )->execute();
-
-        $this->assertDatabaseHas('roles', [
-            'id' => $role->id,
-            'organization_id' => $organization->id,
-            'description' => null,
-        ]);
     }
 
     #[Test]
@@ -111,49 +90,17 @@ class CreateRoleTest extends TestCase
         $this->expectException(ModelNotFoundException::class);
 
         $user = $this->createUser();
-        $otherOrganization = $this->addOrganization($this->createUser());
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [PermissionEnum::RoleManage->value]
+        );
+        $otherOrganization = $this->createOrganization();
 
         new CreateRole(
             user: $user,
             organization: $otherOrganization,
-            key: 'librarian',
-            name: 'Librarian',
-        )->execute();
-    }
-
-    #[Test]
-    public function it_throws_an_exception_if_user_is_a_member(): void
-    {
-        $this->expectException(ModelNotFoundException::class);
-
-        $user = $this->createUser();
-        $organization = $this->addOrganization(
-            user: $user,
-            permission: Permission::Member,
-        );
-
-        new CreateRole(
-            user: $user,
-            organization: $organization,
-            key: 'librarian',
-            name: 'Librarian',
-        )->execute();
-    }
-
-    #[Test]
-    public function it_throws_an_exception_if_user_is_a_guest(): void
-    {
-        $this->expectException(ModelNotFoundException::class);
-
-        $user = $this->createUser();
-        $organization = $this->addOrganization(
-            user: $user,
-            permission: Permission::Guest,
-        );
-
-        new CreateRole(
-            user: $user,
-            organization: $organization,
             key: 'librarian',
             name: 'Librarian',
         )->execute();

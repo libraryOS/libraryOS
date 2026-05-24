@@ -27,7 +27,6 @@ class MemberResource extends JsonResource
                 'user_id' => $this->user_id,
                 'name' => $this->user?->getFullName(),
                 'email' => $this->user?->email,
-                'permission' => $this->permission->value,
                 'timezone' => $this->timezone,
                 'birthdate' => $this->birthdate?->timestamp,
                 'joined_at' => $this->joined_at?->timestamp,

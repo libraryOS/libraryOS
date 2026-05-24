@@ -23,7 +23,6 @@ class MemberControllerTest extends TestCase
                 'user_id',
                 'name',
                 'email',
-                'permission',
                 'timezone',
                 'birthdate',
                 'joined_at',
@@ -40,7 +39,12 @@ class MemberControllerTest extends TestCase
     public function it_lists_members_for_an_organization(): void
     {
         $user = $this->createUser();
-        $organization = $this->addOrganization($user, 'Dunder Mifflin');
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [],
+        );
 
         Member::factory()->create([
             'organization_id' => $organization->id,
@@ -67,7 +71,12 @@ class MemberControllerTest extends TestCase
     public function it_returns_only_members_belonging_to_the_organization(): void
     {
         $user = $this->createUser();
-        $organization = $this->addOrganization($user, 'Dunder Mifflin');
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [],
+        );
 
         // Create a member in a different organization — should not appear
         Member::factory()->create();
@@ -84,7 +93,7 @@ class MemberControllerTest extends TestCase
     public function it_restricts_listing_members_to_organization_members(): void
     {
         $user = $this->createUser();
-        $organization = Organization::factory()->create();
+        $organization = $this->createOrganization();
 
         Sanctum::actingAs($user);
 
@@ -97,7 +106,12 @@ class MemberControllerTest extends TestCase
     public function it_can_show_a_member(): void
     {
         $user = $this->createUser();
-        $organization = $this->addOrganization($user, 'Dunder Mifflin');
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [],
+        );
         $member = Member::factory()->create([
             'organization_id' => $organization->id,
         ]);
@@ -114,7 +128,12 @@ class MemberControllerTest extends TestCase
     public function it_returns_404_when_showing_a_member_from_another_organization(): void
     {
         $user = $this->createUser();
-        $organization = $this->addOrganization($user, 'Dunder Mifflin');
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [],
+        );
         $otherMember = Member::factory()->create();
 
         Sanctum::actingAs($user);

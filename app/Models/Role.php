@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Role
@@ -85,11 +86,11 @@ class Role extends Model
     /**
      * Get the members assigned to this role.
      *
-     * @return BelongsToMany<Member, $this>
+     * @return HasMany<Member, $this>
      */
-    public function members(): BelongsToMany
+    public function members(): HasMany
     {
-        return $this->belongsToMany(Member::class)->withTimestamps();
+        return $this->hasMany(Member::class);
     }
 
     /**

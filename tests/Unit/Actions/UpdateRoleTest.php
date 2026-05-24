@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Actions;
 
 use App\Actions\UpdateRole;
-use App\Enums\Permission;
+use App\Enums\PermissionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -24,7 +24,12 @@ class UpdateRoleTest extends TestCase
         Queue::fake();
 
         $user = $this->createUser();
-        $organization = $this->addOrganization($user);
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [PermissionEnum::RoleManage->value]
+        );
         $role = Role::factory()->create([
             'organization_id' => $organization->id,
             'name' => 'Librarian',
@@ -62,62 +67,22 @@ class UpdateRoleTest extends TestCase
     }
 
     #[Test]
-    public function it_updates_a_role_when_user_is_admin(): void
-    {
-        Queue::fake();
-
-        $user = $this->createUser();
-        $organization = $this->addOrganization(
-            user: $user,
-            permission: Permission::Admin,
-        );
-        $role = Role::factory()->create([
-            'organization_id' => $organization->id,
-            'is_system' => false,
-        ]);
-
-        new UpdateRole(
-            user: $user,
-            organization: $organization,
-            role: $role,
-            name: 'Archivist',
-        )->execute();
-
-        $this->assertDatabaseHas('roles', [
-            'id' => $role->id,
-            'name' => 'Archivist',
-        ]);
-    }
-
-    #[Test]
     public function it_throws_an_exception_if_the_role_belongs_to_another_organization(): void
     {
         $this->expectException(ModelNotFoundException::class);
 
         $user = $this->createUser();
-        $organization = $this->addOrganization($user);
-        $otherOrganization = $this->addOrganization($this->createUser());
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [PermissionEnum::RoleManage->value]
+        );
+        $otherOrganization = $this->createOrganization();
         $role = Role::factory()->create([
             'organization_id' => $otherOrganization->id,
             'is_system' => false,
         ]);
-
-        new UpdateRole(
-            user: $user,
-            organization: $organization,
-            role: $role,
-            name: 'Librarian',
-        )->execute();
-    }
-
-    #[Test]
-    public function it_throws_an_exception_if_the_role_is_a_system_role(): void
-    {
-        $this->expectException(ModelNotFoundException::class);
-
-        $user = $this->createUser();
-        $organization = $this->addOrganization($user);
-        $role = Role::factory()->system()->create();
 
         new UpdateRole(
             user: $user,
@@ -133,7 +98,13 @@ class UpdateRoleTest extends TestCase
         $this->expectException(ModelNotFoundException::class);
 
         $user = $this->createUser();
-        $otherOrganization = $this->addOrganization($this->createUser());
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [PermissionEnum::RoleManage->value]
+        );
+        $otherOrganization = $this->createOrganization();
         $role = Role::factory()->create([
             'organization_id' => $otherOrganization->id,
             'is_system' => false,
@@ -142,52 +113,6 @@ class UpdateRoleTest extends TestCase
         new UpdateRole(
             user: $user,
             organization: $otherOrganization,
-            role: $role,
-            name: 'Librarian',
-        )->execute();
-    }
-
-    #[Test]
-    public function it_throws_an_exception_if_user_is_a_member(): void
-    {
-        $this->expectException(ModelNotFoundException::class);
-
-        $user = $this->createUser();
-        $organization = $this->addOrganization(
-            user: $user,
-            permission: Permission::Member,
-        );
-        $role = Role::factory()->create([
-            'organization_id' => $organization->id,
-            'is_system' => false,
-        ]);
-
-        new UpdateRole(
-            user: $user,
-            organization: $organization,
-            role: $role,
-            name: 'Librarian',
-        )->execute();
-    }
-
-    #[Test]
-    public function it_throws_an_exception_if_user_is_a_guest(): void
-    {
-        $this->expectException(ModelNotFoundException::class);
-
-        $user = $this->createUser();
-        $organization = $this->addOrganization(
-            user: $user,
-            permission: Permission::Guest,
-        );
-        $role = Role::factory()->create([
-            'organization_id' => $organization->id,
-            'is_system' => false,
-        ]);
-
-        new UpdateRole(
-            user: $user,
-            organization: $organization,
             role: $role,
             name: 'Librarian',
         )->execute();

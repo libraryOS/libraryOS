@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Enums\PermissionEnum;
 use App\Helpers\TextSanitizer;
 use App\Jobs\LogUserAction;
 use App\Models\Member;
@@ -58,6 +59,10 @@ class UpdateRole
 
         if ($this->role->is_system) {
             throw new ModelNotFoundException('Role not found');
+        }
+
+        if (! $member->hasPermission(PermissionEnum::RoleManage->value)) {
+            throw new ModelNotFoundException('Permission denied');
         }
     }
 

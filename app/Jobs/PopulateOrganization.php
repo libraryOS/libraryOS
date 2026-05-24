@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Jobs;
 
+use App\Enums\PermissionEnum;
 use App\Models\Organization;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -25,8 +26,7 @@ class PopulateOrganization implements ShouldQueue
         $this->addDefaultRoles();
         $this->addDefaultPermissions();
         $this->mapPermissionsWithRoles();
-        $this->addOfficeTypes();
-        $this->addMemberTypes();
+        $this->assignFirstUserAsOwner();
     }
 
     private function addDefaultRoles(): void
@@ -61,6 +61,16 @@ class PopulateOrganization implements ShouldQueue
                 'name_translation_key' => trans_key('Delete organization'),
                 'description' => trans_key('Allows the user to permanently delete the organization and all associated data.'),
             ],
+            [
+                'key' => PermissionEnum::RoleManage->value,
+                'name_translation_key' => trans_key('Manage roles'),
+                'description' => trans_key('Allows the user to manage role settings.'),
+            ],
+            [
+                'key' => PermissionEnum::BranchManage->value,
+                'name_translation_key' => trans_key('Manage branches'),
+                'description' => trans_key('Allows the user to manage branches settings and configurations.'),
+            ],
         ];
 
         $this->organization->permissions()->createMany($permissionsData);
@@ -70,11 +80,15 @@ class PopulateOrganization implements ShouldQueue
     {
         $mapping = [
             'owner' => [
-                'organization.update',
-                'organization.delete',
+                PermissionEnum::OrganizationUpdate->value,
+                PermissionEnum::OrganizationDelete->value,
+                PermissionEnum::RoleManage->value,
+                PermissionEnum::BranchManage->value,
             ],
             'administrator' => [
-                'organization.update',
+                PermissionEnum::OrganizationUpdate->value,
+                PermissionEnum::RoleManage->value,
+                PermissionEnum::BranchManage->value,
             ],
         ];
 
@@ -84,20 +98,25 @@ class PopulateOrganization implements ShouldQueue
 
         $pivotRows = [];
 
+        // loop through the mapping and prepare pivot rows for batch insertion
         foreach ($mapping as $roleKey => $permissionKeys) {
             $role = $roles->get($roleKey);
 
+            // if the role doesn't exist, skip to the next one
             if (! $role) {
                 continue;
             }
 
+            // loop through the permission keys for this role and prepare pivot rows
             foreach ($permissionKeys as $permissionKey) {
                 $permission = $permissions->get($permissionKey);
 
+                // if the permission doesn't exist, skip to the next one
                 if (! $permission) {
                     continue;
                 }
 
+                // prepare a pivot row for the role-permission relationship
                 $pivotRows[] = [
                     'role_id' => $role->id,
                     'permission_id' => $permission->id,
@@ -107,42 +126,19 @@ class PopulateOrganization implements ShouldQueue
             }
         }
 
+        // insert the pivot rows into the permission_role table in a single query
         if ($pivotRows !== []) {
             DB::table('permission_role')->insert($pivotRows);
         }
     }
 
-    private function addOfficeTypes(): void
+    private function assignFirstUserAsOwner(): void
     {
-        $types = [
-            'Headquarters',
-            'Office',
-            'Remote',
-            'Coworking',
-            'Other',
-        ];
+        $firstMember = $this->organization->members()->first();
 
-        foreach ($types as $position => $name) {
-            $this->organization->officeTypes()->create([
-                'name' => $name,
-                'position' => $position,
-            ]);
-        }
-    }
-
-    private function addMemberTypes(): void
-    {
-        $types = [
-            'Member',
-            'Employee',
-            'Student',
-            'Freelance',
-        ];
-
-        foreach ($types as $position => $name) {
-            $this->organization->memberTypes()->create([
-                'name' => $name,
-                'position' => $position,
+        if ($firstMember) {
+            $firstMember->update([
+                'role_id' => $this->organization->roles()->where('key', 'owner')->first()->id,
             ]);
         }
     }

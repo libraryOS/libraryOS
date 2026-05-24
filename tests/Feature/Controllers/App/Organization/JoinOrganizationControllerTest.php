@@ -66,7 +66,12 @@ class JoinOrganizationControllerTest extends TestCase
     public function it_fails_if_user_is_already_a_member(): void
     {
         $user = $this->createUser();
-        $organization = $this->addOrganization($user);
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [],
+        );
         $organization->update(['invitation_code' => 'ABC123']);
 
         $response = $this->actingAs($user)->post('/organizations/join', [

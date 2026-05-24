@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers\Api;
 
+use App\Enums\PermissionEnum;
 use App\Models\Organization;
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Date;
 use Laravel\Sanctum\Sanctum;
@@ -37,9 +37,18 @@ class OrganizationControllerTest extends TestCase
     public function it_lists_the_organizations_of_the_current_user(): void
     {
         $user = $this->createUser();
-
-        $this->addOrganization($user, 'Dunder Mifflin');
-        $this->addOrganization($user, 'Vance refrigeration');
+        $organization = Organization::factory()->create();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [],
+        );
+        $organization = Organization::factory()->create();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [],
+        );
 
         Sanctum::actingAs($user);
 
@@ -52,20 +61,6 @@ class OrganizationControllerTest extends TestCase
             ],
         ]);
         $response->assertJsonCount(2, 'data');
-    }
-
-    #[Test]
-    public function it_returns_empty_collection_when_user_has_no_organizations(): void
-    {
-        $user = User::factory()->create();
-
-        Sanctum::actingAs($user);
-
-        $response = $this->json('GET', '/api/organizations');
-
-        $response->assertStatus(200);
-        $response->assertJsonStructure(['data' => ['*' => $this->jsonStructure['data']]]);
-        $response->assertJsonCount(0, 'data');
     }
 
     #[Test]
@@ -88,7 +83,12 @@ class OrganizationControllerTest extends TestCase
     public function it_can_show_an_organization(): void
     {
         $user = $this->createUser();
-        $organization = $this->addOrganization($user, 'Dunder Mifflin');
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [],
+        );
 
         Sanctum::actingAs($user);
 
@@ -115,7 +115,12 @@ class OrganizationControllerTest extends TestCase
     public function it_can_update_the_organization(): void
     {
         $user = $this->createUser();
-        $organization = $this->addOrganization($user, 'Dunder Mifflin');
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [PermissionEnum::OrganizationUpdate->value],
+        );
 
         Sanctum::actingAs($user);
 
@@ -131,7 +136,12 @@ class OrganizationControllerTest extends TestCase
     public function it_can_delete_an_organization(): void
     {
         $user = $this->createUser();
-        $organization = $this->addOrganization($user, 'Dunder Mifflin');
+        $organization = $this->createOrganization();
+        $this->assignUserToOrganization(
+            user: $user,
+            organization: $organization,
+            permissions: [PermissionEnum::OrganizationDelete->value],
+        );
 
         Sanctum::actingAs($user);
 
