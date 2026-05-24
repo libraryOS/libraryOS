@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Class Member
@@ -16,8 +17,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $id
  * @property int $organization_id
  * @property int|null $user_id
+ * @property int|null $role_id
  * @property int|null $member_type_id
- * @property Permission $permission
  * @property string|null $timezone
  * @property Carbon|null $birthdate
  * @property Carbon|null $joined_at
@@ -39,7 +40,7 @@ class Member extends Model
         'organization_id',
         'user_id',
         'member_type_id',
-        'permission',
+        'role_id',
         'timezone',
         'birthdate',
         'joined_at',
@@ -53,7 +54,6 @@ class Member extends Model
     protected $casts = [
         'birthdate' => 'date',
         'joined_at' => 'datetime',
-        'permission' => Permission::class,
     ];
 
     /**
@@ -87,18 +87,12 @@ class Member extends Model
     }
 
     /**
-     * Check if the member has admin permissions.
+     * Get the role record associated with the member.
+     *
+     * @return BelongsTo<Role, $this>
      */
-    public function isAdministrator(): bool
+    public function role(): BelongsTo
     {
-        return $this->permission === Permission::Admin;
-    }
-
-    /**
-     * Check if the member has owner permissions.
-     */
-    public function isOwner(): bool
-    {
-        return $this->permission === Permission::Owner;
+        return $this->belongsTo(Role::class);
     }
 }

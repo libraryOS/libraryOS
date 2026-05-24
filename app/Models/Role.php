@@ -83,6 +83,16 @@ class Role extends Model
     }
 
     /**
+     * Get the members assigned to this role.
+     *
+     * @return BelongsToMany<Member, $this>
+     */
+    public function members(): BelongsToMany
+    {
+        return $this->belongsToMany(Member::class)->withTimestamps();
+    }
+
+    /**
      * Get the display name of the role.
      * Returns the name field if set, otherwise returns the translated value of
      * name_translation_key.

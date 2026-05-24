@@ -7,6 +7,7 @@ namespace App\Jobs;
 use App\Models\Organization;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\DB;
 
 class PopulateOrganization implements ShouldQueue
 {
@@ -23,6 +24,7 @@ class PopulateOrganization implements ShouldQueue
     {
         $this->addDefaultRoles();
         $this->addDefaultPermissions();
+        $this->mapPermissionsWithRoles();
         $this->addOfficeTypes();
         $this->addMemberTypes();
     }
@@ -49,21 +51,65 @@ class PopulateOrganization implements ShouldQueue
     {
         $permissionsData = [
             [
-                'key' => 'organization.view',
-                'name' => trans_key('View organization'),
-                'description' => trans_key('Allows the user to view the organization settings and information.'),
-                'is_system' => true,
+                'key' => 'organization.update',
+                'name_translation_key' => trans_key('Update organization'),
+                'description' => trans_key('Allows the user to update the organization information, such as its name, branding, and general configuration.'),
             ],
 
             [
-                'key' => 'organization.update',
-                'name' => trans_key('Update organization'),
-                'description' => trans_key('Allows the user to update the organization settings and information.'),
-                'is_system' => true,
+                'key' => 'organization.delete',
+                'name_translation_key' => trans_key('Delete organization'),
+                'description' => trans_key('Allows the user to permanently delete the organization and all associated data.'),
             ],
         ];
 
         $this->organization->permissions()->createMany($permissionsData);
+    }
+
+    private function mapPermissionsWithRoles(): void
+    {
+        $mapping = [
+            'owner' => [
+                'organization.update',
+                'organization.delete',
+            ],
+            'administrator' => [
+                'organization.update',
+            ],
+        ];
+
+        $roles = $this->organization->roles()->get()->keyBy('key');
+        $permissions = $this->organization->permissions()->get()->keyBy('key');
+        $now = now();
+
+        $pivotRows = [];
+
+        foreach ($mapping as $roleKey => $permissionKeys) {
+            $role = $roles->get($roleKey);
+
+            if (! $role) {
+                continue;
+            }
+
+            foreach ($permissionKeys as $permissionKey) {
+                $permission = $permissions->get($permissionKey);
+
+                if (! $permission) {
+                    continue;
+                }
+
+                $pivotRows[] = [
+                    'role_id' => $role->id,
+                    'permission_id' => $permission->id,
+                    'created_at' => $now,
+                    'updated_at' => $now,
+                ];
+            }
+        }
+
+        if ($pivotRows !== []) {
+            DB::table('permission_role')->insert($pivotRows);
+        }
     }
 
     private function addOfficeTypes(): void

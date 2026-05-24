@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Enums\Permission;
 use App\Models\Member;
 use App\Models\Organization;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -27,7 +27,7 @@ class MemberFactory extends Factory
         return [
             'organization_id' => Organization::factory(),
             'user_id' => User::factory(),
-            'permission' => Permission::Member,
+            'role_id' => Role::factory(),
             'timezone' => fake()->timezone(),
             'birthdate' => null,
             'joined_at' => now(),

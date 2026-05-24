@@ -15,9 +15,8 @@ return new class extends Migration
             $table->id()->comment('unique identifier of the permission.');
             $table->unsignedBigInteger('organization_id')->comment('the organization this permission belongs to.');
             $table->string('key')->comment('stable machine-readable permission key, such as loan.create or patron.view_history.');
-            $table->string('name')->comment('human-readable permission name shown in the interface.');
+            $table->string('name_translation_key')->comment('translation key for the human-readable permission name shown in the interface.');
             $table->text('description')->nullable()->comment('optional explanation of what this permission allows.');
-            $table->boolean('is_system')->default(true)->comment('indicates whether this permission is managed by LibraryOS and should not be deleted by organizations.');
             $table->timestamps();
 
             $table->foreign('organization_id')->references('id')->on('organizations')->cascadeOnDelete();

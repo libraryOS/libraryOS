@@ -50,10 +50,6 @@ class CreateMemberType
             throw new ModelNotFoundException('Organization not found');
         }
 
-        if ($member->isOwner() === false && $member->isAdministrator() === false) {
-            throw new ModelNotFoundException('Organization not found');
-        }
-
         if ($this->position === null) {
             $this->position = MemberType::query()
                 ->where('organization_id', $this->organization->id)

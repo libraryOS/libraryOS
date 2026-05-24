@@ -48,10 +48,6 @@ class UpdateOfficeType
             throw new ModelNotFoundException('Organization not found');
         }
 
-        if ($member->isOwner() === false && $member->isAdministrator() === false) {
-            throw new ModelNotFoundException('Organization not found');
-        }
-
         if ($this->officeType->organization_id !== $this->organization->id) {
             throw new ModelNotFoundException('Office type not found');
         }

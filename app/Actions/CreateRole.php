@@ -54,10 +54,6 @@ class CreateRole
         if (! $member instanceof Member) {
             throw new ModelNotFoundException('Organization not found');
         }
-
-        if ($member->isOwner() === false && $member->isAdministrator() === false) {
-            throw new ModelNotFoundException('Organization not found');
-        }
     }
 
     private function create(): void

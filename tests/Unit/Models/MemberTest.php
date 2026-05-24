@@ -32,23 +32,11 @@ class MemberTest extends TestCase
     }
 
     #[Test]
-    public function it_returns_true_when_member_is_an_administrator(): void
+    public function it_belongs_to_a_role(): void
     {
-        $member = Member::factory()->create([
-            'permission' => Permission::Admin,
-        ]);
+        $member = Member::factory()->create();
 
-        $this->assertTrue($member->isAdministrator());
-    }
-
-    #[Test]
-    public function it_returns_true_when_member_is_an_owner(): void
-    {
-        $member = Member::factory()->create([
-            'permission' => Permission::Owner,
-        ]);
-
-        $this->assertTrue($member->isOwner());
+        $this->assertTrue($member->role()->exists());
     }
 
     #[Test]

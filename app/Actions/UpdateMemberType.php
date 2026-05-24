@@ -48,10 +48,6 @@ class UpdateMemberType
             throw new ModelNotFoundException('Organization not found');
         }
 
-        if ($member->isOwner() === false && $member->isAdministrator() === false) {
-            throw new ModelNotFoundException('Organization not found');
-        }
-
         if ($this->memberType->organization_id !== $this->organization->id) {
             throw new ModelNotFoundException('Member type not found');
         }

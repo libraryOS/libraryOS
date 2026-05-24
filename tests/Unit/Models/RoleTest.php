@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Models;
 
+use App\Models\Member;
 use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Role;
@@ -97,5 +98,29 @@ class RoleTest extends TestCase
         $role->permissions()->attach($permissions->pluck('id'));
 
         $this->assertCount(3, $role->permissions);
+    }
+
+    #[Test]
+    public function it_belongs_to_many_members(): void
+    {
+        $organization = Organization::factory()->create();
+        $role = Role::factory()->create(['organization_id' => $organization->id]);
+        $member = Member::factory()->create(['organization_id' => $organization->id]);
+
+        $role->members()->attach($member->id);
+
+        $this->assertTrue($role->members()->where('members.id', $member->id)->exists());
+    }
+
+    #[Test]
+    public function it_can_have_multiple_members(): void
+    {
+        $organization = Organization::factory()->create();
+        $role = Role::factory()->create(['organization_id' => $organization->id]);
+        $members = Member::factory()->count(3)->create(['organization_id' => $organization->id]);
+
+        $role->members()->attach($members->pluck('id'));
+
+        $this->assertCount(3, $role->members);
     }
 }

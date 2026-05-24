@@ -35,10 +35,26 @@ class PopulateOrganizationTest extends TestCase
 
         new PopulateOrganization($organization)->handle();
 
-        $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'organization.view', 'name' => 'View organization', 'is_system' => true]);
-        $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'organization.update', 'name' => 'Update organization', 'is_system' => true]);
+        $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'organization.update', 'name_translation_key' => 'Update organization']);
+        $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'organization.delete', 'name_translation_key' => 'Delete organization']);
 
         $this->assertEquals(2, $organization->permissions()->count());
+    }
+
+    #[Test]
+    public function it_maps_default_permissions_to_roles(): void
+    {
+        $user = $this->createUser();
+        $organization = $this->addOrganization($user);
+
+        new PopulateOrganization($organization)->handle();
+
+        $owner = $organization->roles()->where('key', 'owner')->first();
+        $administrator = $organization->roles()->where('key', 'administrator')->first();
+
+        $this->assertCount(2, $owner->permissions);
+        $this->assertCount(1, $administrator->permissions);
+        $this->assertEquals('organization.update', $administrator->permissions->first()->key);
     }
 
     #[Test]

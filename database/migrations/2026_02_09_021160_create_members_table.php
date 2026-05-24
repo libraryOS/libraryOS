@@ -17,13 +17,14 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('organization_id');
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->string('permission', 50);
+            $table->unsignedBigInteger('role_id')->nullable();
             $table->timestamp('joined_at');
             $table->string('timezone', 50)->nullable();
             $table->date('birthdate')->nullable();
             $table->timestamps();
             $table->foreign('organization_id')->references('id')->on('organizations')->cascadeOnDelete();
             $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
+            $table->foreign('role_id')->references('id')->on('roles')->nullOnDelete();
 
             $table->unique(['organization_id', 'user_id']);
         });

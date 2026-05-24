@@ -17,9 +17,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property int $id
  * @property int $organization_id
  * @property string $key
- * @property string $name
+ * @property string $name_translation_key
  * @property string|null $description
- * @property bool $is_system
  * @property Carbon $created_at
  * @property Carbon|null $updated_at
  */
@@ -43,9 +42,8 @@ class Permission extends Model
     protected $fillable = [
         'organization_id',
         'key',
-        'name',
+        'name_translation_key',
         'description',
-        'is_system',
     ];
 
     /**
@@ -55,9 +53,15 @@ class Permission extends Model
      */
     protected function casts(): array
     {
-        return [
-            'is_system' => 'boolean',
-        ];
+        return [];
+    }
+
+    /**
+     * Get the display name of the permission.
+     */
+    public function getName(): string
+    {
+        return __($this->name_translation_key);
     }
 
     /**

@@ -168,6 +168,6 @@
     "auth.failed": "auth.failed",
     "auth.throttle": "auth.throttle",
     "optional": "optional",
-    "role_administrator": "role_administrator",
-    "role_owner": "role_owner"
+    "role_administrator": "Administrator",
+    "role_owner": "Owner"
 }
