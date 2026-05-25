@@ -169,7 +169,6 @@ class BranchController extends Controller
             'name' => ['required', 'string', 'max:100'],
             'code' => ['nullable', 'string', 'max:100'],
             'description' => ['nullable', 'string', 'max:255'],
-            'office_type_id' => ['nullable', 'integer'],
             'address_line_1' => ['required', 'string', 'max:100'],
             'address_line_2' => ['nullable', 'string', 'max:100'],
             'city' => ['required', 'string', 'max:100'],

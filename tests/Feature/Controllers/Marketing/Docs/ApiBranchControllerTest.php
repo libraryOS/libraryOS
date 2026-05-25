@@ -8,14 +8,14 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class ApiOfficeControllerTest extends TestCase
+class ApiBranchControllerTest extends TestCase
 {
     use RefreshDatabase;
 
     #[Test]
-    public function it_renders_the_api_office_page(): void
+    public function it_renders_the_api_branch_page(): void
     {
-        $response = $this->get('/docs/1.x/api/organizations/offices');
+        $response = $this->get('/docs/1.x/api/organizations/branches');
         $response->assertOk();
     }
 }
