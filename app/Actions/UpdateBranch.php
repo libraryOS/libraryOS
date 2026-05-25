@@ -29,6 +29,7 @@ class UpdateBranch
         private ?string $postalCode,
         private ?string $timezone,
         private ?string $code = null,
+        private ?string $description = null,
         private readonly ?int $countryId = null,
     ) {}
 
@@ -52,6 +53,7 @@ class UpdateBranch
         $this->postalCode = TextSanitizer::nullablePlainText($this->postalCode);
         $this->timezone = TextSanitizer::nullablePlainText($this->timezone);
         $this->code = TextSanitizer::nullablePlainText($this->code);
+        $this->description = TextSanitizer::nullablePlainText($this->description);
     }
 
     private function validate(): void
@@ -81,6 +83,7 @@ class UpdateBranch
             'country_id' => $this->countryId,
             'name' => $this->name,
             'code' => $this->code,
+            'description' => $this->description,
             'slug' => $this->branch->id . '-' . Str::of($this->name)->slug('-'),
             'address_line_1' => $this->addressLine1,
             'address_line_2' => $this->addressLine2,
