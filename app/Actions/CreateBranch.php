@@ -11,6 +11,7 @@ use App\Models\Branch;
 use App\Models\Country;
 use App\Models\Member;
 use App\Models\Organization;
+use Illuminate\Support\Str;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -36,6 +37,7 @@ class CreateBranch
         $this->sanitize();
         $this->validate();
         $this->create();
+        $this->generateSlug();
         $this->log();
 
         return $this->branch;
@@ -82,6 +84,14 @@ class CreateBranch
             'postal_code' => $this->postalCode,
             'timezone' => $this->timezone,
         ]);
+    }
+
+    private function generateSlug(): void
+    {
+        $slug = $this->branch->id . '-' . Str::of($this->name)->slug('-');
+
+        $this->branch->slug = $slug;
+        $this->branch->save();
     }
 
     private function log(): void

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use Illuminate\Support\Str;
 use App\Models\Branch;
 use App\Models\Country;
 use App\Models\Organization;
@@ -30,9 +31,17 @@ class BranchFactory extends Factory
             'address_line_1' => fake()->streetAddress(),
             'address_line_2' => null,
             'city' => fake()->city(),
-            'state_province' => fake()->city(),
+            'state_province' => fake()->state(),
             'postal_code' => fake()->postcode(),
             'timezone' => fake()->timezone(),
         ];
+    }
+
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Branch $branch): void {
+            $branch->slug = $branch->id . '-' . Str::lower($branch->name);
+            $branch->save();
+        });
     }
 }

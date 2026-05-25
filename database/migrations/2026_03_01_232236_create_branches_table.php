@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('organization_id');
             $table->unsignedBigInteger('country_id')->nullable();
             $table->string('name');
+            $table->string('slug')->nullable()->index();
             $table->string('address_line_1');
             $table->string('address_line_2')->nullable();
             $table->string('city');

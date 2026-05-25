@@ -8,6 +8,7 @@ use App\Enums\PermissionEnum;
 use App\Helpers\TextSanitizer;
 use App\Jobs\LogUserAction;
 use App\Models\Branch;
+use Illuminate\Support\Str;
 use App\Models\Country;
 use App\Models\Member;
 use App\Models\Organization;
@@ -77,6 +78,7 @@ class UpdateBranch
         $this->branch->update([
             'country_id' => $this->countryId,
             'name' => $this->name,
+            'slug' => $this->branch->id . '-' . Str::of($this->name)->slug('-'),
             'address_line_1' => $this->addressLine1,
             'address_line_2' => $this->addressLine2,
             'city' => $this->city,
