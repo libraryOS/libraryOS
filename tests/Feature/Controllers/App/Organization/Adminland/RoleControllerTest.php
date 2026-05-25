@@ -42,7 +42,7 @@ class RoleControllerTest extends TestCase
         $response->assertViewIs('app.organization.adminland.roles.index');
         $response->assertViewHas(
             'roles',
-            fn ($roles): bool => $roles->count() === 2,
+            fn ($roles): bool => $roles->count() === 3,
         );
     }
 
@@ -81,7 +81,7 @@ class RoleControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertViewHas(
             'roles',
-            fn ($roles): bool => $roles->count() === 1,
+            fn ($roles): bool => $roles->count() === 2,
         );
     }
 }
