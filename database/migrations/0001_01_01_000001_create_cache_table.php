@@ -14,15 +14,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('cache', function (Blueprint $table): void {
-            $table->string('key')->primary();
-            $table->mediumText('value');
-            $table->integer('expiration')->index();
+            $table->string('key')->primary()->comment('cache key');
+            $table->mediumText('value')->comment('cached value');
+            $table->integer('expiration')->index()->comment('expiration timestamp');
         });
 
         Schema::create('cache_locks', function (Blueprint $table): void {
-            $table->string('key')->primary();
-            $table->string('owner');
-            $table->integer('expiration')->index();
+            $table->string('key')->primary()->comment('lock key');
+            $table->string('owner')->comment('lock owner identifier');
+            $table->integer('expiration')->index()->comment('lock expiration timestamp');
         });
     }
 

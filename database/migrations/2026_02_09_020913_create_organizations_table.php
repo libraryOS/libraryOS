@@ -14,10 +14,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('organizations', function (Blueprint $table): void {
-            $table->id();
-            $table->string('name');
-            $table->string('slug')->unique()->nullable()->index();
-            $table->string('invitation_code', 64)->unique()->nullable();
+            $table->id()->comment('primary key');
+            $table->string('name')->comment('organization name');
+            $table->string('slug')->unique()->nullable()->index()->comment('URL-friendly organization identifier');
+            $table->string('invitation_code', 64)->unique()->nullable()->comment('code used to invite members to the organization');
             $table->timestamps();
         });
     }

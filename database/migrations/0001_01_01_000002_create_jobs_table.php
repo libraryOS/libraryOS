@@ -14,36 +14,36 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('jobs', function (Blueprint $table): void {
-            $table->id();
-            $table->string('queue')->index();
-            $table->longText('payload');
-            $table->unsignedTinyInteger('attempts');
-            $table->unsignedInteger('reserved_at')->nullable();
-            $table->unsignedInteger('available_at');
-            $table->unsignedInteger('created_at');
+            $table->id()->comment('primary key');
+            $table->string('queue')->index()->comment('queue name');
+            $table->longText('payload')->comment('serialized job payload');
+            $table->unsignedTinyInteger('attempts')->comment('number of attempts');
+            $table->unsignedInteger('reserved_at')->nullable()->comment('timestamp when job was reserved');
+            $table->unsignedInteger('available_at')->comment('timestamp when job becomes available');
+            $table->unsignedInteger('created_at')->comment('job creation timestamp');
         });
 
         Schema::create('job_batches', function (Blueprint $table): void {
-            $table->string('id')->primary();
-            $table->string('name');
-            $table->integer('total_jobs');
-            $table->integer('pending_jobs');
-            $table->integer('failed_jobs');
-            $table->longText('failed_job_ids');
-            $table->mediumText('options')->nullable();
-            $table->integer('cancelled_at')->nullable();
-            $table->integer('created_at');
-            $table->integer('finished_at')->nullable();
+            $table->string('id')->primary()->comment('batch identifier');
+            $table->string('name')->comment('batch name');
+            $table->integer('total_jobs')->comment('total number of jobs in the batch');
+            $table->integer('pending_jobs')->comment('number of pending jobs');
+            $table->integer('failed_jobs')->comment('number of failed jobs');
+            $table->longText('failed_job_ids')->comment('IDs of failed jobs');
+            $table->mediumText('options')->nullable()->comment('batch options');
+            $table->integer('cancelled_at')->nullable()->comment('cancellation timestamp');
+            $table->integer('created_at')->comment('batch creation timestamp');
+            $table->integer('finished_at')->nullable()->comment('batch completion timestamp');
         });
 
         Schema::create('failed_jobs', function (Blueprint $table): void {
-            $table->id();
-            $table->string('uuid')->unique();
-            $table->text('connection');
-            $table->text('queue');
-            $table->longText('payload');
-            $table->longText('exception');
-            $table->timestamp('failed_at')->useCurrent();
+            $table->id()->comment('primary key');
+            $table->string('uuid')->unique()->comment('unique identifier');
+            $table->text('connection')->comment('queue connection name');
+            $table->text('queue')->comment('queue name');
+            $table->longText('payload')->comment('serialized job payload');
+            $table->longText('exception')->comment('exception thrown');
+            $table->timestamp('failed_at')->useCurrent()->comment('failure timestamp');
         });
     }
 

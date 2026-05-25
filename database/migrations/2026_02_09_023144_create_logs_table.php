@@ -14,12 +14,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('logs', function (Blueprint $table): void {
-            $table->id();
-            $table->unsignedBigInteger('organization_id')->nullable();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->string('user_name');
-            $table->string('action');
-            $table->string('description');
+            $table->id()->comment('primary key');
+            $table->unsignedBigInteger('organization_id')->nullable()->comment('organization this log entry belongs to');
+            $table->unsignedBigInteger('user_id')->nullable()->comment('user who performed the action');
+            $table->string('user_name')->comment('name of the user at the time of the action');
+            $table->string('action')->comment('action that was performed');
+            $table->string('description')->comment('description of the action');
             $table->timestamps();
             $table->foreign('organization_id')->references('id')->on('organizations')->cascadeOnDelete();
             $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
