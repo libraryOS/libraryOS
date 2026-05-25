@@ -2,7 +2,7 @@
   <x-slot:title>{{ __('Branches') }}</x-slot>
 
   <x-slot:description>
-    <p>{{ __('Manage your branches and keep address details up to date.') }}</p>
+    <p>{{ __('A branch represents a public service point / lending location. You can manage as many branches as needed to cover your organization\'s needs.') }}</p>
   </x-slot>
 
   <x-slot:actions>
