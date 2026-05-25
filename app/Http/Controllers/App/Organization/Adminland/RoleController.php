@@ -13,6 +13,10 @@ class RoleController extends Controller
     public function index(Request $request): View
     {
         $organization = $request->attributes->get('organization');
+        $permissions = $request->attributes->get('permissions');
+        if (! $permissions->contains('role.manage')) {
+            abort(403);
+        }
 
         $roles = $organization->roles()
             ->withCount('members')

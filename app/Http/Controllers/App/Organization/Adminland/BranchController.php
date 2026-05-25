@@ -20,6 +20,10 @@ class BranchController extends Controller
     public function index(Request $request): View
     {
         $organization = $request->attributes->get('organization');
+        $permissions = $request->attributes->get('permissions');
+        if (! $permissions->contains('branch.manage')) {
+            abort(403);
+        }
 
         [$branches, $countries] = $this->viewData($organization);
 
@@ -32,6 +36,10 @@ class BranchController extends Controller
     public function create(Request $request): View
     {
         $organization = $request->attributes->get('organization');
+        $permissions = $request->attributes->get('permissions');
+        if (! $permissions->contains('branch.manage')) {
+            abort(403);
+        }
         [, $countries] = $this->viewData($organization);
 
         return view('app.organization.adminland.branches._create_branch', [
@@ -42,6 +50,10 @@ class BranchController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $organization = $request->attributes->get('organization');
+        $permissions = $request->attributes->get('permissions');
+        if (! $permissions->contains('branch.manage')) {
+            abort(403);
+        }
         $validated = $this->validateRequest($request);
 
         new CreateBranch(
@@ -64,6 +76,10 @@ class BranchController extends Controller
     public function edit(Request $request): View
     {
         $organization = $request->attributes->get('organization');
+        $permissions = $request->attributes->get('permissions');
+        if (! $permissions->contains('branch.manage')) {
+            abort(403);
+        }
         $id = $request->route()->parameter('branch');
 
         try {
@@ -83,6 +99,10 @@ class BranchController extends Controller
     public function update(Request $request): RedirectResponse
     {
         $organization = $request->attributes->get('organization');
+        $permissions = $request->attributes->get('permissions');
+        if (! $permissions->contains('branch.manage')) {
+            abort(403);
+        }
         $id = $request->route()->parameter('branch');
 
         try {
@@ -114,6 +134,10 @@ class BranchController extends Controller
     public function destroy(Request $request): RedirectResponse
     {
         $organization = $request->attributes->get('organization');
+        $permissions = $request->attributes->get('permissions');
+        if (! $permissions->contains('branch.manage')) {
+            abort(403);
+        }
         $id = $request->route()->parameter('branch');
 
         try {

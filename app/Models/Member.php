@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Collection;
 
 /**
  * Class Member
@@ -94,5 +95,19 @@ class Member extends Model
         return $this->role()
             ->whereHas('permissions', fn ($query) => $query->where('permissions.key', $key))
             ->exists();
+    }
+
+    /**
+     * Get the permission keys that the member has through their assigned role.
+     *
+     * @return Collection<int, string>
+     */
+    public function getPermissions(): Collection
+    {
+        if ($this->role_id === null) {
+            return collect();
+        }
+
+        return $this->role->permissions->pluck('key');
     }
 }

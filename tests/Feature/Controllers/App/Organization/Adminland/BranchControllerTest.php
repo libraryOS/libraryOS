@@ -24,7 +24,7 @@ class BranchControllerTest extends TestCase
         $this->assignUserToOrganization(
             user: $user,
             organization: $organization,
-            permissions: [],
+            permissions: [PermissionEnum::BranchManage->value],
         );
 
         $country = Country::factory()->create([
@@ -58,14 +58,14 @@ class BranchControllerTest extends TestCase
     }
 
     #[Test]
-    public function it_shows_the_create_office_page(): void
+    public function it_shows_the_create_branch_page(): void
     {
         $user = $this->createUser();
         $organization = $this->createOrganization();
         $this->assignUserToOrganization(
             user: $user,
             organization: $organization,
-            permissions: [],
+            permissions: [PermissionEnum::BranchManage->value],
         );
 
         $response = $this->actingAs($user)
