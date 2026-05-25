@@ -26,8 +26,9 @@
     <x-select id="country_id" :label="__('Country')" :options="$countryOptions" :selected="old('country_id', $branch->country_id === null ? '' : (string) $branch->country_id)" :error="$errors->get('country_id')" />
   </div>
 
-  <div>
+  <div class="grid gap-4 sm:grid-cols-2">
     <x-input id="timezone" :label="__('Timezone')" type="text" name="timezone" :error="$errors->get('timezone')" value="{{ old('timezone', $branch->timezone) }}" />
+    <x-input id="description" :label="__('Description')" type="text" name="description" :error="$errors->get('description')" value="{{ old('description', $branch->description) }}" />
   </div>
 
   <div class="flex justify-between">

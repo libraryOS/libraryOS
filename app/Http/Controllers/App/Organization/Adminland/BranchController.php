@@ -67,6 +67,7 @@ class BranchController extends Controller
             postalCode: $validated['postal_code'] ?? null,
             timezone: $validated['timezone'] ?? null,
             code: $validated['code'] ?? null,
+            description: $validated['description'] ?? null,
             countryId: isset($validated['country_id']) ? (int) $validated['country_id'] : null,
         )->execute();
 
@@ -126,6 +127,7 @@ class BranchController extends Controller
             postalCode: $validated['postal_code'] ?? null,
             timezone: $validated['timezone'] ?? null,
             code: $validated['code'] ?? null,
+            description: $validated['description'] ?? null,
             countryId: isset($validated['country_id']) ? (int) $validated['country_id'] : null,
         )->execute();
 
@@ -166,6 +168,7 @@ class BranchController extends Controller
         return $request->validate([
             'name' => ['required', 'string', 'max:100'],
             'code' => ['nullable', 'string', 'max:100'],
+            'description' => ['nullable', 'string', 'max:255'],
             'office_type_id' => ['nullable', 'integer'],
             'address_line_1' => ['required', 'string', 'max:100'],
             'address_line_2' => ['nullable', 'string', 'max:100'],

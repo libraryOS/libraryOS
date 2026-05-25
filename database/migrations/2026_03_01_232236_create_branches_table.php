@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('name', 100)->comment('branch name');
             $table->string('slug')->nullable()->index()->comment('branch slug');
             $table->string('code', 100)->nullable()->index()->comment('branch code');
+            $table->string('description', 255)->nullable()->index()->comment('branch description');
             $table->string('address_line_1', 100)->comment('first line of the branch address');
             $table->string('address_line_2', 100)->nullable()->comment('second line of the branch address');
             $table->string('city', 100)->comment('city the branch is located in');
