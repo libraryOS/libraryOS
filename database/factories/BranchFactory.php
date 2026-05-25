@@ -31,7 +31,7 @@ class BranchFactory extends Factory
             'address_line_1' => fake()->streetAddress(),
             'address_line_2' => null,
             'city' => fake()->city(),
-            'state_province' => fake()->state(),
+            'state_province' => fake()->city(),
             'postal_code' => fake()->postcode(),
             'timezone' => fake()->timezone(),
         ];
