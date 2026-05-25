@@ -16,14 +16,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('countries', function (Blueprint $table): void {
-            $table->id();
-            $table->string('name', 100);
-            $table->string('iso2', 2)->unique();
-            $table->string('iso3', 3);
-            $table->string('phone_code', 10);
-            $table->string('currency_code', 3);
-            $table->string('timezone_default', 100)->nullable();
-            $table->boolean('is_active')->default(true);
+            $table->id()->comment('primary key');
+            $table->string('name', 100)->comment('country name');
+            $table->string('iso2', 2)->unique()->comment('ISO 3166-1 alpha-2 country code');
+            $table->string('iso3', 3)->comment('ISO 3166-1 alpha-3 country code');
+            $table->string('phone_code', 10)->comment('international dialing code');
+            $table->string('currency_code', 3)->comment('ISO 4217 currency code');
+            $table->string('timezone_default', 100)->nullable()->comment('default timezone for the country');
+            $table->boolean('is_active')->default(true)->comment('whether the country is active');
             $table->timestamps();
         });
 

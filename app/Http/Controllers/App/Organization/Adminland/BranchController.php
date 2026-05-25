@@ -66,6 +66,7 @@ class BranchController extends Controller
             stateProvince: $validated['state_province'] ?? null,
             postalCode: $validated['postal_code'] ?? null,
             timezone: $validated['timezone'] ?? null,
+            code: $validated['code'] ?? null,
             countryId: isset($validated['country_id']) ? (int) $validated['country_id'] : null,
         )->execute();
 
@@ -124,6 +125,7 @@ class BranchController extends Controller
             stateProvince: $validated['state_province'] ?? null,
             postalCode: $validated['postal_code'] ?? null,
             timezone: $validated['timezone'] ?? null,
+            code: $validated['code'] ?? null,
             countryId: isset($validated['country_id']) ? (int) $validated['country_id'] : null,
         )->execute();
 
@@ -162,13 +164,14 @@ class BranchController extends Controller
     private function validateRequest(Request $request): array
     {
         return $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:100'],
+            'code' => ['nullable', 'string', 'max:100'],
             'office_type_id' => ['nullable', 'integer'],
-            'address_line_1' => ['required', 'string', 'max:255'],
-            'address_line_2' => ['nullable', 'string', 'max:255'],
-            'city' => ['required', 'string', 'max:255'],
-            'state_province' => ['nullable', 'string', 'max:255'],
-            'postal_code' => ['nullable', 'string', 'max:255'],
+            'address_line_1' => ['required', 'string', 'max:100'],
+            'address_line_2' => ['nullable', 'string', 'max:100'],
+            'city' => ['required', 'string', 'max:100'],
+            'state_province' => ['nullable', 'string', 'max:100'],
+            'postal_code' => ['nullable', 'string', 'max:20'],
             'country_id' => ['nullable', 'integer'],
             'timezone' => ['nullable', 'string', 'max:50'],
         ]);

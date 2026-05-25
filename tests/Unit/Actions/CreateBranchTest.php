@@ -43,6 +43,7 @@ class CreateBranchTest extends TestCase
             stateProvince: 'PA',
             postalCode: '18505',
             timezone: 'America/New_York',
+            code: 'HQ-001',
             countryId: $country->id,
         )->execute();
 
@@ -53,6 +54,7 @@ class CreateBranchTest extends TestCase
             'organization_id' => $organization->id,
             'country_id' => $country->id,
             'name' => 'Main Office',
+            'code' => 'HQ-001',
             'address_line_1' => '1725 Slough Avenue',
             'address_line_2' => 'Floor 2',
             'city' => 'Scranton',

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('magic_links', function (Blueprint $table): void {
-            $table->string('access_code')->nullable();
+            $table->string('access_code')->nullable()->comment('optional access code required to use the magic link');
         });
     }
 

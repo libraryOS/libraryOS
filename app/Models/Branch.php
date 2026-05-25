@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int|null $country_id
  * @property string $name
  * @property string|null $slug
+ * @property string|null $code
  * @property string $address_line_1
  * @property string|null $address_line_2
  * @property string $city
@@ -52,6 +53,7 @@ class Branch extends Model implements HasAddress
         'country_id',
         'name',
         'slug',
+        'code',
         'address_line_1',
         'address_line_2',
         'city',

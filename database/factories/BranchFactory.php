@@ -28,6 +28,7 @@ class BranchFactory extends Factory
             'organization_id' => Organization::factory(),
             'country_id' => Country::factory(),
             'name' => fake()->company(),
+            'code' => Str::upper(Str::random(5)),
             'address_line_1' => fake()->streetAddress(),
             'address_line_2' => null,
             'city' => fake()->city(),

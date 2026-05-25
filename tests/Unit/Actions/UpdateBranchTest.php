@@ -51,6 +51,7 @@ class UpdateBranchTest extends TestCase
             stateProvince: 'PA',
             postalCode: '18505',
             timezone: 'America/New_York',
+            code: 'BR-042',
             countryId: $country->id,
         )->execute();
 
@@ -60,6 +61,7 @@ class UpdateBranchTest extends TestCase
             'id' => $branch->id,
             'country_id' => $country->id,
             'name' => 'New Branch',
+            'code' => 'BR-042',
             'address_line_1' => 'New Address',
             'address_line_2' => 'Suite 100',
             'city' => 'New City',

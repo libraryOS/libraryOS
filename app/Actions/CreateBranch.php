@@ -29,6 +29,7 @@ class CreateBranch
         private ?string $stateProvince,
         private ?string $postalCode,
         private ?string $timezone,
+        private ?string $code = null,
         private readonly ?int $countryId = null,
     ) {}
 
@@ -52,6 +53,7 @@ class CreateBranch
         $this->stateProvince = TextSanitizer::nullablePlainText($this->stateProvince);
         $this->postalCode = TextSanitizer::nullablePlainText($this->postalCode);
         $this->timezone = TextSanitizer::nullablePlainText($this->timezone);
+        $this->code = TextSanitizer::nullablePlainText($this->code);
     }
 
     private function validate(): void
@@ -77,6 +79,7 @@ class CreateBranch
             'organization_id' => $this->organization->id,
             'country_id' => $this->countryId,
             'name' => $this->name,
+            'code' => $this->code,
             'address_line_1' => $this->addressLine1,
             'address_line_2' => $this->addressLine2,
             'city' => $this->city,

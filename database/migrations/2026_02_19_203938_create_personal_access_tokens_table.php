@@ -14,13 +14,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('personal_access_tokens', function (Blueprint $table): void {
-            $table->id();
+            $table->id()->comment('primary key');
             $table->morphs('tokenable');
-            $table->text('name');
-            $table->string('token', 64)->unique();
-            $table->text('abilities')->nullable();
-            $table->timestamp('last_used_at')->nullable();
-            $table->timestamp('expires_at')->nullable()->index();
+            $table->text('name')->comment('token name');
+            $table->string('token', 64)->unique()->comment('hashed token value');
+            $table->text('abilities')->nullable()->comment('token abilities');
+            $table->timestamp('last_used_at')->nullable()->comment('timestamp when the token was last used');
+            $table->timestamp('expires_at')->nullable()->index()->comment('token expiration timestamp');
             $table->timestamps();
         });
     }
