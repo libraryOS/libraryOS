@@ -25,6 +25,9 @@ class BranchResource extends JsonResource
             'id' => (string) $this->id,
             'attributes' => [
                 'name' => $this->name,
+                'slug' => $this->slug,
+                'code' => $this->code,
+                'description' => $this->description,
                 'address_line_1' => $this->address_line_1,
                 'address_line_2' => $this->address_line_2,
                 'city' => $this->city,

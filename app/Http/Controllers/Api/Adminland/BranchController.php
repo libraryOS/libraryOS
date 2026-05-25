@@ -33,6 +33,8 @@ class BranchController extends Controller
 
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'code' => ['nullable', 'string', 'max:100'],
+            'description' => ['nullable', 'string', 'max:255'],
             'address_line_1' => ['required', 'string', 'max:255'],
             'address_line_2' => ['nullable', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:255'],
@@ -52,6 +54,8 @@ class BranchController extends Controller
             stateProvince: $validated['state_province'] ?? null,
             postalCode: $validated['postal_code'] ?? null,
             timezone: $validated['timezone'] ?? null,
+            code: $validated['code'] ?? null,
+            description: $validated['description'] ?? null,
             countryId: isset($validated['country_id']) ? (int) $validated['country_id'] : null,
         )->execute();
 
@@ -79,6 +83,8 @@ class BranchController extends Controller
 
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'code' => ['nullable', 'string', 'max:100'],
+            'description' => ['nullable', 'string', 'max:255'],
             'address_line_1' => ['required', 'string', 'max:255'],
             'address_line_2' => ['nullable', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:255'],
@@ -99,6 +105,8 @@ class BranchController extends Controller
             stateProvince: $validated['state_province'] ?? null,
             postalCode: $validated['postal_code'] ?? null,
             timezone: $validated['timezone'] ?? null,
+            code: $validated['code'] ?? null,
+            description: $validated['description'] ?? null,
             countryId: isset($validated['country_id']) ? (int) $validated['country_id'] : null,
         )->execute();
 

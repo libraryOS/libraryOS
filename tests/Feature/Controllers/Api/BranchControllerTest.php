@@ -22,6 +22,9 @@ class BranchControllerTest extends TestCase
             'id',
             'attributes' => [
                 'name',
+                'slug',
+                'code',
+                'description',
                 'address_line_1',
                 'address_line_2',
                 'city',
