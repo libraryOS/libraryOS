@@ -1,8 +1,8 @@
 <x-box padding="p-0">
-  <x-slot:title>{{ __('Offices') }}</x-slot>
+  <x-slot:title>{{ __('Branches') }}</x-slot>
 
   <x-slot:description>
-    <p>{{ __('Manage your offices and keep address details up to date.') }}</p>
+    <p>{{ __('Manage your branches and keep address details up to date.') }}</p>
   </x-slot>
 
   <x-slot:actions>

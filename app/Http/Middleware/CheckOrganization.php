@@ -32,9 +32,11 @@ class CheckOrganization
 
             $request->attributes->add(['organization' => $organization]);
             $request->attributes->add(['member' => $member]);
+            $request->attributes->add(['permissions' => $member->getPermissions()]);
 
             View::share('organization', $organization);
             View::share('member', $member);
+            View::share('permissions', $member->getPermissions());
 
             return $next($request);
         } catch (ModelNotFoundException) {

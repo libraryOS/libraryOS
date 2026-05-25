@@ -51,11 +51,15 @@ class PopulateOrganization implements ShouldQueue
     {
         $permissionsData = [
             [
+                'key' => 'adminland.access',
+                'name_translation_key' => trans_key('Access adminland'),
+                'description' => trans_key('Allows the user to access the adminland section of the organization.'),
+            ],
+            [
                 'key' => 'organization.update',
                 'name_translation_key' => trans_key('Update organization'),
                 'description' => trans_key('Allows the user to update the organization information, such as its name, branding, and general configuration.'),
             ],
-
             [
                 'key' => 'organization.delete',
                 'name_translation_key' => trans_key('Delete organization'),
@@ -80,12 +84,14 @@ class PopulateOrganization implements ShouldQueue
     {
         $mapping = [
             'owner' => [
+                PermissionEnum::AdminlandAccess->value,
                 PermissionEnum::OrganizationUpdate->value,
                 PermissionEnum::OrganizationDelete->value,
                 PermissionEnum::RoleManage->value,
                 PermissionEnum::BranchManage->value,
             ],
             'administrator' => [
+                PermissionEnum::AdminlandAccess->value,
                 PermissionEnum::OrganizationUpdate->value,
                 PermissionEnum::RoleManage->value,
                 PermissionEnum::BranchManage->value,

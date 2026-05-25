@@ -6,6 +6,7 @@ namespace App\Enums;
 
 enum PermissionEnum: string
 {
+    case AdminlandAccess = 'adminland.access';
     case OrganizationUpdate = 'organization.update';
     case OrganizationDelete = 'organization.delete';
     case RoleManage = 'role.manage';

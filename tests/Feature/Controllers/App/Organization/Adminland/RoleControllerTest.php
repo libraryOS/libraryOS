@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Controllers\App\Organization\Adminland;
 
+use App\Enums\PermissionEnum;
 use App\Models\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
@@ -21,7 +22,7 @@ class RoleControllerTest extends TestCase
         $this->assignUserToOrganization(
             user: $user,
             organization: $organization,
-            permissions: [],
+            permissions: [PermissionEnum::RoleManage->value],
         );
 
         Role::factory()->create([
@@ -41,7 +42,7 @@ class RoleControllerTest extends TestCase
         $response->assertViewIs('app.organization.adminland.roles.index');
         $response->assertViewHas(
             'roles',
-            fn ($roles): bool => $roles->count() === 2,
+            fn ($roles): bool => $roles->count() === 3,
         );
     }
 
@@ -53,7 +54,7 @@ class RoleControllerTest extends TestCase
         $this->assignUserToOrganization(
             user: $user,
             organization: $organization,
-            permissions: [],
+            permissions: [PermissionEnum::RoleManage->value],
         );
 
         Role::factory()->create([
@@ -67,7 +68,7 @@ class RoleControllerTest extends TestCase
         $this->assignUserToOrganization(
             user: $otherUser,
             organization: $otherOrganization,
-            permissions: [],
+            permissions: [PermissionEnum::RoleManage->value],
         );
         Role::factory()->create([
             'organization_id' => $otherOrganization->id,
@@ -80,7 +81,7 @@ class RoleControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertViewHas(
             'roles',
-            fn ($roles): bool => $roles->count() === 1,
+            fn ($roles): bool => $roles->count() === 2,
         );
     }
 }
