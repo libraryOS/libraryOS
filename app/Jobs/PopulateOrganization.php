@@ -76,6 +76,11 @@ class PopulateOrganization implements ShouldQueue
                 'name_translation_key' => trans_key('Manage branches'),
                 'description' => 'Allows the user to manage branches settings and configurations.',
             ],
+            [
+                'key' => PermissionEnum::ItemTypeManage->value,
+                'name_translation_key' => trans_key('Manage item types'),
+                'description' => 'Allows the user to manage item types for the organization.',
+            ],
         ];
 
         $this->organization->permissions()->createMany($permissionsData);
@@ -90,12 +95,14 @@ class PopulateOrganization implements ShouldQueue
                 PermissionEnum::OrganizationDelete->value,
                 PermissionEnum::RoleManage->value,
                 PermissionEnum::BranchManage->value,
+                PermissionEnum::ItemTypeManage->value,
             ],
             'administrator' => [
                 PermissionEnum::AdminlandAccess->value,
                 PermissionEnum::OrganizationUpdate->value,
                 PermissionEnum::RoleManage->value,
                 PermissionEnum::BranchManage->value,
+                PermissionEnum::ItemTypeManage->value,
             ],
         ];
 

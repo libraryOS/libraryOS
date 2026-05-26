@@ -11,4 +11,5 @@ enum PermissionEnum: string
     case OrganizationDelete = 'organization.delete';
     case RoleManage = 'role.manage';
     case BranchManage = 'branch.manage';
+    case ItemTypeManage = 'item_type.manage';
 }
