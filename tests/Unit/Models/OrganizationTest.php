@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Models;
 
 use App\Models\Branch;
+use App\Models\ItemType;
 use App\Models\Member;
 use App\Models\Organization;
 use App\Models\Permission;
@@ -37,6 +38,17 @@ class OrganizationTest extends TestCase
         ]);
 
         $this->assertTrue($organization->branches()->exists());
+    }
+
+    #[Test]
+    public function it_has_many_item_types(): void
+    {
+        $organization = Organization::factory()->create();
+        ItemType::factory()->create([
+            'organization_id' => $organization->id,
+        ]);
+
+        $this->assertTrue($organization->itemTypes()->exists());
     }
 
     #[Test]

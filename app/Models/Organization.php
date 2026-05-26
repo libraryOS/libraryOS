@@ -95,6 +95,16 @@ class Organization extends Model
     }
 
     /**
+     * Get the item types of the organization.
+     *
+     * @return HasMany<ItemType, $this>
+     */
+    public function itemTypes(): HasMany
+    {
+        return $this->hasMany(ItemType::class);
+    }
+
+    /**
      * Gets the avatar of the organization.
      */
     public function getAvatar(): string

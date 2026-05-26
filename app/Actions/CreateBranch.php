@@ -11,9 +11,9 @@ use App\Models\Branch;
 use App\Models\Country;
 use App\Models\Member;
 use App\Models\Organization;
-use Illuminate\Support\Str;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Str;
 
 class CreateBranch
 {
@@ -94,7 +94,7 @@ class CreateBranch
 
     private function generateSlug(): void
     {
-        $slug = $this->branch->id . '-' . Str::of($this->name)->slug('-');
+        $slug = $this->branch->id.'-'.Str::of($this->name)->slug('-');
 
         $this->branch->slug = $slug;
         $this->branch->save();

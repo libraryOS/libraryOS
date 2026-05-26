@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use Illuminate\Support\Str;
 use App\Models\Branch;
 use App\Models\Country;
 use App\Models\Organization;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends Factory<Branch>
@@ -42,7 +42,7 @@ class BranchFactory extends Factory
     public function configure(): static
     {
         return $this->afterCreating(function (Branch $branch): void {
-            $branch->slug = $branch->id . '-' . Str::lower($branch->name);
+            $branch->slug = $branch->id.'-'.Str::lower($branch->name);
             $branch->save();
         });
     }

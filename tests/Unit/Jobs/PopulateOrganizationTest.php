@@ -55,4 +55,18 @@ class PopulateOrganizationTest extends TestCase
         $this->assertCount(5, $owner->permissions);
         $this->assertCount(4, $administrator->permissions);
     }
+
+    #[Test]
+    public function it_maps_default_item_types(): void
+    {
+        $user = $this->createUser();
+        $organization = $this->createOrganization();
+
+        new PopulateOrganization($organization)->handle();
+
+        $itemTypes = $organization->itemTypes()->get();
+
+        $this->assertCount(7, $itemTypes);
+        $this->assertEquals('book', $itemTypes->first()->key);
+    }
 }
