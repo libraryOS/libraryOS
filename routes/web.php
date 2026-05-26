@@ -6,6 +6,7 @@ use App\Http\Controllers\App\Organization\Adminland\AdminlandController;
 use App\Http\Controllers\App\Organization\Adminland\BranchController;
 use App\Http\Controllers\App\Organization\Adminland\ItemTypeController;
 use App\Http\Controllers\App\Organization\Adminland\MemberController;
+use App\Http\Controllers\App\Organization\Adminland\PatronTypeController;
 use App\Http\Controllers\App\Organization\Adminland\RoleController;
 use App\Http\Controllers\App\Organization\JoinOrganizationController;
 use App\Http\Controllers\App\Organization\OrganizationController;
@@ -64,6 +65,14 @@ Route::middleware(['auth', 'verified', 'throttle:60,1', 'set.locale'])->group(fu
             Route::get('/item-types/{item_type}', [ItemTypeController::class, 'edit'])->name('organization.adminland.item-type.edit');
             Route::put('/item-types/{item_type}', [ItemTypeController::class, 'update'])->name('organization.adminland.item-type.update');
             Route::delete('/item-types/{item_type}', [ItemTypeController::class, 'destroy'])->name('organization.adminland.item-type.destroy');
+
+            // patron types
+            Route::get('/patron-types', [PatronTypeController::class, 'index'])->name('organization.adminland.patron-type.index');
+            Route::get('/patron-types/create', [PatronTypeController::class, 'create'])->name('organization.adminland.patron-type.create');
+            Route::post('/patron-types', [PatronTypeController::class, 'store'])->name('organization.adminland.patron-type.store');
+            Route::get('/patron-types/{patron_type}', [PatronTypeController::class, 'edit'])->name('organization.adminland.patron-type.edit');
+            Route::put('/patron-types/{patron_type}', [PatronTypeController::class, 'update'])->name('organization.adminland.patron-type.update');
+            Route::delete('/patron-types/{patron_type}', [PatronTypeController::class, 'destroy'])->name('organization.adminland.patron-type.destroy');
         });
     });
 
