@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Http\Controllers\Api\Adminland\BranchController;
 use App\Http\Controllers\Api\Adminland\ItemTypeController;
 use App\Http\Controllers\Api\Adminland\MemberController;
+use App\Http\Controllers\Api\Adminland\PatronTypeController;
 use App\Http\Controllers\Api\HealthController;
 use App\Http\Controllers\Api\OrganizationController;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,13 @@ Route::name('api.')->group(function (): void {
             // adminland - members
             Route::get('organizations/{id}/adminland/members', [MemberController::class, 'index'])->name('organization.adminland.member.index');
             Route::get('organizations/{id}/adminland/members/{memberId}', [MemberController::class, 'show'])->name('organization.adminland.member.show');
+
+            // adminland - patron types
+            Route::get('organizations/{id}/adminland/patron-types', [PatronTypeController::class, 'index'])->name('organization.adminland.patron-type.index');
+            Route::post('organizations/{id}/adminland/patron-types', [PatronTypeController::class, 'store'])->name('organization.adminland.patron-type.store');
+            Route::get('organizations/{id}/adminland/patron-types/{patronTypeId}', [PatronTypeController::class, 'show'])->name('organization.adminland.patron-type.show');
+            Route::put('organizations/{id}/adminland/patron-types/{patronTypeId}', [PatronTypeController::class, 'update'])->name('organization.adminland.patron-type.update');
+            Route::delete('organizations/{id}/adminland/patron-types/{patronTypeId}', [PatronTypeController::class, 'destroy'])->name('organization.adminland.patron-type.destroy');
         });
     });
 });

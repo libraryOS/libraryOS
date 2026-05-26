@@ -28,6 +28,7 @@ class PopulateOrganization implements ShouldQueue
         $this->mapPermissionsWithRoles();
         $this->assignFirstUserAsOwner();
         $this->addDefaultItemTypes();
+        $this->addDefaultPatronTypes();
     }
 
     private function addDefaultRoles(): void
@@ -81,6 +82,11 @@ class PopulateOrganization implements ShouldQueue
                 'name_translation_key' => trans_key('Manage item types'),
                 'description' => 'Allows the user to manage item types for the organization.',
             ],
+            [
+                'key' => PermissionEnum::PatronTypeManage->value,
+                'name_translation_key' => trans_key('Manage patron types'),
+                'description' => 'Allows the user to manage patron types for the organization.',
+            ],
         ];
 
         $this->organization->permissions()->createMany($permissionsData);
@@ -96,6 +102,7 @@ class PopulateOrganization implements ShouldQueue
                 PermissionEnum::RoleManage->value,
                 PermissionEnum::BranchManage->value,
                 PermissionEnum::ItemTypeManage->value,
+                PermissionEnum::PatronTypeManage->value,
             ],
             'administrator' => [
                 PermissionEnum::AdminlandAccess->value,
@@ -103,6 +110,7 @@ class PopulateOrganization implements ShouldQueue
                 PermissionEnum::RoleManage->value,
                 PermissionEnum::BranchManage->value,
                 PermissionEnum::ItemTypeManage->value,
+                PermissionEnum::PatronTypeManage->value,
             ],
         ];
 
@@ -226,5 +234,91 @@ class PopulateOrganization implements ShouldQueue
         ];
 
         $this->organization->itemTypes()->createMany($defaultItemTypes);
+    }
+
+    private function addDefaultPatronTypes(): void
+    {
+        $defaultPatronTypes = [
+            [
+                'key' => 'adult',
+                'name' => 'Adult',
+                'name_translation_key' => trans_key('Adult'),
+                'description' => 'Standard adult patron account.',
+                'is_active' => true,
+                'membership_duration_days' => 365,
+                'max_loans' => 20,
+                'keep_loan_history' => false,
+                'can_receive_notifications' => true,
+                'minimum_age' => 18,
+                'maximum_age' => null,
+            ],
+            [
+                'key' => 'child',
+                'name' => 'Child',
+                'name_translation_key' => trans_key('Child'),
+                'description' => 'Patron account intended for children.',
+                'is_active' => true,
+                'membership_duration_days' => 365,
+                'max_loans' => 10,
+                'keep_loan_history' => false,
+                'can_receive_notifications' => true,
+                'minimum_age' => 0,
+                'maximum_age' => 12,
+            ],
+            [
+                'key' => 'student',
+                'name' => 'Student',
+                'name_translation_key' => trans_key('Student'),
+                'description' => 'Patron account intended for students.',
+                'is_active' => true,
+                'membership_duration_days' => 365,
+                'max_loans' => 15,
+                'keep_loan_history' => false,
+                'can_receive_notifications' => true,
+                'minimum_age' => 13,
+                'maximum_age' => null,
+            ],
+            [
+                'key' => 'teacher',
+                'name' => 'Teacher',
+                'name_translation_key' => trans_key('Teacher'),
+                'description' => 'Patron account intended for teachers and educators.',
+                'is_active' => true,
+                'membership_duration_days' => 365,
+                'max_loans' => 50,
+                'keep_loan_history' => false,
+                'can_receive_notifications' => true,
+                'minimum_age' => 18,
+                'maximum_age' => null,
+            ],
+            [
+                'key' => 'staff',
+                'name' => 'Staff',
+                'name_translation_key' => trans_key('Staff'),
+                'description' => 'Patron account intended for library staff members.',
+                'is_active' => true,
+                'membership_duration_days' => 365,
+                'max_loans' => 30,
+                'keep_loan_history' => false,
+                'can_receive_notifications' => true,
+                'minimum_age' => 18,
+                'maximum_age' => null,
+            ],
+            [
+                'key' => 'temporary',
+                'name' => 'Temporary',
+                'name_translation_key' => trans_key('Temporary'),
+                'description' => 'Short-term patron account with limited borrowing privileges.',
+                'is_active' => true,
+                'membership_duration_days' => 30,
+                'max_loans' => 5,
+                'keep_loan_history' => false,
+                'can_receive_notifications' => true,
+                'minimum_age' => null,
+                'maximum_age' => null,
+            ],
+        ];
+
+        $this->organization->patronTypes()->createMany($defaultPatronTypes);
     }
 }

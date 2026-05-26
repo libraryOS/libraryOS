@@ -105,6 +105,16 @@ class Organization extends Model
     }
 
     /**
+     * Get the patron types of the organization.
+     *
+     * @return HasMany<PatronType, $this>
+     */
+    public function patronTypes(): HasMany
+    {
+        return $this->hasMany(PatronType::class);
+    }
+
+    /**
      * Gets the avatar of the organization.
      */
     public function getAvatar(): string

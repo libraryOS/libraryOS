@@ -38,8 +38,9 @@ class PopulateOrganizationTest extends TestCase
         $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'organization.update', 'name_translation_key' => 'Update organization']);
         $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'organization.delete', 'name_translation_key' => 'Delete organization']);
         $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'item_type.manage', 'name_translation_key' => 'Manage item types']);
+        $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'patron_type.manage', 'name_translation_key' => 'Manage patron types']);
 
-        $this->assertEquals(6, $organization->permissions()->count());
+        $this->assertEquals(7, $organization->permissions()->count());
     }
 
     #[Test]
@@ -53,8 +54,8 @@ class PopulateOrganizationTest extends TestCase
         $owner = $organization->roles()->where('key', 'owner')->first();
         $administrator = $organization->roles()->where('key', 'administrator')->first();
 
-        $this->assertCount(6, $owner->permissions);
-        $this->assertCount(5, $administrator->permissions);
+        $this->assertCount(7, $owner->permissions);
+        $this->assertCount(6, $administrator->permissions);
     }
 
     #[Test]
@@ -69,5 +70,24 @@ class PopulateOrganizationTest extends TestCase
 
         $this->assertCount(7, $itemTypes);
         $this->assertEquals('book', $itemTypes->first()->key);
+    }
+
+    #[Test]
+    public function it_creates_default_patron_types(): void
+    {
+        $user = $this->createUser();
+        $organization = $this->createOrganization();
+
+        new PopulateOrganization($organization)->handle();
+
+        $patronTypes = $organization->patronTypes()->orderBy('key')->get();
+
+        $this->assertCount(6, $patronTypes);
+        $this->assertDatabaseHas('patron_types', ['organization_id' => $organization->id, 'key' => 'adult', 'name_translation_key' => 'Adult']);
+        $this->assertDatabaseHas('patron_types', ['organization_id' => $organization->id, 'key' => 'child', 'name_translation_key' => 'Child']);
+        $this->assertDatabaseHas('patron_types', ['organization_id' => $organization->id, 'key' => 'student', 'name_translation_key' => 'Student']);
+        $this->assertDatabaseHas('patron_types', ['organization_id' => $organization->id, 'key' => 'teacher', 'name_translation_key' => 'Teacher']);
+        $this->assertDatabaseHas('patron_types', ['organization_id' => $organization->id, 'key' => 'staff', 'name_translation_key' => 'Staff']);
+        $this->assertDatabaseHas('patron_types', ['organization_id' => $organization->id, 'key' => 'temporary', 'name_translation_key' => 'Temporary']);
     }
 }
