@@ -27,7 +27,7 @@ Use this Skill when:
 
 ### Step 2: Scan for missing or incomplete translations
 
-1. Review all translation files:
+1. Review all translation files, except en.json which is never modified:
    - `lang/*.json`
 
 2. Identify any entries that are:
