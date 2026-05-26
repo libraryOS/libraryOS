@@ -27,6 +27,7 @@ class PatronTypeFactory extends Factory
             'organization_id' => Organization::factory(),
             'key' => Str::slug(fake()->unique()->words(2, true)),
             'name' => fake()->words(2, true),
+            'name_translation_key' => null,
             'description' => null,
             'is_active' => true,
             'membership_duration_days' => null,

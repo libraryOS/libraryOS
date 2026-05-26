@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('organization_id')->comment('organization this patron type belongs to');
             $table->string('key', 100)->comment('unique machine-readable identifier for the patron type within the organization');
             $table->string('name', 100)->comment('human-readable name of the patron type');
+            $table->string('name_translation_key', 100)->nullable()->comment('translation key for the item type name');
             $table->string('description', 255)->nullable()->comment('optional description of the patron type');
             $table->boolean('is_active')->default(true)->comment('whether this patron type is currently active');
             $table->unsignedSmallInteger('membership_duration_days')->nullable()->comment('how long a membership of this type lasts, in days');

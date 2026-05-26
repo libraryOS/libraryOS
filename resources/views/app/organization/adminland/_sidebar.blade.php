@@ -42,6 +42,13 @@
         {{ __('Item types') }}
       </a>
       @endif
+
+      @if ($permissions->contains('patron_type.manage'))
+      <a data-turbo="true" href="{{ route('organization.adminland.patron-type.index', $organization) }}" class="{{ request()->routeIs('organization.adminland.patron-type.*') ? 'bg-gray-100 font-medium text-gray-900 dark:bg-gray-800 dark:text-gray-100' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800' }} flex items-center gap-2 rounded-lg px-2 py-1">
+        <x-phosphor-users-three class="h-4 w-4 {{ request()->routeIs('organization.adminland.patron-type.*') ? 'text-emerald-700' : 'text-gray-500' }}" />
+        {{ __('Patron types') }}
+      </a>
+      @endif
     </div>
   </nav>
 </aside>

@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $organization_id
  * @property string $key
  * @property string $name
+ * @property string|null $name_translation_key
  * @property string|null $description
  * @property bool $is_active
  * @property int|null $membership_duration_days
@@ -49,6 +50,7 @@ class PatronType extends Model
         'organization_id',
         'key',
         'name',
+        'name_translation_key',
         'description',
         'is_active',
         'membership_duration_days',
