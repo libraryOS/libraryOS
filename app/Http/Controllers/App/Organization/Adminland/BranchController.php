@@ -25,11 +25,10 @@ class BranchController extends Controller
             abort(403);
         }
 
-        [$branches, $countries] = $this->viewData($organization);
+        [$branches] = $this->viewData($organization);
 
         return view('app.organization.adminland.branches.index', [
             'branches' => $branches,
-            'countries' => $countries,
         ]);
     }
 
@@ -42,7 +41,7 @@ class BranchController extends Controller
         }
         [, $countries] = $this->viewData($organization);
 
-        return view('app.organization.adminland.branches._create_branch', [
+        return view('app.organization.adminland.branches.create', [
             'countries' => $countries,
         ]);
     }

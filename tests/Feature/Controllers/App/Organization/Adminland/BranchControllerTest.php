@@ -27,13 +27,8 @@ class BranchControllerTest extends TestCase
             permissions: [PermissionEnum::BranchManage->value],
         );
 
-        $country = Country::factory()->create([
-            'name' => 'United States',
-        ]);
-
         Branch::factory()->create([
             'organization_id' => $organization->id,
-            'country_id' => $country->id,
             'name' => 'Main Office',
             'address_line_1' => '1725 Slough Avenue',
             'city' => 'Scranton',
@@ -49,12 +44,6 @@ class BranchControllerTest extends TestCase
                 && $branchs->first()->name === 'Main Office'
                 && str_contains((string) $branchs->first()->address, '1725 Slough Avenue'),
         );
-        $response->assertViewHas(
-            'countries',
-            fn ($countries): bool => $countries->contains(
-                fn ($entry): bool => $entry->name === 'United States',
-            ),
-        );
     }
 
     #[Test]
@@ -68,11 +57,19 @@ class BranchControllerTest extends TestCase
             permissions: [PermissionEnum::BranchManage->value],
         );
 
+        Country::factory()->create(['name' => 'Canada']);
+
         $response = $this->actingAs($user)
             ->get('/organizations/'.$organization->slug.'/adminland/branches/create');
 
         $response->assertStatus(200);
-        $response->assertViewIs('app.organization.adminland.branches._create_branch');
+        $response->assertViewIs('app.organization.adminland.branches.create');
+        $response->assertViewHas(
+            'countries',
+            fn ($countries): bool => $countries->contains(
+                fn ($entry): bool => $entry->name === 'Canada',
+            ),
+        );
     }
 
     #[Test]
