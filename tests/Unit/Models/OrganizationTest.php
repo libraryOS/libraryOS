@@ -8,6 +8,7 @@ use App\Models\Branch;
 use App\Models\ItemType;
 use App\Models\Member;
 use App\Models\Organization;
+use App\Models\PatronType;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -49,6 +50,17 @@ class OrganizationTest extends TestCase
         ]);
 
         $this->assertTrue($organization->itemTypes()->exists());
+    }
+
+    #[Test]
+    public function it_has_many_patron_types(): void
+    {
+        $organization = Organization::factory()->create();
+        PatronType::factory()->create([
+            'organization_id' => $organization->id,
+        ]);
+
+        $this->assertTrue($organization->patronTypes()->exists());
     }
 
     #[Test]
