@@ -7,13 +7,11 @@
 
   <x-slot:actions>
     <div class="flex items-center gap-x-2">
-      <x-button.secondary href="{{ route('organization.adminland.branch.create', $organization->slug) }}" turbo="true" x-target="new-branch-form">
+      <x-button.secondary href="{{ route('organization.adminland.branch.create', $organization->slug) }}">
         {{ __('Add') }}
       </x-button.secondary>
     </div>
   </x-slot>
-
-  <div id="new-branch-form"></div>
 
   <div id="branch-list">
     @forelse ($branches as $branch)
