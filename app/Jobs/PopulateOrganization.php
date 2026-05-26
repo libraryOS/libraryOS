@@ -27,6 +27,7 @@ class PopulateOrganization implements ShouldQueue
         $this->addDefaultPermissions();
         $this->mapPermissionsWithRoles();
         $this->assignFirstUserAsOwner();
+        $this->addDefaultItemTypes();
     }
 
     private function addDefaultRoles(): void
@@ -53,27 +54,32 @@ class PopulateOrganization implements ShouldQueue
             [
                 'key' => 'adminland.access',
                 'name_translation_key' => trans_key('Access adminland'),
-                'description' => trans_key('Allows the user to access the adminland section of the organization.'),
+                'description' => 'Allows the user to access the adminland section of the organization.',
             ],
             [
                 'key' => 'organization.update',
                 'name_translation_key' => trans_key('Update organization'),
-                'description' => trans_key('Allows the user to update the organization information, such as its name, branding, and general configuration.'),
+                'description' => 'Allows the user to update the organization information, such as its name, branding, and general configuration.',
             ],
             [
                 'key' => 'organization.delete',
                 'name_translation_key' => trans_key('Delete organization'),
-                'description' => trans_key('Allows the user to permanently delete the organization and all associated data.'),
+                'description' => 'Allows the user to permanently delete the organization and all associated data.',
             ],
             [
                 'key' => PermissionEnum::RoleManage->value,
                 'name_translation_key' => trans_key('Manage roles'),
-                'description' => trans_key('Allows the user to manage role settings.'),
+                'description' => 'Allows the user to manage role settings.',
             ],
             [
                 'key' => PermissionEnum::BranchManage->value,
                 'name_translation_key' => trans_key('Manage branches'),
-                'description' => trans_key('Allows the user to manage branches settings and configurations.'),
+                'description' => 'Allows the user to manage branches settings and configurations.',
+            ],
+            [
+                'key' => PermissionEnum::ItemTypeManage->value,
+                'name_translation_key' => trans_key('Manage item types'),
+                'description' => 'Allows the user to manage item types for the organization.',
             ],
         ];
 
@@ -89,12 +95,14 @@ class PopulateOrganization implements ShouldQueue
                 PermissionEnum::OrganizationDelete->value,
                 PermissionEnum::RoleManage->value,
                 PermissionEnum::BranchManage->value,
+                PermissionEnum::ItemTypeManage->value,
             ],
             'administrator' => [
                 PermissionEnum::AdminlandAccess->value,
                 PermissionEnum::OrganizationUpdate->value,
                 PermissionEnum::RoleManage->value,
                 PermissionEnum::BranchManage->value,
+                PermissionEnum::ItemTypeManage->value,
             ],
         ];
 
@@ -147,5 +155,76 @@ class PopulateOrganization implements ShouldQueue
                 'role_id' => $this->organization->roles()->where('key', 'owner')->first()->id,
             ]);
         }
+    }
+
+    private function addDefaultItemTypes(): void
+    {
+        $defaultItemTypes = [
+            [
+                'key' => 'book',
+                'name_translation_key' => trans_key('Book'),
+                'description' => 'General physical books such as novels, non-fiction, and textbooks.',
+                'is_loanable' => true,
+                'is_holdable' => true,
+                'is_visible_in_catalog' => true,
+                'default_loan_days' => 21,
+            ],
+            [
+                'key' => 'manga',
+                'name_translation_key' => trans_key('Manga'),
+                'description' => 'Comic books and manga volumes intended for circulation.',
+                'is_loanable' => true,
+                'is_holdable' => true,
+                'is_visible_in_catalog' => true,
+                'default_loan_days' => 14,
+            ],
+            [
+                'key' => 'magazine',
+                'name_translation_key' => trans_key('Magazine'),
+                'description' => 'Magazines and periodicals with shorter circulation periods.',
+                'is_loanable' => true,
+                'is_holdable' => true,
+                'is_visible_in_catalog' => true,
+                'default_loan_days' => 7,
+            ],
+            [
+                'key' => 'reference',
+                'name_translation_key' => trans_key('Reference'),
+                'description' => 'Reference materials intended for on-site consultation only.',
+                'is_loanable' => false,
+                'is_holdable' => false,
+                'is_visible_in_catalog' => true,
+                'default_loan_days' => null,
+            ],
+            [
+                'key' => 'dvd',
+                'name_translation_key' => trans_key('DVD'),
+                'description' => 'Video and audiovisual media distributed on DVD.',
+                'is_loanable' => true,
+                'is_holdable' => true,
+                'is_visible_in_catalog' => true,
+                'default_loan_days' => 7,
+            ],
+            [
+                'key' => 'board_game',
+                'name_translation_key' => trans_key('Board game'),
+                'description' => 'Board games and tabletop games available for borrowing.',
+                'is_loanable' => true,
+                'is_holdable' => true,
+                'is_visible_in_catalog' => true,
+                'default_loan_days' => 14,
+            ],
+            [
+                'key' => 'ebook',
+                'name_translation_key' => trans_key('E-book'),
+                'description' => 'Digital books accessible electronically through the catalog.',
+                'is_loanable' => false,
+                'is_holdable' => false,
+                'is_visible_in_catalog' => true,
+                'default_loan_days' => null,
+            ],
+        ];
+
+        $this->organization->itemTypes()->createMany($defaultItemTypes);
     }
 }

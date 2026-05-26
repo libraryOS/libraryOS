@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\App\Organization\Adminland\AdminlandController;
 use App\Http\Controllers\App\Organization\Adminland\BranchController;
+use App\Http\Controllers\App\Organization\Adminland\ItemTypeController;
 use App\Http\Controllers\App\Organization\Adminland\MemberController;
 use App\Http\Controllers\App\Organization\Adminland\RoleController;
 use App\Http\Controllers\App\Organization\JoinOrganizationController;
@@ -55,6 +56,14 @@ Route::middleware(['auth', 'verified', 'throttle:60,1', 'set.locale'])->group(fu
             Route::get('/branches/{branch}', [BranchController::class, 'edit'])->name('organization.adminland.branch.edit');
             Route::put('/branches/{branch}', [BranchController::class, 'update'])->name('organization.adminland.branch.update');
             Route::delete('/branches/{branch}', [BranchController::class, 'destroy'])->name('organization.adminland.branch.destroy');
+
+            // item types
+            Route::get('/item-types', [ItemTypeController::class, 'index'])->name('organization.adminland.item-type.index');
+            Route::get('/item-types/create', [ItemTypeController::class, 'create'])->name('organization.adminland.item-type.create');
+            Route::post('/item-types', [ItemTypeController::class, 'store'])->name('organization.adminland.item-type.store');
+            Route::get('/item-types/{item_type}', [ItemTypeController::class, 'edit'])->name('organization.adminland.item-type.edit');
+            Route::put('/item-types/{item_type}', [ItemTypeController::class, 'update'])->name('organization.adminland.item-type.update');
+            Route::delete('/item-types/{item_type}', [ItemTypeController::class, 'destroy'])->name('organization.adminland.item-type.destroy');
         });
     });
 

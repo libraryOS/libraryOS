@@ -37,8 +37,9 @@ class PopulateOrganizationTest extends TestCase
 
         $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'organization.update', 'name_translation_key' => 'Update organization']);
         $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'organization.delete', 'name_translation_key' => 'Delete organization']);
+        $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'item_type.manage', 'name_translation_key' => 'Manage item types']);
 
-        $this->assertEquals(5, $organization->permissions()->count());
+        $this->assertEquals(6, $organization->permissions()->count());
     }
 
     #[Test]
@@ -52,7 +53,21 @@ class PopulateOrganizationTest extends TestCase
         $owner = $organization->roles()->where('key', 'owner')->first();
         $administrator = $organization->roles()->where('key', 'administrator')->first();
 
-        $this->assertCount(5, $owner->permissions);
-        $this->assertCount(4, $administrator->permissions);
+        $this->assertCount(6, $owner->permissions);
+        $this->assertCount(5, $administrator->permissions);
+    }
+
+    #[Test]
+    public function it_maps_default_item_types(): void
+    {
+        $user = $this->createUser();
+        $organization = $this->createOrganization();
+
+        new PopulateOrganization($organization)->handle();
+
+        $itemTypes = $organization->itemTypes()->get();
+
+        $this->assertCount(7, $itemTypes);
+        $this->assertEquals('book', $itemTypes->first()->key);
     }
 }
