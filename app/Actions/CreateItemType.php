@@ -25,6 +25,7 @@ class CreateItemType
         private readonly Organization $organization,
         private string $key,
         private ?string $name = null,
+        private ?string $nameTranslationKey = null,
         private ?string $description = null,
         private readonly bool $isLoanable = true,
         private readonly bool $isHoldable = true,
@@ -46,6 +47,7 @@ class CreateItemType
     {
         $this->key = TextSanitizer::plainText($this->key);
         $this->name = TextSanitizer::nullablePlainText($this->name);
+        $this->nameTranslationKey = TextSanitizer::nullablePlainText($this->nameTranslationKey);
         $this->description = TextSanitizer::nullablePlainText($this->description);
     }
 
@@ -68,6 +70,7 @@ class CreateItemType
             'organization_id' => $this->organization->id,
             'key' => $this->key,
             'name' => $this->name,
+            'name_translation_key' => $this->nameTranslationKey,
             'description' => $this->description,
             'is_loanable' => $this->isLoanable,
             'is_holdable' => $this->isHoldable,

@@ -42,6 +42,7 @@ class UpdateItemTypeTest extends TestCase
             itemType: $itemType,
             key: 'dvd',
             name: 'DVD',
+            nameTranslationKey: null,
             description: 'A DVD disc',
             isLoanable: true,
             isHoldable: false,
