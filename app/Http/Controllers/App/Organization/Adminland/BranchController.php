@@ -91,7 +91,7 @@ class BranchController extends Controller
 
         [, $countries] = $this->viewData($organization);
 
-        return view('app.organization.adminland.branches._edit_branch', [
+        return view('app.organization.adminland.branches.edit', [
             'branch' => $branch,
             'countries' => $countries,
         ]);

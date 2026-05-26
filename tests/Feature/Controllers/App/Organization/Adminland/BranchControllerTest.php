@@ -130,7 +130,7 @@ class BranchControllerTest extends TestCase
             ->get('/organizations/'.$organization->slug.'/adminland/branches/'.$branch->id);
 
         $response->assertStatus(200);
-        $response->assertViewIs('app.organization.adminland.branches._edit_branch');
+        $response->assertViewIs('app.organization.adminland.branches.edit');
         $response->assertViewHas('branch', $branch);
     }
 

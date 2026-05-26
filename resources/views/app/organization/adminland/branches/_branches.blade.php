@@ -29,7 +29,7 @@
         </div>
 
         <div class="flex gap-2">
-          <x-button.invisible x-target="branch-{{ $branch->id }}" href="{{ $branch->edit_link }}" class="invisible text-sm group-hover:visible">
+          <x-button.invisible href="{{ $branch->edit_link }}" class="invisible text-sm group-hover:visible">
             {{ __('Edit') }}
           </x-button.invisible>
 

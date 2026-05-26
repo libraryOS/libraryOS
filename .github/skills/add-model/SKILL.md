@@ -7,7 +7,9 @@ description: "Adds a new model to the Laravel application. Use when the user wan
 Use the following checklist
 
 ```
-- [ ] Read the migration that was generated for the new model to understand the database schema changes.
+- [ ] If no migrations already exist, create a migration for the given fields.
+- [ ] If a migration exists, read the migration that was generated for the new model to understand the database schema changes.
+- [ ] Make sure each field of the migration is commented, except id, timestamps.
 - [ ] Create the model object in the app/Models directory. Ensure it extends the Eloquent Model class and includes any necessary relationships, fillable properties, or casts. Follow existing patterns in the codebase for consistency.
 - [ ] Add the corresponding model factory. Use fake data to populate the factory for testing purposes.
 - [ ] Create the test file for the model. It is located in /tests/Unit/Models/ and should be named after the model (e.g., UserTest.php for a User model).
