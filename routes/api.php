@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Api\Adminland\BranchController;
+use App\Http\Controllers\Api\Adminland\ItemTypeController;
 use App\Http\Controllers\Api\Adminland\MemberController;
 use App\Http\Controllers\Api\HealthController;
 use App\Http\Controllers\Api\OrganizationController;
@@ -26,6 +27,13 @@ Route::name('api.')->group(function (): void {
             Route::get('organizations/{id}/adminland/branches/{branchId}', [BranchController::class, 'show'])->name('organization.adminland.branch.show');
             Route::put('organizations/{id}/adminland/branches/{branchId}', [BranchController::class, 'update'])->name('organization.adminland.branch.update');
             Route::delete('organizations/{id}/adminland/branches/{branchId}', [BranchController::class, 'destroy'])->name('organization.adminland.branch.destroy');
+
+            // adminland - item types
+            Route::get('organizations/{id}/adminland/item-types', [ItemTypeController::class, 'index'])->name('organization.adminland.item-type.index');
+            Route::post('organizations/{id}/adminland/item-types', [ItemTypeController::class, 'store'])->name('organization.adminland.item-type.store');
+            Route::get('organizations/{id}/adminland/item-types/{itemTypeId}', [ItemTypeController::class, 'show'])->name('organization.adminland.item-type.show');
+            Route::put('organizations/{id}/adminland/item-types/{itemTypeId}', [ItemTypeController::class, 'update'])->name('organization.adminland.item-type.update');
+            Route::delete('organizations/{id}/adminland/item-types/{itemTypeId}', [ItemTypeController::class, 'destroy'])->name('organization.adminland.item-type.destroy');
 
             // adminland - members
             Route::get('organizations/{id}/adminland/members', [MemberController::class, 'index'])->name('organization.adminland.member.index');
