@@ -8,6 +8,7 @@ use App\Models\EmailSent;
 use App\Models\Member;
 use App\Models\Organization;
 use App\Models\Patron;
+use App\Models\PatronLog;
 use App\Models\PatronType;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -56,6 +57,30 @@ class UserTest extends TestCase
         ]);
 
         $this->assertTrue($user->patrons()->exists());
+    }
+
+    #[Test]
+    public function it_has_many_patron_logs_as_actor(): void
+    {
+        $user = $this->createUser();
+        $organization = Organization::factory()->create();
+        $patronType = PatronType::factory()->create([
+            'organization_id' => $organization->id,
+        ]);
+        $patron = Patron::factory()->create([
+            'organization_id' => $organization->id,
+            'patron_type_id' => $patronType->id,
+            'home_branch_id' => null,
+        ]);
+
+        PatronLog::factory()->create([
+            'organization_id' => $organization->id,
+            'patron_id' => $patron->id,
+            'actor_type' => User::class,
+            'actor_id' => $user->id,
+        ]);
+
+        $this->assertTrue($user->patronLogsAsActor()->exists());
     }
 
     #[Test]

@@ -10,6 +10,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -126,6 +127,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function patrons(): HasMany
     {
         return $this->hasMany(Patron::class);
+    }
+
+    /**
+     * Get the patron logs where this user acted as the actor.
+     *
+     * @return MorphMany<PatronLog, $this>
+     */
+    public function patronLogsAsActor(): MorphMany
+    {
+        return $this->morphMany(PatronLog::class, 'actor');
     }
 
     /**
