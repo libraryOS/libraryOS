@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Branch;
 use App\Models\Location;
 use App\Models\Organization;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -186,32 +187,40 @@ class LocationController extends Controller
     }
 
     /**
-     * @return array{0: Collection<int, Branch>, 1: Collection<int, object>}
+     * @return array{0: EloquentCollection<int, Branch>, 1: Collection<int, object>}
      */
     private function indexViewData(Organization $organization): array
     {
+        /** @var EloquentCollection<int, Branch> $branches */
         $branches = $organization->branches()->orderBy('name')->get();
 
+        /** @var EloquentCollection<int, Location> $rootLocations */
         $rootLocations = $organization->locations()
             ->with('children.children.children')
             ->whereNull('parent_id')
             ->orderBy('name')
             ->get();
 
-        $locationsByBranch = $branches->map(fn ($branch) => (object) [
-            'id' => $branch->id,
-            'name' => $branch->name,
-            'locations' => $rootLocations
-                ->where('branch_id', $branch->id)
-                ->values()
-                ->map(fn (Location $location): object => $this->mapLocationForView($location, $organization)),
-        ]);
+        /** @var Collection<int, object> $locationsByBranch */
+        $locationsByBranch = $branches->map(
+            fn (Branch $branch): object => (object) [
+                'id' => $branch->id,
+                'name' => $branch->name,
+                'locations' => $rootLocations
+                    ->where('branch_id', $branch->id)
+                    ->values()
+                    ->map(fn (Location $location): object => $this->mapLocationForView($location, $organization)),
+            ],
+        );
 
         return [$branches, $locationsByBranch];
     }
 
     private function mapLocationForView(Location $location, Organization $organization): object
     {
+        /** @var EloquentCollection<int, Location> $children */
+        $children = $location->children;
+
         return (object) [
             'id' => $location->id,
             'name' => $location->name,
@@ -225,19 +234,20 @@ class LocationController extends Controller
                 'slug' => $organization->slug,
                 'location' => $location->id,
             ]),
-            'children' => $location->children->map(fn (Location $child): object => $this->mapLocationForView($child, $organization)),
+            'children' => $children->map(fn (Location $child): object => $this->mapLocationForView($child, $organization)),
         ];
     }
 
     /**
-     * @return array{0: Collection<int, Branch>, 1: Collection<int, Location>, 2: array<string, string>, 3: array<string, string>}
+     * @return array{0: EloquentCollection<int, Branch>, 1: EloquentCollection<int, Location>, 2: array<string, string>, 3: array<string, string>}
      */
     private function formViewData(Organization $organization, ?Location $excludeLocation): array
     {
+        /** @var EloquentCollection<int, Branch> $branches */
         $branches = $organization->branches()->orderBy('name')->get();
 
         $branchOptions = $branches
-            ->mapWithKeys(fn ($b): array => [(string) $b->id => $b->name])
+            ->mapWithKeys(fn (Branch $branch): array => [(string) $branch->id => $branch->name])
             ->all();
 
         $locationsQuery = $organization->locations()
@@ -248,10 +258,15 @@ class LocationController extends Controller
             $locationsQuery->where('id', '!=', $excludeLocation->id);
         }
 
+        /** @var EloquentCollection<int, Location> $parentLocations */
         $parentLocations = $locationsQuery->get();
 
         $parentLocationOptions = ['' => '-'] + $parentLocations
-            ->mapWithKeys(fn ($l): array => [(string) $l->id => $l->branch->name.' › '.$l->name])
+            ->mapWithKeys(function (Location $location): array {
+                $branchName = $location->branch instanceof Branch ? $location->branch->name : '';
+
+                return [(string) $location->id => $branchName.' › '.$location->name];
+            })
             ->all();
 
         return [$branches, $parentLocations, $branchOptions, $parentLocationOptions];
