@@ -26,7 +26,7 @@ class PermissionFactory extends Factory
             'organization_id' => Organization::factory(),
             'key' => fake()->unique()->slug(2),
             'name_translation_key' => fake()->words(3, true),
-            'description' => fake()->optional()->sentence(),
+            'description_translation_key' => fake()->optional()->sentence(),
         ];
     }
 }

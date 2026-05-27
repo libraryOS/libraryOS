@@ -55,62 +55,62 @@ class PopulateOrganization implements ShouldQueue
             [
                 'key' => 'adminland.access',
                 'name_translation_key' => trans_key('Access adminland'),
-                'description' => 'Allows the user to access the adminland section of the organization.',
+                'description_translation_key' => trans_key('Allows the user to access the adminland section of the organization.'),
             ],
             [
                 'key' => 'organization.update',
                 'name_translation_key' => trans_key('Update organization'),
-                'description' => 'Allows the user to update the organization information, such as its name, branding, and general configuration.',
+                'description_translation_key' => trans_key('Allows the user to update the organization information, such as its name, branding, and general configuration.'),
             ],
             [
                 'key' => 'organization.delete',
                 'name_translation_key' => trans_key('Delete organization'),
-                'description' => 'Allows the user to permanently delete the organization and all associated data.',
+                'description_translation_key' => trans_key('Allows the user to permanently delete the organization and all associated data.'),
             ],
             [
                 'key' => PermissionEnum::RoleManage->value,
                 'name_translation_key' => trans_key('Manage roles'),
-                'description' => 'Allows the user to manage role settings.',
+                'description_translation_key' => trans_key('Allows the user to manage role settings.'),
             ],
             [
                 'key' => PermissionEnum::BranchManage->value,
                 'name_translation_key' => trans_key('Manage branches'),
-                'description' => 'Allows the user to manage branches settings and configurations.',
+                'description_translation_key' => trans_key('Allows the user to manage branches settings and configurations.'),
             ],
             [
                 'key' => PermissionEnum::ItemTypeManage->value,
                 'name_translation_key' => trans_key('Manage item types'),
-                'description' => 'Allows the user to manage item types for the organization.',
+                'description_translation_key' => trans_key('Allows the user to manage item types for the organization.'),
             ],
             [
                 'key' => PermissionEnum::PatronTypeManage->value,
                 'name_translation_key' => trans_key('Manage patron types'),
-                'description' => 'Allows the user to manage patron types for the organization.',
+                'description_translation_key' => trans_key('Allows the user to manage patron types for the organization.'),
             ],
             [
                 'key' => PermissionEnum::LocationManage->value,
                 'name_translation_key' => trans_key('Manage locations'),
-                'description' => 'Allows the user to manage locations for the organization.',
+                'description_translation_key' => trans_key('Allows the user to manage locations for the organization.'),
             ],
             [
                 'key' => PermissionEnum::PatronView->value,
                 'name_translation_key' => trans_key('View patrons'),
-                'description' => 'Voir la liste et la fiche d’un patron.',
+                'description_translation_key' => trans_key('View the list and profile of a patron.'),
             ],
             [
                 'key' => PermissionEnum::PatronCreate->value,
                 'name_translation_key' => trans_key('Create patrons'),
-                'description' => 'Créer un nouveau patron.',
+                'description_translation_key' => trans_key('Create a new patron.'),
             ],
             [
                 'key' => PermissionEnum::PatronUpdate->value,
                 'name_translation_key' => trans_key('Update patrons'),
-                'description' => 'Modifier les informations du patron.',
+                'description_translation_key' => trans_key('Update patron information.'),
             ],
             [
                 'key' => PermissionEnum::PatronArchive->value,
                 'name_translation_key' => trans_key('Archive patrons'),
-                'description' => 'Désactiver/archiver un patron sans le supprimer.',
+                'description_translation_key' => trans_key('Deactivate/archive a patron without deleting them.'),
             ],
         ];
 
