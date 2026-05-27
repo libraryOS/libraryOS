@@ -1,4 +1,6 @@
-@php $paddingLeft = ($depth * 24) + 12; @endphp
+@php
+  $paddingLeft = $depth * 24 + 12;
+@endphp
 
 <div id="location-{{ $location->id }}" class="group flex items-center justify-between border-b border-gray-200 py-3 pr-3 last:border-b-0 hover:bg-blue-50 dark:border-gray-700 dark:hover:bg-gray-800" style="padding-left: {{ $paddingLeft }}px">
   <div class="flex items-center gap-2">

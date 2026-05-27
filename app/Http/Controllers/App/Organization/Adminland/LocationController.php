@@ -204,7 +204,7 @@ class LocationController extends Controller
             'locations' => $rootLocations
                 ->where('branch_id', $branch->id)
                 ->values()
-                ->map(fn ($location) => $this->mapLocationForView($location, $organization)),
+                ->map(fn (Location $location): object => $this->mapLocationForView($location, $organization)),
         ]);
 
         return [$branches, $locationsByBranch];
@@ -225,7 +225,7 @@ class LocationController extends Controller
                 'slug' => $organization->slug,
                 'location' => $location->id,
             ]),
-            'children' => $location->children->map(fn ($child) => $this->mapLocationForView($child, $organization)),
+            'children' => $location->children->map(fn (Location $child): object => $this->mapLocationForView($child, $organization)),
         ];
     }
 
@@ -237,21 +237,21 @@ class LocationController extends Controller
         $branches = $organization->branches()->orderBy('name')->get();
 
         $branchOptions = $branches
-            ->mapWithKeys(fn ($b) => [(string) $b->id => $b->name])
+            ->mapWithKeys(fn ($b): array => [(string) $b->id => $b->name])
             ->all();
 
         $locationsQuery = $organization->locations()
             ->with('branch')
             ->orderBy('name');
 
-        if ($excludeLocation !== null) {
+        if ($excludeLocation instanceof Location) {
             $locationsQuery->where('id', '!=', $excludeLocation->id);
         }
 
         $parentLocations = $locationsQuery->get();
 
         $parentLocationOptions = ['' => '-'] + $parentLocations
-            ->mapWithKeys(fn ($l) => [(string) $l->id => $l->branch->name.' › '.$l->name])
+            ->mapWithKeys(fn ($l): array => [(string) $l->id => $l->branch->name.' › '.$l->name])
             ->all();
 
         return [$branches, $parentLocations, $branchOptions, $parentLocationOptions];
