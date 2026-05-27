@@ -92,6 +92,26 @@ class PopulateOrganization implements ShouldQueue
                 'name_translation_key' => trans_key('Manage locations'),
                 'description' => 'Allows the user to manage locations for the organization.',
             ],
+            [
+                'key' => PermissionEnum::PatronView->value,
+                'name_translation_key' => trans_key('View patrons'),
+                'description' => 'Voir la liste et la fiche d’un patron.',
+            ],
+            [
+                'key' => PermissionEnum::PatronCreate->value,
+                'name_translation_key' => trans_key('Create patrons'),
+                'description' => 'Créer un nouveau patron.',
+            ],
+            [
+                'key' => PermissionEnum::PatronUpdate->value,
+                'name_translation_key' => trans_key('Update patrons'),
+                'description' => 'Modifier les informations du patron.',
+            ],
+            [
+                'key' => PermissionEnum::PatronArchive->value,
+                'name_translation_key' => trans_key('Archive patrons'),
+                'description' => 'Désactiver/archiver un patron sans le supprimer.',
+            ],
         ];
 
         $this->organization->permissions()->createMany($permissionsData);
@@ -109,6 +129,10 @@ class PopulateOrganization implements ShouldQueue
                 PermissionEnum::ItemTypeManage->value,
                 PermissionEnum::PatronTypeManage->value,
                 PermissionEnum::LocationManage->value,
+                PermissionEnum::PatronView->value,
+                PermissionEnum::PatronCreate->value,
+                PermissionEnum::PatronUpdate->value,
+                PermissionEnum::PatronArchive->value,
             ],
             'administrator' => [
                 PermissionEnum::AdminlandAccess->value,
@@ -118,6 +142,10 @@ class PopulateOrganization implements ShouldQueue
                 PermissionEnum::ItemTypeManage->value,
                 PermissionEnum::PatronTypeManage->value,
                 PermissionEnum::LocationManage->value,
+                PermissionEnum::PatronView->value,
+                PermissionEnum::PatronCreate->value,
+                PermissionEnum::PatronUpdate->value,
+                PermissionEnum::PatronArchive->value,
             ],
         ];
 

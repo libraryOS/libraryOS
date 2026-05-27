@@ -9,6 +9,7 @@ use Database\Factories\PatronTypeFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class PatronType
@@ -83,5 +84,15 @@ class PatronType extends Model
     public function organization(): BelongsTo
     {
         return $this->belongsTo(Organization::class);
+    }
+
+    /**
+     * Get the patrons assigned to this patron type.
+     *
+     * @return HasMany<Patron, $this>
+     */
+    public function patrons(): HasMany
+    {
+        return $this->hasMany(Patron::class);
     }
 }

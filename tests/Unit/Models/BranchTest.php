@@ -8,6 +8,8 @@ use App\Models\Branch;
 use App\Models\Country;
 use App\Models\Location;
 use App\Models\Organization;
+use App\Models\Patron;
+use App\Models\PatronType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -46,6 +48,21 @@ class BranchTest extends TestCase
         ]);
 
         $this->assertTrue($branch->locations()->exists());
+    }
+
+    #[Test]
+    public function it_has_many_patrons(): void
+    {
+        $organization = Organization::factory()->create();
+        $branch = Branch::factory()->create(['organization_id' => $organization->id]);
+        $patronType = PatronType::factory()->create(['organization_id' => $organization->id]);
+        Patron::factory()->create([
+            'organization_id' => $organization->id,
+            'patron_type_id' => $patronType->id,
+            'home_branch_id' => $branch->id,
+        ]);
+
+        $this->assertTrue($branch->patrons()->exists());
     }
 
     #[Test]

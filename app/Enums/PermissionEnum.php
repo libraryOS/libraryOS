@@ -14,4 +14,8 @@ enum PermissionEnum: string
     case ItemTypeManage = 'item_type.manage';
     case PatronTypeManage = 'patron_type.manage';
     case LocationManage = 'location.manage';
+    case PatronView = 'patron.view';
+    case PatronCreate = 'patron.create';
+    case PatronUpdate = 'patron.update';
+    case PatronArchive = 'patron.archive';
 }

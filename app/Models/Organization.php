@@ -115,6 +115,16 @@ class Organization extends Model
     }
 
     /**
+     * Get the patrons of the organization.
+     *
+     * @return HasMany<Patron, $this>
+     */
+    public function patrons(): HasMany
+    {
+        return $this->hasMany(Patron::class);
+    }
+
+    /**
      * Get the locations of the organization.
      *
      * @return HasMany<Location, $this>

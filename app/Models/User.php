@@ -119,6 +119,16 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Get the patrons linked to this user.
+     *
+     * @return HasMany<Patron, $this>
+     */
+    public function patrons(): HasMany
+    {
+        return $this->hasMany(Patron::class);
+    }
+
+    /**
      * Get the organizations associated with the user.
      *
      * @return HasManyThrough<Organization, Member, $this>

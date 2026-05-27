@@ -106,6 +106,16 @@ class Branch extends Model implements HasAddress
     }
 
     /**
+     * Get the patrons whose home branch is this branch.
+     *
+     * @return HasMany<Patron, $this>
+     */
+    public function patrons(): HasMany
+    {
+        return $this->hasMany(Patron::class, 'home_branch_id');
+    }
+
+    /**
      * Get the first line of the address of the branch.
      */
     public function getAddressLine1(): ?string
