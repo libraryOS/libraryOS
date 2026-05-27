@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Http\Controllers\App\Organization\Adminland\AdminlandController;
 use App\Http\Controllers\App\Organization\Adminland\BranchController;
 use App\Http\Controllers\App\Organization\Adminland\ItemTypeController;
+use App\Http\Controllers\App\Organization\Adminland\LocationController;
 use App\Http\Controllers\App\Organization\Adminland\MemberController;
 use App\Http\Controllers\App\Organization\Adminland\PatronTypeController;
 use App\Http\Controllers\App\Organization\Adminland\RoleController;
@@ -73,6 +74,14 @@ Route::middleware(['auth', 'verified', 'throttle:60,1', 'set.locale'])->group(fu
             Route::get('/patron-types/{patron_type}', [PatronTypeController::class, 'edit'])->name('organization.adminland.patron-type.edit');
             Route::put('/patron-types/{patron_type}', [PatronTypeController::class, 'update'])->name('organization.adminland.patron-type.update');
             Route::delete('/patron-types/{patron_type}', [PatronTypeController::class, 'destroy'])->name('organization.adminland.patron-type.destroy');
+
+            // locations
+            Route::get('/locations', [LocationController::class, 'index'])->name('organization.adminland.location.index');
+            Route::get('/locations/create', [LocationController::class, 'create'])->name('organization.adminland.location.create');
+            Route::post('/locations', [LocationController::class, 'store'])->name('organization.adminland.location.store');
+            Route::get('/locations/{location}', [LocationController::class, 'edit'])->name('organization.adminland.location.edit');
+            Route::put('/locations/{location}', [LocationController::class, 'update'])->name('organization.adminland.location.update');
+            Route::delete('/locations/{location}', [LocationController::class, 'destroy'])->name('organization.adminland.location.destroy');
         });
     });
 
