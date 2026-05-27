@@ -29,6 +29,6 @@ class DocsController extends Controller
             [new HeadingPermalinkExtension],
         );
 
-        return view('marketing.docs.markdown', compact('content', 'breadcrumbs'));
+        return view('marketing.docs.markdown', ['content' => $content, 'breadcrumbs' => $breadcrumbs]);
     }
 }

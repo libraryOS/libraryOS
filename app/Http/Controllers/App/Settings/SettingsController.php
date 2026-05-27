@@ -95,7 +95,7 @@ class SettingsController extends Controller
 
         new UpdateUserInformation(
             user: $request->user(),
-            email: mb_strtolower($validated['email']),
+            email: mb_strtolower((string) $validated['email']),
             firstName: $validated['first_name'],
             lastName: $validated['last_name'],
             nickname: $validated['nickname'],
