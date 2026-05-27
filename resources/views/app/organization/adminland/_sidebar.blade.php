@@ -36,6 +36,13 @@
         </a>
       @endif
 
+      @if ($permissions->contains('location.manage'))
+        <a data-turbo="true" href="{{ route('organization.adminland.location.index', $organization) }}" class="{{ request()->routeIs('organization.adminland.location.*') ? 'bg-gray-100 font-medium text-gray-900 dark:bg-gray-800 dark:text-gray-100' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800' }} flex items-center gap-2 rounded-lg px-2 py-1">
+          <x-phosphor-map-trifold class="h-4 w-4 {{ request()->routeIs('organization.adminland.location.*') ? 'text-emerald-700' : 'text-gray-500' }}" />
+          {{ __('Locations') }}
+        </a>
+      @endif
+
       @if ($permissions->contains('item_type.manage'))
         <a data-turbo="true" href="{{ route('organization.adminland.item-type.index', $organization) }}" class="{{ request()->routeIs('organization.adminland.item-type.*') ? 'bg-gray-100 font-medium text-gray-900 dark:bg-gray-800 dark:text-gray-100' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800' }} flex items-center gap-2 rounded-lg px-2 py-1">
           <x-phosphor-disc class="h-4 w-4 {{ request()->routeIs('organization.adminland.item-type.*') ? 'text-emerald-700' : 'text-gray-500' }}" />
