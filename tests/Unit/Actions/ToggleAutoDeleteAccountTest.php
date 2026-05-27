@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Actions;
 
 use App\Actions\ToggleAutoDeleteAccount;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -37,7 +38,7 @@ class ToggleAutoDeleteAccountTest extends TestCase
             queue: 'low',
             job: LogUserAction::class,
             callback: fn (LogUserAction $job): bool => (
-                $job->action === 'auto_delete_account_update'
+                $job->action === UserActionEnum::AutoDeleteAccountUpdate
                 && $job->user->id === $user->id
                 && $job->description === 'Updated auto delete account setting to enabled'
             ),

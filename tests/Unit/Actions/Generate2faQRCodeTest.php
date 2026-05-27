@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Actions;
 
 use App\Actions\Generate2faQRCode;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -38,7 +39,7 @@ class Generate2faQRCodeTest extends TestCase
             queue: 'low',
             job: LogUserAction::class,
             callback: fn (LogUserAction $job): bool => (
-                $job->action === '2fa_qr_code_generation'
+                $job->action === UserActionEnum::TwoFaQrCodeGeneration
                 && $job->user->id === $user->id
                 && $job->description === 'Generated 2FA QR code for setup'
             ),

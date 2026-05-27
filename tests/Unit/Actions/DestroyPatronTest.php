@@ -6,6 +6,7 @@ namespace Tests\Unit\Actions;
 
 use App\Actions\DestroyPatron;
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Patron;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -52,7 +53,7 @@ class DestroyPatronTest extends TestCase
             queue: 'low',
             job: LogUserAction::class,
             callback: fn (LogUserAction $job): bool => (
-                $job->action === 'patron_archive'
+                $job->action === UserActionEnum::PatronArchive
                 && $job->user->id === $user->id
                 && $job->organization->id === $organization->id
                 && $job->description === 'Archived a patron called Jim Halpert'
