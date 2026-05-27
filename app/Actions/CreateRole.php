@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Enums\UserActionEnum;
 use App\Enums\PermissionEnum;
 use App\Helpers\TextSanitizer;
 use App\Jobs\LogUserAction;
@@ -77,7 +78,7 @@ class CreateRole
         LogUserAction::dispatch(
             organization: $this->organization,
             user: $this->user,
-            action: 'role_creation',
+            action: UserActionEnum::RoleCreation,
             description: sprintf('Created a role called %s', $this->name),
         )->onQueue('low');
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Enums\UserActionEnum;
 use App\Enums\PermissionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Member;
@@ -61,7 +62,7 @@ class DestroyPatronType
         LogUserAction::dispatch(
             organization: $this->organization,
             user: $this->user,
-            action: 'patron_type_deletion',
+            action: UserActionEnum::PatronTypeDeletion,
             description: sprintf('Deleted a patron type called %s', $this->patronTypeName),
         )->onQueue('low');
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Enums\UserActionEnum;
 use App\Helpers\TextSanitizer;
 use App\Jobs\LogUserAction;
 use App\Jobs\PopulateOrganization;
@@ -102,7 +103,7 @@ class CreateOrganization
         LogUserAction::dispatch(
             organization: $this->organization,
             user: $this->user,
-            action: 'organization_creation',
+            action: UserActionEnum::OrganizationCreation,
             description: sprintf('Created an organization called %s', $this->name),
         )->onQueue('low');
     }

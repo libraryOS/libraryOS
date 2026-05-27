@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Enums\UserActionEnum;
 use App\Enums\PermissionEnum;
 use App\Helpers\TextSanitizer;
 use App\Jobs\LogUserAction;
@@ -68,7 +69,7 @@ class UpdateOrganization
         LogUserAction::dispatch(
             organization: $this->organization,
             user: $this->user,
-            action: 'organization_update',
+            action: UserActionEnum::OrganizationUpdate,
             description: sprintf('Updated the organization called %s', $this->name),
         )->onQueue('low');
     }

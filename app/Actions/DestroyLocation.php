@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Enums\UserActionEnum;
 use App\Enums\PermissionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Location;
@@ -58,7 +59,7 @@ class DestroyLocation
         LogUserAction::dispatch(
             organization: $this->organization,
             user: $this->user,
-            action: 'location_deletion',
+            action: UserActionEnum::LocationDeletion,
             description: sprintf('Deleted a location called %s', $this->locationName),
         )->onQueue('low');
     }

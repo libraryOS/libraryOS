@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Enums\UserActionEnum;
 use App\Enums\PermissionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Organization;
@@ -51,7 +52,7 @@ class DestroyOrganization
         LogUserAction::dispatch(
             organization: null,
             user: $this->user,
-            action: 'organization_deletion',
+            action: UserActionEnum::OrganizationDeletion,
             description: sprintf('Deleted the organization called %s', $this->organizationName),
         )->onQueue('low');
     }

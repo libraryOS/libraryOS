@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Enums\UserActionEnum;
 use App\Enums\PermissionEnum;
 use App\Helpers\TextSanitizer;
 use App\Jobs\LogUserAction;
@@ -86,7 +87,7 @@ class UpdateItemType
         LogUserAction::dispatch(
             organization: $this->organization,
             user: $this->user,
-            action: 'item_type_update',
+            action: UserActionEnum::ItemTypeUpdate,
             description: sprintf('Updated an item type called %s', $this->itemType->getName()),
         )->onQueue('low');
     }

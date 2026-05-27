@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Enums\UserActionEnum;
 use App\Enums\PermissionEnum;
 use App\Helpers\TextSanitizer;
 use App\Jobs\LogUserAction;
@@ -91,7 +92,7 @@ class CreateLocation
         LogUserAction::dispatch(
             organization: $this->organization,
             user: $this->user,
-            action: 'location_creation',
+            action: UserActionEnum::LocationCreation,
             description: sprintf('Created a location called %s', $this->name),
         )->onQueue('low');
     }

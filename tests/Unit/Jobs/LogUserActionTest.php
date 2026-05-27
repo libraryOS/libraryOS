@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Jobs;
 
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Log;
 use App\Models\User;
@@ -26,7 +27,7 @@ class LogUserActionTest extends TestCase
         LogUserAction::dispatch(
             organization: null,
             user: $user,
-            action: 'personal_profile_update',
+            action: UserActionEnum::PersonalProfileUpdate,
             description: 'Updated their personal profile',
         );
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Jobs;
 
+use App\Enums\UserActionEnum;
 use App\Models\Log;
 use App\Models\Organization;
 use App\Models\User;
@@ -17,7 +18,7 @@ class LogUserAction implements ShouldQueue
     public function __construct(
         public ?Organization $organization,
         public User $user,
-        public string $action,
+        public UserActionEnum $action,
         public string $description,
     ) {}
 
@@ -30,7 +31,7 @@ class LogUserAction implements ShouldQueue
             'organization_id' => $this->organization?->id,
             'user_id' => $this->user->id,
             'user_name' => $this->user->getFullName(),
-            'action' => $this->action,
+            'action' => $this->action->value,
             'description' => $this->description,
         ]);
 

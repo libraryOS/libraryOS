@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Enums\UserActionEnum;
 use App\Helpers\TextSanitizer;
 use App\Jobs\LogUserAction;
 use App\Models\User;
@@ -94,7 +95,7 @@ class UpdateUserInformation
         LogUserAction::dispatch(
             organization: null,
             user: $this->user,
-            action: 'personal_profile_update',
+            action: UserActionEnum::PersonalProfileUpdate,
             description: 'Updated their personal profile',
         )->onQueue('low');
     }
