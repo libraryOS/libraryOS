@@ -99,6 +99,11 @@
       "@libraryos:prettier",
       "@libraryos:pint",
       "@libraryos:rector"
+    ],
+    "precommit": [
+      "@libraryos:unit",
+      "@libraryos:locale",
+      "@lint"
     ]
   },
   "extra": {
