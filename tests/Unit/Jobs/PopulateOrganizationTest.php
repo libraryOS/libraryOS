@@ -39,8 +39,9 @@ class PopulateOrganizationTest extends TestCase
         $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'organization.delete', 'name_translation_key' => 'Delete organization']);
         $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'item_type.manage', 'name_translation_key' => 'Manage item types']);
         $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'patron_type.manage', 'name_translation_key' => 'Manage patron types']);
+        $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'location.manage', 'name_translation_key' => 'Manage locations']);
 
-        $this->assertEquals(7, $organization->permissions()->count());
+        $this->assertEquals(8, $organization->permissions()->count());
     }
 
     #[Test]
@@ -54,8 +55,8 @@ class PopulateOrganizationTest extends TestCase
         $owner = $organization->roles()->where('key', 'owner')->first();
         $administrator = $organization->roles()->where('key', 'administrator')->first();
 
-        $this->assertCount(7, $owner->permissions);
-        $this->assertCount(6, $administrator->permissions);
+        $this->assertCount(8, $owner->permissions);
+        $this->assertCount(7, $administrator->permissions);
     }
 
     #[Test]
