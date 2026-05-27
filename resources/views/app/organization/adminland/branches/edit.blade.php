@@ -22,7 +22,6 @@
     <!-- Main content -->
     <section class="p-4 sm:p-8">
       <div class="mx-auto max-w-5xl space-y-6 sm:px-0">
-
         <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $branch->name }}</h2>
 
         <form action="{{ route('organization.adminland.branch.update', [$organization->slug, $branch->id]) }}" method="post" class="space-y-8">
@@ -43,7 +42,7 @@
             </div>
           </div>
 
-          <hr class="border-gray-200 dark:border-gray-700">
+          <hr class="border-gray-200 dark:border-gray-700" />
 
           {{-- Section 2: Address --}}
           <div class="grid gap-6 sm:grid-cols-3">
@@ -67,7 +66,7 @@
             </div>
           </div>
 
-          <hr class="border-gray-200 dark:border-gray-700">
+          <hr class="border-gray-200 dark:border-gray-700" />
 
           {{-- Section 3: Details --}}
           <div class="grid gap-6 sm:grid-cols-3">
@@ -94,7 +93,6 @@
             </x-button>
           </div>
         </form>
-
       </div>
     </section>
   </div>

@@ -18,7 +18,7 @@ Route::middleware(['marketing'])->group(function (): void {
 
     Route::get('/docs/{version}/{path?}', [DocsPageController::class, 'show'])
         ->where([
-            'version' => implode('|', array_map(fn (string $v) => preg_quote($v), config('docs.versions'))),
+            'version' => implode('|', array_map(preg_quote(...), config('docs.versions'))),
             'path' => '.*',
         ])
         ->name('marketing.docs.show');

@@ -45,7 +45,7 @@ class RoleFactory extends Factory
      */
     public function system(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'organization_id' => null,
             'is_system' => true,
         ]);

@@ -27,7 +27,7 @@ abstract class TestCase extends BaseTestCase
     protected function assignUserToOrganization(User $user, Organization $organization, array $permissions = []): Member
     {
         // create role
-        if (! empty($permissions)) {
+        if ($permissions !== []) {
             foreach ($permissions as $permission) {
                 Permission::query()->firstOrCreate([
                     'organization_id' => $organization->id,

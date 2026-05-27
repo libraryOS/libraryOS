@@ -18,7 +18,6 @@
     <!-- Main content -->
     <section class="p-4 sm:p-8">
       <div class="mx-auto max-w-5xl space-y-6 sm:px-0">
-
         <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ __('New item type') }}</h2>
 
         <form action="{{ route('organization.adminland.item-type.store', $organization->slug) }}" method="post" class="space-y-8">
@@ -38,7 +37,7 @@
             </div>
           </div>
 
-          <hr class="border-gray-200 dark:border-gray-700">
+          <hr class="border-gray-200 dark:border-gray-700" />
 
           {{-- Section 2: Circulation settings --}}
           <div class="grid gap-6 sm:grid-cols-3">
@@ -50,8 +49,8 @@
               <div class="space-y-4">
                 <div class="flex items-start gap-3">
                   <div class="flex h-6 items-center">
-                    <input type="hidden" name="is_loanable" value="0">
-                    <input id="is_loanable" name="is_loanable" type="checkbox" value="1" @checked(old('is_loanable', true)) class="h-4 w-4 rounded border-gray-300 accent-emerald-600 dark:border-gray-600">
+                    <input type="hidden" name="is_loanable" value="0" />
+                    <input id="is_loanable" name="is_loanable" type="checkbox" value="1" @checked(old('is_loanable', true)) class="h-4 w-4 rounded border-gray-300 accent-emerald-600 dark:border-gray-600" />
                   </div>
                   <div class="text-sm">
                     <label for="is_loanable" class="font-medium text-gray-900 dark:text-white">{{ __('Loanable') }}</label>
@@ -61,8 +60,8 @@
 
                 <div class="flex items-start gap-3">
                   <div class="flex h-6 items-center">
-                    <input type="hidden" name="is_holdable" value="0">
-                    <input id="is_holdable" name="is_holdable" type="checkbox" value="1" @checked(old('is_holdable', true)) class="h-4 w-4 rounded border-gray-300 accent-emerald-600 dark:border-gray-600">
+                    <input type="hidden" name="is_holdable" value="0" />
+                    <input id="is_holdable" name="is_holdable" type="checkbox" value="1" @checked(old('is_holdable', true)) class="h-4 w-4 rounded border-gray-300 accent-emerald-600 dark:border-gray-600" />
                   </div>
                   <div class="text-sm">
                     <label for="is_holdable" class="font-medium text-gray-900 dark:text-white">{{ __('Holdable') }}</label>
@@ -72,8 +71,8 @@
 
                 <div class="flex items-start gap-3">
                   <div class="flex h-6 items-center">
-                    <input type="hidden" name="is_visible_in_catalog" value="0">
-                    <input id="is_visible_in_catalog" name="is_visible_in_catalog" type="checkbox" value="1" @checked(old('is_visible_in_catalog', true)) class="h-4 w-4 rounded border-gray-300 accent-emerald-600 dark:border-gray-600">
+                    <input type="hidden" name="is_visible_in_catalog" value="0" />
+                    <input id="is_visible_in_catalog" name="is_visible_in_catalog" type="checkbox" value="1" @checked(old('is_visible_in_catalog', true)) class="h-4 w-4 rounded border-gray-300 accent-emerald-600 dark:border-gray-600" />
                   </div>
                   <div class="text-sm">
                     <label for="is_visible_in_catalog" class="font-medium text-gray-900 dark:text-white">{{ __('Visible in catalog') }}</label>
@@ -88,7 +87,7 @@
             </div>
           </div>
 
-          <hr class="border-gray-200 dark:border-gray-700">
+          <hr class="border-gray-200 dark:border-gray-700" />
 
           {{-- Section 3: Details --}}
           <div class="grid gap-6 sm:grid-cols-3">
@@ -112,7 +111,6 @@
             </x-button>
           </div>
         </form>
-
       </div>
     </section>
   </div>

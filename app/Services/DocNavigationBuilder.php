@@ -68,7 +68,7 @@ class DocNavigationBuilder
 
     private function resolveSegments(string $currentDir, array $segments): ?string
     {
-        if (empty($segments)) {
+        if ($segments === []) {
             return null;
         }
 
@@ -81,7 +81,7 @@ class DocNavigationBuilder
                 if (strtolower($this->stripPrefix($entry)) === $segment) {
                     return $this->resolveSegments($fullPath, $segments);
                 }
-            } elseif (empty($segments) && $this->isDocFile($entry)) {
+            } elseif ($segments === [] && $this->isDocFile($entry)) {
                 if ($this->toSlug($entry) === $segment) {
                     return $fullPath;
                 }

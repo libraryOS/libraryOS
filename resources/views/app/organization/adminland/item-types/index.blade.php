@@ -41,7 +41,10 @@
                   </div>
 
                   <div class="flex flex-col">
-                    <p><span class="font-semibold">{{ $itemType->name }}</span> <span class="text-zinc-500 text-xs font-mono">{{ $itemType->key }}</span></p>
+                    <p>
+                      <span class="font-semibold">{{ $itemType->name }}</span>
+                      <span class="text-zinc-500 text-xs font-mono">{{ $itemType->key }}</span>
+                    </p>
                     @if ($itemType->description)
                       <p class="text-xs text-zinc-500">{{ $itemType->description }}</p>
                     @endif

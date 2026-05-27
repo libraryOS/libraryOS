@@ -18,10 +18,10 @@
       </a>
 
       @if ($permissions->contains('role.manage'))
-      <a data-turbo="true" href="{{ route('organization.adminland.role.index', $organization) }}" class="{{ request()->routeIs('organization.adminland.role.*') ? 'bg-gray-100 font-medium text-gray-900 dark:bg-gray-800 dark:text-gray-100' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800' }} flex items-center gap-2 rounded-lg px-2 py-1">
-        <x-phosphor-shield-check class="h-4 w-4 {{ request()->routeIs('organization.adminland.role.*') ? 'text-emerald-700' : 'text-gray-500' }}" />
-        {{ __('Roles') }}
-      </a>
+        <a data-turbo="true" href="{{ route('organization.adminland.role.index', $organization) }}" class="{{ request()->routeIs('organization.adminland.role.*') ? 'bg-gray-100 font-medium text-gray-900 dark:bg-gray-800 dark:text-gray-100' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800' }} flex items-center gap-2 rounded-lg px-2 py-1">
+          <x-phosphor-shield-check class="h-4 w-4 {{ request()->routeIs('organization.adminland.role.*') ? 'text-emerald-700' : 'text-gray-500' }}" />
+          {{ __('Roles') }}
+        </a>
       @endif
 
       <a data-turbo="true" href="{{ route('organization.adminland.member.index', $organization) }}" class="{{ request()->routeIs('organization.adminland.member.index') ? 'bg-gray-100 font-medium text-gray-900 dark:bg-gray-800 dark:text-gray-100' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800' }} flex items-center gap-2 rounded-lg px-2 py-1">
@@ -30,24 +30,24 @@
       </a>
 
       @if ($permissions->contains('branch.manage'))
-      <a data-turbo="true" href="{{ route('organization.adminland.branch.index', $organization) }}" class="{{ request()->routeIs('organization.adminland.branch.*') ? 'bg-gray-100 font-medium text-gray-900 dark:bg-gray-800 dark:text-gray-100' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800' }} flex items-center gap-2 rounded-lg px-2 py-1">
-        <x-phosphor-building-office class="h-4 w-4 {{ request()->routeIs('organization.adminland.branch.*') ? 'text-emerald-700' : 'text-gray-500' }}" />
-        {{ __('Branches') }}
-      </a>
+        <a data-turbo="true" href="{{ route('organization.adminland.branch.index', $organization) }}" class="{{ request()->routeIs('organization.adminland.branch.*') ? 'bg-gray-100 font-medium text-gray-900 dark:bg-gray-800 dark:text-gray-100' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800' }} flex items-center gap-2 rounded-lg px-2 py-1">
+          <x-phosphor-building-office class="h-4 w-4 {{ request()->routeIs('organization.adminland.branch.*') ? 'text-emerald-700' : 'text-gray-500' }}" />
+          {{ __('Branches') }}
+        </a>
       @endif
 
       @if ($permissions->contains('item_type.manage'))
-      <a data-turbo="true" href="{{ route('organization.adminland.item-type.index', $organization) }}" class="{{ request()->routeIs('organization.adminland.item-type.*') ? 'bg-gray-100 font-medium text-gray-900 dark:bg-gray-800 dark:text-gray-100' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800' }} flex items-center gap-2 rounded-lg px-2 py-1">
-        <x-phosphor-disc class="h-4 w-4 {{ request()->routeIs('organization.adminland.item-type.*') ? 'text-emerald-700' : 'text-gray-500' }}" />
-        {{ __('Item types') }}
-      </a>
+        <a data-turbo="true" href="{{ route('organization.adminland.item-type.index', $organization) }}" class="{{ request()->routeIs('organization.adminland.item-type.*') ? 'bg-gray-100 font-medium text-gray-900 dark:bg-gray-800 dark:text-gray-100' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800' }} flex items-center gap-2 rounded-lg px-2 py-1">
+          <x-phosphor-disc class="h-4 w-4 {{ request()->routeIs('organization.adminland.item-type.*') ? 'text-emerald-700' : 'text-gray-500' }}" />
+          {{ __('Item types') }}
+        </a>
       @endif
 
       @if ($permissions->contains('patron_type.manage'))
-      <a data-turbo="true" href="{{ route('organization.adminland.patron-type.index', $organization) }}" class="{{ request()->routeIs('organization.adminland.patron-type.*') ? 'bg-gray-100 font-medium text-gray-900 dark:bg-gray-800 dark:text-gray-100' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800' }} flex items-center gap-2 rounded-lg px-2 py-1">
-        <x-phosphor-users-three class="h-4 w-4 {{ request()->routeIs('organization.adminland.patron-type.*') ? 'text-emerald-700' : 'text-gray-500' }}" />
-        {{ __('Patron types') }}
-      </a>
+        <a data-turbo="true" href="{{ route('organization.adminland.patron-type.index', $organization) }}" class="{{ request()->routeIs('organization.adminland.patron-type.*') ? 'bg-gray-100 font-medium text-gray-900 dark:bg-gray-800 dark:text-gray-100' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800' }} flex items-center gap-2 rounded-lg px-2 py-1">
+          <x-phosphor-users-three class="h-4 w-4 {{ request()->routeIs('organization.adminland.patron-type.*') ? 'text-emerald-700' : 'text-gray-500' }}" />
+          {{ __('Patron types') }}
+        </a>
       @endif
     </div>
   </nav>
