@@ -6,6 +6,8 @@ namespace Tests\Unit\Models;
 
 use App\Models\Branch;
 use App\Models\Country;
+use App\Models\Location;
+use App\Models\Organization;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -31,6 +33,19 @@ class BranchTest extends TestCase
         ]);
 
         $this->assertTrue($branch->country()->exists());
+    }
+
+    #[Test]
+    public function it_has_many_locations(): void
+    {
+        $organization = Organization::factory()->create();
+        $branch = Branch::factory()->create(['organization_id' => $organization->id]);
+        Location::factory()->create([
+            'organization_id' => $organization->id,
+            'branch_id' => $branch->id,
+        ]);
+
+        $this->assertTrue($branch->locations()->exists());
     }
 
     #[Test]

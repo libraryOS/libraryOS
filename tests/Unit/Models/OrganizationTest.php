@@ -6,6 +6,7 @@ namespace Tests\Unit\Models;
 
 use App\Models\Branch;
 use App\Models\ItemType;
+use App\Models\Location;
 use App\Models\Member;
 use App\Models\Organization;
 use App\Models\PatronType;
@@ -61,6 +62,19 @@ class OrganizationTest extends TestCase
         ]);
 
         $this->assertTrue($organization->patronTypes()->exists());
+    }
+
+    #[Test]
+    public function it_has_many_locations(): void
+    {
+        $organization = Organization::factory()->create();
+        $branch = Branch::factory()->create(['organization_id' => $organization->id]);
+        Location::factory()->create([
+            'organization_id' => $organization->id,
+            'branch_id' => $branch->id,
+        ]);
+
+        $this->assertTrue($organization->locations()->exists());
     }
 
     #[Test]
