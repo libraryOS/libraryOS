@@ -228,7 +228,10 @@ class DocNavigationBuilderTest extends TestCase
             return;
         }
         foreach (scandir($dir) ?: [] as $entry) {
-            if ($entry === '.' || $entry === '..') {
+            if ($entry === '.') {
+                continue;
+            }
+            if ($entry === '..') {
                 continue;
             }
             $path = $dir.'/'.$entry;

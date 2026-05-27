@@ -16,7 +16,7 @@ class PopulateOrganizationTest extends TestCase
     #[Test]
     public function it_creates_default_roles(): void
     {
-        $user = $this->createUser();
+        $this->createUser();
         $organization = $this->createOrganization();
 
         new PopulateOrganization($organization)->handle();
@@ -30,7 +30,7 @@ class PopulateOrganizationTest extends TestCase
     #[Test]
     public function it_creates_default_permissions(): void
     {
-        $user = $this->createUser();
+        $this->createUser();
         $organization = $this->createOrganization();
 
         new PopulateOrganization($organization)->handle();
@@ -47,7 +47,7 @@ class PopulateOrganizationTest extends TestCase
     #[Test]
     public function it_maps_default_permissions_to_roles(): void
     {
-        $user = $this->createUser();
+        $this->createUser();
         $organization = $this->createOrganization();
 
         new PopulateOrganization($organization)->handle();
@@ -62,7 +62,7 @@ class PopulateOrganizationTest extends TestCase
     #[Test]
     public function it_maps_default_item_types(): void
     {
-        $user = $this->createUser();
+        $this->createUser();
         $organization = $this->createOrganization();
 
         new PopulateOrganization($organization)->handle();
@@ -76,7 +76,7 @@ class PopulateOrganizationTest extends TestCase
     #[Test]
     public function it_creates_default_patron_types(): void
     {
-        $user = $this->createUser();
+        $this->createUser();
         $organization = $this->createOrganization();
 
         new PopulateOrganization($organization)->handle();

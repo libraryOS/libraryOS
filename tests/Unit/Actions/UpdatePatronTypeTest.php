@@ -49,7 +49,6 @@ class UpdatePatronTypeTest extends TestCase
             keepLoanHistory: true,
             canReceiveNotifications: false,
             minimumAge: 65,
-            maximumAge: null,
         )->execute();
 
         $this->assertSame('Senior', $updated->name);

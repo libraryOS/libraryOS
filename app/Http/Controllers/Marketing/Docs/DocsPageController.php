@@ -24,7 +24,7 @@ class DocsPageController extends DocsController
             return $this->renderDoc($filePath, $breadcrumbs);
         }
 
-        return view()->file($filePath, compact('breadcrumbs'));
+        return view()->file($filePath, ['breadcrumbs' => $breadcrumbs]);
     }
 
     private function buildBreadcrumbs(string $version, string $path, DocNavigationBuilder $builder): array

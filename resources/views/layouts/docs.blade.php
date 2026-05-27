@@ -31,9 +31,7 @@
       </div>
 
       <!-- Sidebar -->
-      <div class="hidden w-full shrink-0 flex-col justify-self-end py-16 sm:border-l sm:border-gray-200 sm:pl-6 lg:flex">
-        {{ $rightSidebar ?? '' }} sdfsdfs
-      </div>
+      <div class="hidden w-full shrink-0 flex-col justify-self-end py-16 sm:border-l sm:border-gray-200 sm:pl-6 lg:flex">{{ $rightSidebar ?? '' }} sdfsdfs</div>
     </div>
   </div>
 </x-marketing-layout>

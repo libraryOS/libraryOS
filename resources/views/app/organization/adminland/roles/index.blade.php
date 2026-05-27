@@ -38,10 +38,7 @@
                     {{ trans_choice(':count member|:count members', $role->members_count) }}
                   </span>
 
-                  <button
-                    @click="expanded = !expanded"
-                    class="invisible cursor-pointer rounded-md border border-gray-200 bg-white px-2.5 py-1 text-xs font-medium text-gray-600 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:outline-none group-hover:visible dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-gray-800"
-                  >
+                  <button @click="expanded = !expanded" class="invisible cursor-pointer rounded-md border border-gray-200 bg-white px-2.5 py-1 text-xs font-medium text-gray-600 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:outline-none group-hover:visible dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-gray-800">
                     <span x-text="expanded ? '{{ __('Hide details') }}' : '{{ __('Show details') }}'"></span>
                   </button>
                 </div>

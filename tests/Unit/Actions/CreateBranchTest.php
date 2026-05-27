@@ -129,7 +129,7 @@ class CreateBranchTest extends TestCase
 
         $user = $this->createUser();
         $organization = $this->createOrganization();
-        $member = $this->assignUserToOrganization(
+        $this->assignUserToOrganization(
             user: $user,
             organization: $organization,
             permissions: [PermissionEnum::BranchManage->value]

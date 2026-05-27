@@ -32,7 +32,6 @@ class PatronTypeController extends Controller
 
     public function create(Request $request): View
     {
-        $organization = $request->attributes->get('organization');
         $permissions = $request->attributes->get('permissions');
         if (! $permissions->contains('patron_type.manage')) {
             abort(403);

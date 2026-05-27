@@ -43,7 +43,6 @@ class CreatePatronTypeTest extends TestCase
             keepLoanHistory: false,
             canReceiveNotifications: true,
             minimumAge: 18,
-            maximumAge: null,
         )->execute();
 
         $this->assertInstanceOf(PatronType::class, $patronType);

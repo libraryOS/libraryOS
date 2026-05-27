@@ -32,7 +32,6 @@ class ItemTypeController extends Controller
 
     public function create(Request $request): View
     {
-        $organization = $request->attributes->get('organization');
         $permissions = $request->attributes->get('permissions');
         if (! $permissions->contains('item_type.manage')) {
             abort(403);
