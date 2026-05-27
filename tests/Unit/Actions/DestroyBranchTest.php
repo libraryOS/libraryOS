@@ -6,6 +6,7 @@ namespace Tests\Unit\Actions;
 
 use App\Actions\DestroyBranch;
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Branch;
 use App\Models\Organization;
@@ -51,7 +52,7 @@ class DestroyBranchTest extends TestCase
             queue: 'low',
             job: LogUserAction::class,
             callback: fn (LogUserAction $job): bool => (
-                $job->action === 'branch_deletion'
+                $job->action === UserActionEnum::BranchDeletion
                 && $job->user->id === $user->id
                 && $job->organization->id === $organization->id
                 && $job->description === 'Deleted a branch called Main Branch'
