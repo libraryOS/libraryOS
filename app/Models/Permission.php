@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property int $organization_id
  * @property string $key
  * @property string $name_translation_key
- * @property string|null $description
+ * @property string|null $description_translation_key
  * @property Carbon $created_at
  * @property Carbon|null $updated_at
  */
@@ -43,7 +43,7 @@ class Permission extends Model
         'organization_id',
         'key',
         'name_translation_key',
-        'description',
+        'description_translation_key',
     ];
 
     /**

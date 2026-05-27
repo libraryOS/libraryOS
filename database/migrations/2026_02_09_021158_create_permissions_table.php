@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('organization_id')->comment('the organization this permission belongs to.');
             $table->string('key')->comment('stable machine-readable permission key, such as loan.create or patron.view_history.');
             $table->string('name_translation_key')->comment('translation key for the human-readable permission name shown in the interface.');
-            $table->text('description')->nullable()->comment('optional explanation of what this permission allows.');
+            $table->text('description_translation_key')->nullable()->comment('optional explanation of what this permission allows.');
             $table->timestamps();
 
             $table->foreign('organization_id')->references('id')->on('organizations')->cascadeOnDelete();
