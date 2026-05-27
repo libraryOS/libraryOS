@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Actions;
 
 use App\Actions\CreateOrganization;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Jobs\PopulateOrganization;
 use App\Models\Organization;
@@ -49,7 +50,7 @@ class CreateOrganizationTest extends TestCase
             queue: 'low',
             job: LogUserAction::class,
             callback: fn (LogUserAction $job): bool => (
-                $job->action === 'organization_creation'
+                $job->action === UserActionEnum::OrganizationCreation
                 && $job->user->id === $user->id
                 && $job->organization->id === $organization->id
                 && $job->description === 'Created an organization called Dunder Mifflin'

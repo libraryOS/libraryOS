@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Actions;
 
 use App\Actions\CreateAccount;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Organization;
 use App\Models\User;
@@ -50,7 +51,7 @@ class CreateAccountTest extends TestCase
             queue: 'low',
             job: LogUserAction::class,
             callback: fn (LogUserAction $job): bool => (
-                $job->action === 'account_creation'
+                $job->action === UserActionEnum::AccountCreation
                 && $job->user->id === $user->id
                 && ! $job->organization instanceof Organization
                 && $job->description === 'Created an account'

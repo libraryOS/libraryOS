@@ -6,6 +6,7 @@ namespace Tests\Unit\Actions;
 
 use App\Actions\CreateApiKey;
 use App\Enums\EmailType;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Jobs\SendEmail;
 use App\Mail\ApiKeyCreated;
@@ -45,7 +46,7 @@ class CreateApiKeyTest extends TestCase
             queue: 'low',
             job: LogUserAction::class,
             callback: fn (LogUserAction $job): bool => (
-                $job->action === 'api_key_creation'
+                $job->action === UserActionEnum::ApiKeyCreation
                 && $job->user->id === $user->id
                 && $job->description === 'Created an API key'
                 && ! $job->organization instanceof Organization

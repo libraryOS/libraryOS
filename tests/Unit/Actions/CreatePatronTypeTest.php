@@ -6,6 +6,7 @@ namespace Tests\Unit\Actions;
 
 use App\Actions\CreatePatronType;
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\PatronType;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -66,7 +67,7 @@ class CreatePatronTypeTest extends TestCase
             queue: 'low',
             job: LogUserAction::class,
             callback: fn (LogUserAction $job): bool => (
-                $job->action === 'patron_type_creation'
+                $job->action === UserActionEnum::PatronTypeCreation
                 && $job->user->id === $user->id
                 && $job->organization->id === $organization->id
                 && $job->description === 'Created a patron type called Adult'

@@ -6,6 +6,7 @@ namespace Tests\Unit\Actions;
 
 use App\Actions\CreateRole;
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -54,7 +55,7 @@ class CreateRoleTest extends TestCase
             queue: 'low',
             job: LogUserAction::class,
             callback: fn (LogUserAction $job): bool => (
-                $job->action === 'role_creation'
+                $job->action === UserActionEnum::RoleCreation
                 && $job->user->id === $user->id
                 && $job->organization->id === $organization->id
                 && $job->description === 'Created a role called Librarian'
