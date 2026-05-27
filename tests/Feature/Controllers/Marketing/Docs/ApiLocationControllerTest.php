@@ -15,7 +15,7 @@ class ApiLocationControllerTest extends TestCase
     #[Test]
     public function it_renders_the_api_location_page(): void
     {
-        $response = $this->get('/docs/1.x/api/organizations/locations');
+        $response = $this->get('/docs/api/organizations/locations');
         $response->assertOk();
     }
 }
