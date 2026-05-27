@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Actions;
 
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Helpers\TextSanitizer;
 use App\Jobs\LogUserAction;
 use App\Models\Member;
@@ -87,7 +88,7 @@ class CreatePatronType
         LogUserAction::dispatch(
             organization: $this->organization,
             user: $this->user,
-            action: 'patron_type_creation',
+            action: UserActionEnum::PatronTypeCreation,
             description: sprintf('Created a patron type called %s', $this->patronType->name),
         )->onQueue('low');
     }

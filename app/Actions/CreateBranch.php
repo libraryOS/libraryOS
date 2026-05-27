@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Actions;
 
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Helpers\TextSanitizer;
 use App\Jobs\LogUserAction;
 use App\Models\Branch;
@@ -105,7 +106,7 @@ class CreateBranch
         LogUserAction::dispatch(
             organization: $this->organization,
             user: $this->user,
-            action: 'branch_creation',
+            action: UserActionEnum::BranchCreation,
             description: sprintf('Created a branch called %s', $this->name),
         )->onQueue('low');
     }

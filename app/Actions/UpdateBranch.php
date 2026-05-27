@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Actions;
 
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Helpers\TextSanitizer;
 use App\Jobs\LogUserAction;
 use App\Models\Branch;
@@ -99,7 +100,7 @@ class UpdateBranch
         LogUserAction::dispatch(
             organization: $this->organization,
             user: $this->user,
-            action: 'branch_update',
+            action: UserActionEnum::BranchUpdate,
             description: sprintf('Updated a branch called %s', $this->name),
         )->onQueue('low');
     }

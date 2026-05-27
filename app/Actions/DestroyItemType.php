@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Actions;
 
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\ItemType;
 use App\Models\Member;
@@ -61,7 +62,7 @@ class DestroyItemType
         LogUserAction::dispatch(
             organization: $this->organization,
             user: $this->user,
-            action: 'item_type_deletion',
+            action: UserActionEnum::ItemTypeDeletion,
             description: sprintf('Deleted an item type called %s', $this->itemTypeName),
         )->onQueue('low');
     }

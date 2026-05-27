@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Actions;
 
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Helpers\TextSanitizer;
 use App\Jobs\LogUserAction;
 use App\Models\Branch;
@@ -104,7 +105,7 @@ class CreatePatron
         LogUserAction::dispatch(
             organization: $this->organization,
             user: $this->user,
-            action: 'patron_creation',
+            action: UserActionEnum::PatronCreation,
             description: sprintf('Created a patron called %s %s', $this->firstName, $this->lastName),
         )->onQueue('low');
     }

@@ -6,6 +6,7 @@ namespace Tests\Unit\Actions;
 
 use App\Actions\CreateLocation;
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Branch;
 use App\Models\Location;
@@ -69,7 +70,7 @@ class CreateLocationTest extends TestCase
             queue: 'low',
             job: LogUserAction::class,
             callback: fn (LogUserAction $job): bool => (
-                $job->action === 'location_creation'
+                $job->action === UserActionEnum::LocationCreation
                 && $job->user->id === $user->id
                 && $job->organization->id === $organization->id
                 && $job->description === 'Created a location called Main Stacks'

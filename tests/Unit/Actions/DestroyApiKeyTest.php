@@ -6,6 +6,7 @@ namespace Tests\Unit\Actions;
 
 use App\Actions\DestroyApiKey;
 use App\Enums\EmailType;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Jobs\SendEmail;
 use App\Mail\ApiKeyDestroyed;
@@ -41,7 +42,7 @@ class DestroyApiKeyTest extends TestCase
         Queue::assertPushedOn(
             queue: 'low',
             job: LogUserAction::class,
-            callback: fn (LogUserAction $job): bool => $job->action === 'api_key_deletion' && $job->user->id === $user->id,
+            callback: fn (LogUserAction $job): bool => $job->action === UserActionEnum::ApiKeyDeletion && $job->user->id === $user->id,
         );
 
         Queue::assertPushedOn(

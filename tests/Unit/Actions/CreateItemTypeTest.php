@@ -6,6 +6,7 @@ namespace Tests\Unit\Actions;
 
 use App\Actions\CreateItemType;
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\ItemType;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -63,7 +64,7 @@ class CreateItemTypeTest extends TestCase
             queue: 'low',
             job: LogUserAction::class,
             callback: fn (LogUserAction $job): bool => (
-                $job->action === 'item_type_creation'
+                $job->action === UserActionEnum::ItemTypeCreation
                 && $job->user->id === $user->id
                 && $job->organization->id === $organization->id
                 && $job->description === 'Created an item type called Book'

@@ -6,6 +6,7 @@ namespace Tests\Unit\Actions;
 
 use App\Actions\UpdateLocation;
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Branch;
 use App\Models\Location;
@@ -73,7 +74,7 @@ class UpdateLocationTest extends TestCase
             queue: 'low',
             job: LogUserAction::class,
             callback: fn (LogUserAction $job): bool => (
-                $job->action === 'location_update'
+                $job->action === UserActionEnum::LocationUpdate
                 && $job->user->id === $user->id
                 && $job->organization->id === $organization->id
                 && $job->description === 'Updated a location called New Name'

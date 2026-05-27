@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Actions;
 
 use App\Actions\UpdateUserInformation;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -52,7 +53,7 @@ class UpdateUserInformationTest extends TestCase
             queue: 'low',
             job: LogUserAction::class,
             callback: fn (LogUserAction $job): bool => (
-                $job->action === 'personal_profile_update'
+                $job->action === UserActionEnum::PersonalProfileUpdate
                 && $job->user->id === $user->id
             ),
         );

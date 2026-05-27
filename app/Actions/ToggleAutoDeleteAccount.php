@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\User;
 
@@ -37,7 +38,7 @@ readonly class ToggleAutoDeleteAccount
         LogUserAction::dispatch(
             organization: null,
             user: $this->user,
-            action: 'auto_delete_account_update',
+            action: UserActionEnum::AutoDeleteAccountUpdate,
             description: 'Updated auto delete account setting to '
             .($this->user->auto_delete_account ? 'enabled' : 'disabled'),
         )->onQueue('low');

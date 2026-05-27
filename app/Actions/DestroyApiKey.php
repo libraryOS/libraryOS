@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Actions;
 
 use App\Enums\EmailType;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Jobs\SendEmail;
 use App\Mail\ApiKeyDestroyed;
@@ -40,7 +41,7 @@ class DestroyApiKey
         LogUserAction::dispatch(
             organization: null,
             user: $this->user,
-            action: 'api_key_deletion',
+            action: UserActionEnum::ApiKeyDeletion,
             description: 'Deleted an API key',
         )->onQueue('low');
     }

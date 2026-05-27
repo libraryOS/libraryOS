@@ -6,6 +6,7 @@ namespace Tests\Unit\Actions;
 
 use App\Actions\DestroyLocation;
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Branch;
 use App\Models\Location;
@@ -56,7 +57,7 @@ class DestroyLocationTest extends TestCase
             queue: 'low',
             job: LogUserAction::class,
             callback: fn (LogUserAction $job): bool => (
-                $job->action === 'location_deletion'
+                $job->action === UserActionEnum::LocationDeletion
                 && $job->user->id === $user->id
                 && $job->organization->id === $organization->id
                 && $job->description === 'Deleted a location called Main Stacks'

@@ -6,6 +6,7 @@ namespace Tests\Unit\Actions;
 
 use App\Actions\DestroyRole;
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -50,7 +51,7 @@ class DestroyRoleTest extends TestCase
             queue: 'low',
             job: LogUserAction::class,
             callback: fn (LogUserAction $job): bool => (
-                $job->action === 'role_deletion'
+                $job->action === UserActionEnum::RoleDeletion
                 && $job->user->id === $user->id
                 && $job->organization->id === $organization->id
                 && $job->description === 'Deleted a role called Librarian'

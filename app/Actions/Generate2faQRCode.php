@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\User;
 use PragmaRX\Google2FALaravel\Google2FA;
@@ -58,7 +59,7 @@ class Generate2faQRCode
         LogUserAction::dispatch(
             organization: null,
             user: $this->user,
-            action: '2fa_qr_code_generation',
+            action: UserActionEnum::TwoFaQrCodeGeneration,
             description: 'Generated 2FA QR code for setup',
         )->onQueue('low');
     }

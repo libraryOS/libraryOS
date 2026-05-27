@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -48,7 +49,7 @@ readonly class UpdateUserPassword
         LogUserAction::dispatch(
             organization: null,
             user: $this->user,
-            action: 'update_user_password',
+            action: UserActionEnum::UpdateUserPassword,
             description: 'Updated their password',
         )->onQueue('low');
     }

@@ -6,6 +6,7 @@ namespace Tests\Unit\Actions;
 
 use App\Actions\UpdateRole;
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -58,7 +59,7 @@ class UpdateRoleTest extends TestCase
             queue: 'low',
             job: LogUserAction::class,
             callback: fn (LogUserAction $job): bool => (
-                $job->action === 'role_update'
+                $job->action === UserActionEnum::RoleUpdate
                 && $job->user->id === $user->id
                 && $job->organization->id === $organization->id
                 && $job->description === 'Updated a role called Senior Librarian'

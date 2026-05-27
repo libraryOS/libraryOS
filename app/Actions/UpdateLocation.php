@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Actions;
 
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Helpers\TextSanitizer;
 use App\Jobs\LogUserAction;
 use App\Models\Branch;
@@ -93,7 +94,7 @@ class UpdateLocation
         LogUserAction::dispatch(
             organization: $this->organization,
             user: $this->user,
-            action: 'location_update',
+            action: UserActionEnum::LocationUpdate,
             description: sprintf('Updated a location called %s', $this->name),
         )->onQueue('low');
     }

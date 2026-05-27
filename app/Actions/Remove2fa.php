@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\User;
 
@@ -33,7 +34,7 @@ readonly class Remove2fa
         LogUserAction::dispatch(
             organization: null,
             user: $this->user,
-            action: '2fa_removal',
+            action: UserActionEnum::TwoFaRemoval,
             description: 'Removed 2FA from account',
         )->onQueue('low');
     }

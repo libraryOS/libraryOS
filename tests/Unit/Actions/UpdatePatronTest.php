@@ -6,6 +6,7 @@ namespace Tests\Unit\Actions;
 
 use App\Actions\UpdatePatron;
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Branch;
 use App\Models\Organization;
@@ -84,7 +85,7 @@ class UpdatePatronTest extends TestCase
             queue: 'low',
             job: LogUserAction::class,
             callback: fn (LogUserAction $job): bool => (
-                $job->action === 'patron_update'
+                $job->action === UserActionEnum::PatronUpdate
                 && $job->user->id === $user->id
                 && $job->organization->id === $organization->id
                 && $job->description === 'Updated a patron called Dwight Schrute'

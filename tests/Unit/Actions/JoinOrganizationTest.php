@@ -6,6 +6,7 @@ namespace Tests\Unit\Actions;
 
 use App\Actions\JoinOrganization;
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Organization;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -45,7 +46,7 @@ class JoinOrganizationTest extends TestCase
             queue: 'low',
             job: LogUserAction::class,
             callback: fn (LogUserAction $job): bool => (
-                $job->action === 'organization_joined'
+                $job->action === UserActionEnum::OrganizationJoined
                 && $job->user->id === $user->id
                 && $job->organization->id === $organization->id
             ),

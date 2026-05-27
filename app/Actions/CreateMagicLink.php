@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\User;
 use MagicLink\Actions\LoginAction;
@@ -50,7 +51,7 @@ class CreateMagicLink
         LogUserAction::dispatch(
             organization: null,
             user: $this->user,
-            action: 'magic_link_created',
+            action: UserActionEnum::MagicLinkCreated,
             description: 'Sent a magic link',
         )->onQueue('low');
     }

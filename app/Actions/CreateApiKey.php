@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Actions;
 
 use App\Enums\EmailType;
+use App\Enums\UserActionEnum;
 use App\Helpers\TextSanitizer;
 use App\Jobs\LogUserAction;
 use App\Jobs\SendEmail;
@@ -54,7 +55,7 @@ class CreateApiKey
         LogUserAction::dispatch(
             organization: null,
             user: $this->user,
-            action: 'api_key_creation',
+            action: UserActionEnum::ApiKeyCreation,
             description: 'Created an API key',
         )->onQueue('low');
     }

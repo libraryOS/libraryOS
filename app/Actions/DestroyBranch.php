@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Actions;
 
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Branch;
 use App\Models\Member;
@@ -58,7 +59,7 @@ class DestroyBranch
         LogUserAction::dispatch(
             organization: $this->organization,
             user: $this->user,
-            action: 'branch_deletion',
+            action: UserActionEnum::BranchDeletion,
             description: sprintf('Deleted a branch called %s', $this->branchName),
         )->onQueue('low');
     }

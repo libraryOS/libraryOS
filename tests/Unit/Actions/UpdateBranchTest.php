@@ -6,6 +6,7 @@ namespace Tests\Unit\Actions;
 
 use App\Actions\UpdateBranch;
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Branch;
 use App\Models\Country;
@@ -74,7 +75,7 @@ class UpdateBranchTest extends TestCase
             queue: 'low',
             job: LogUserAction::class,
             callback: fn (LogUserAction $job): bool => (
-                $job->action === 'branch_update'
+                $job->action === UserActionEnum::BranchUpdate
                 && $job->user->id === $user->id
                 && $job->organization->id === $organization->id
                 && $job->description === 'Updated a branch called New Branch'

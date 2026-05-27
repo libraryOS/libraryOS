@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Actions;
 
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Member;
 use App\Models\Organization;
@@ -65,7 +66,7 @@ class DestroyRole
         LogUserAction::dispatch(
             organization: $this->organization,
             user: $this->user,
-            action: 'role_deletion',
+            action: UserActionEnum::RoleDeletion,
             description: sprintf('Deleted a role called %s', $this->roleName),
         )->onQueue('low');
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Enums\UserActionEnum;
 use App\Helpers\TextSanitizer;
 use App\Jobs\LogUserAction;
 use App\Models\Member;
@@ -68,7 +69,7 @@ class JoinOrganization
         LogUserAction::dispatch(
             organization: $this->organization,
             user: $this->user,
-            action: 'organization_joined',
+            action: UserActionEnum::OrganizationJoined,
             description: 'Joined organization',
         )->onQueue('low');
     }

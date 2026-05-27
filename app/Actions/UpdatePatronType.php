@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Actions;
 
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Helpers\TextSanitizer;
 use App\Jobs\LogUserAction;
 use App\Models\Member;
@@ -89,7 +90,7 @@ class UpdatePatronType
         LogUserAction::dispatch(
             organization: $this->organization,
             user: $this->user,
-            action: 'patron_type_update',
+            action: UserActionEnum::PatronTypeUpdate,
             description: sprintf('Updated a patron type called %s', $this->patronType->name),
         )->onQueue('low');
     }

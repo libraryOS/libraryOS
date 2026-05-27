@@ -6,6 +6,7 @@ namespace Tests\Unit\Actions;
 
 use App\Actions\DestroyOrganization;
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Organization;
 use App\Models\User;
@@ -43,7 +44,7 @@ class DestroyOrganizationTest extends TestCase
         Queue::assertPushedOn(
             queue: 'low',
             job: LogUserAction::class,
-            callback: fn (LogUserAction $job): bool => $job->action === 'organization_deletion' && $job->user->id === $user->id,
+            callback: fn (LogUserAction $job): bool => $job->action === UserActionEnum::OrganizationDeletion && $job->user->id === $user->id,
         );
     }
 

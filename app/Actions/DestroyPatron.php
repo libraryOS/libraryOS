@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Actions;
 
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\Member;
 use App\Models\Organization;
@@ -60,7 +61,7 @@ class DestroyPatron
         LogUserAction::dispatch(
             organization: $this->organization,
             user: $this->user,
-            action: 'patron_archive',
+            action: UserActionEnum::PatronArchive,
             description: sprintf('Archived a patron called %s', $this->patronName),
         )->onQueue('low');
     }

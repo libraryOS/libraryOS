@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Actions;
 
 use App\Actions\CreateMagicLink;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -36,7 +37,7 @@ class CreateMagicLinkTest extends TestCase
             queue: 'low',
             job: LogUserAction::class,
             callback: fn (LogUserAction $job): bool => (
-                $job->action === 'magic_link_created'
+                $job->action === UserActionEnum::MagicLinkCreated
                 && $job->user->id === $user->id
                 && $job->description === 'Sent a magic link'
             ),

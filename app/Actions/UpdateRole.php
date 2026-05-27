@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Actions;
 
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Helpers\TextSanitizer;
 use App\Jobs\LogUserAction;
 use App\Models\Member;
@@ -79,7 +80,7 @@ class UpdateRole
         LogUserAction::dispatch(
             organization: $this->organization,
             user: $this->user,
-            action: 'role_update',
+            action: UserActionEnum::RoleUpdate,
             description: sprintf('Updated a role called %s', $this->name),
         )->onQueue('low');
     }

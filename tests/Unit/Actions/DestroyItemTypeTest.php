@@ -6,6 +6,7 @@ namespace Tests\Unit\Actions;
 
 use App\Actions\DestroyItemType;
 use App\Enums\PermissionEnum;
+use App\Enums\UserActionEnum;
 use App\Jobs\LogUserAction;
 use App\Models\ItemType;
 use App\Models\Organization;
@@ -50,7 +51,7 @@ class DestroyItemTypeTest extends TestCase
             queue: 'low',
             job: LogUserAction::class,
             callback: fn (LogUserAction $job): bool => (
-                $job->action === 'item_type_deletion'
+                $job->action === UserActionEnum::ItemTypeDeletion
                 && $job->user->id === $user->id
                 && $job->organization->id === $organization->id
                 && $job->description === 'Deleted an item type called Book'
