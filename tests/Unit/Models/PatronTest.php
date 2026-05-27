@@ -7,6 +7,7 @@ namespace Tests\Unit\Models;
 use App\Models\Branch;
 use App\Models\Organization;
 use App\Models\Patron;
+use App\Models\PatronLog;
 use App\Models\PatronType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
@@ -88,5 +89,54 @@ class PatronTest extends TestCase
         $this->assertNull($patron->home_branch_id);
         $this->assertFalse($patron->user()->exists());
         $this->assertFalse($patron->homeBranch()->exists());
+    }
+
+    #[Test]
+    public function it_has_many_patron_logs(): void
+    {
+        $organization = Organization::factory()->create();
+        $patronType = PatronType::factory()->create([
+            'organization_id' => $organization->id,
+        ]);
+        $patron = Patron::factory()->create([
+            'organization_id' => $organization->id,
+            'patron_type_id' => $patronType->id,
+            'home_branch_id' => null,
+        ]);
+
+        PatronLog::factory()->create([
+            'organization_id' => $organization->id,
+            'patron_id' => $patron->id,
+        ]);
+
+        $this->assertTrue($patron->patronLogs()->exists());
+    }
+
+    #[Test]
+    public function it_has_many_patron_logs_as_actor(): void
+    {
+        $organization = Organization::factory()->create();
+        $patronType = PatronType::factory()->create([
+            'organization_id' => $organization->id,
+        ]);
+        $subjectPatron = Patron::factory()->create([
+            'organization_id' => $organization->id,
+            'patron_type_id' => $patronType->id,
+            'home_branch_id' => null,
+        ]);
+        $actorPatron = Patron::factory()->create([
+            'organization_id' => $organization->id,
+            'patron_type_id' => $patronType->id,
+            'home_branch_id' => null,
+        ]);
+
+        PatronLog::factory()->create([
+            'organization_id' => $organization->id,
+            'patron_id' => $subjectPatron->id,
+            'actor_type' => Patron::class,
+            'actor_id' => $actorPatron->id,
+        ]);
+
+        $this->assertTrue($actorPatron->patronLogsAsActor()->exists());
     }
 }

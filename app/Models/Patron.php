@@ -9,6 +9,8 @@ use Database\Factories\PatronFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
  * Class Patron
@@ -111,5 +113,25 @@ class Patron extends Model
     public function homeBranch(): BelongsTo
     {
         return $this->belongsTo(Branch::class, 'home_branch_id');
+    }
+
+    /**
+     * Get the log entries recorded for this patron.
+     *
+     * @return HasMany<PatronLog, $this>
+     */
+    public function patronLogs(): HasMany
+    {
+        return $this->hasMany(PatronLog::class);
+    }
+
+    /**
+     * Get the patron logs where this patron acted as the actor.
+     *
+     * @return MorphMany<PatronLog, $this>
+     */
+    public function patronLogsAsActor(): MorphMany
+    {
+        return $this->morphMany(PatronLog::class, 'actor');
     }
 }

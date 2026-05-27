@@ -10,6 +10,7 @@ use App\Models\Location;
 use App\Models\Member;
 use App\Models\Organization;
 use App\Models\Patron;
+use App\Models\PatronLog;
 use App\Models\PatronType;
 use App\Models\Permission;
 use App\Models\Role;
@@ -79,6 +80,27 @@ class OrganizationTest extends TestCase
         ]);
 
         $this->assertTrue($organization->patrons()->exists());
+    }
+
+    #[Test]
+    public function it_has_many_patron_logs(): void
+    {
+        $organization = Organization::factory()->create();
+        $patronType = PatronType::factory()->create([
+            'organization_id' => $organization->id,
+        ]);
+        $patron = Patron::factory()->create([
+            'organization_id' => $organization->id,
+            'patron_type_id' => $patronType->id,
+            'home_branch_id' => null,
+        ]);
+
+        PatronLog::factory()->create([
+            'organization_id' => $organization->id,
+            'patron_id' => $patron->id,
+        ]);
+
+        $this->assertTrue($organization->patronLogs()->exists());
     }
 
     #[Test]
