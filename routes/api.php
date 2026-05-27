@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Api\Adminland\BranchController;
 use App\Http\Controllers\Api\Adminland\ItemTypeController;
+use App\Http\Controllers\Api\Adminland\LocationController;
 use App\Http\Controllers\Api\Adminland\MemberController;
 use App\Http\Controllers\Api\Adminland\PatronTypeController;
 use App\Http\Controllers\Api\HealthController;
@@ -46,6 +47,13 @@ Route::name('api.')->group(function (): void {
             Route::get('organizations/{id}/adminland/patron-types/{patronTypeId}', [PatronTypeController::class, 'show'])->name('organization.adminland.patron-type.show');
             Route::put('organizations/{id}/adminland/patron-types/{patronTypeId}', [PatronTypeController::class, 'update'])->name('organization.adminland.patron-type.update');
             Route::delete('organizations/{id}/adminland/patron-types/{patronTypeId}', [PatronTypeController::class, 'destroy'])->name('organization.adminland.patron-type.destroy');
+
+            // adminland - locations
+            Route::get('organizations/{id}/adminland/locations', [LocationController::class, 'index'])->name('organization.adminland.location.index');
+            Route::post('organizations/{id}/adminland/locations', [LocationController::class, 'store'])->name('organization.adminland.location.store');
+            Route::get('organizations/{id}/adminland/locations/{locationId}', [LocationController::class, 'show'])->name('organization.adminland.location.show');
+            Route::put('organizations/{id}/adminland/locations/{locationId}', [LocationController::class, 'update'])->name('organization.adminland.location.update');
+            Route::delete('organizations/{id}/adminland/locations/{locationId}', [LocationController::class, 'destroy'])->name('organization.adminland.location.destroy');
         });
     });
 });
