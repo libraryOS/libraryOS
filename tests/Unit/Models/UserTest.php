@@ -7,6 +7,8 @@ namespace Tests\Unit\Models;
 use App\Models\EmailSent;
 use App\Models\Member;
 use App\Models\Organization;
+use App\Models\Patron;
+use App\Models\PatronType;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
@@ -36,6 +38,24 @@ class UserTest extends TestCase
         ]);
 
         $this->assertTrue($user->memberships()->exists());
+    }
+
+    #[Test]
+    public function it_has_many_patrons(): void
+    {
+        $user = $this->createUser();
+        $organization = Organization::factory()->create();
+        $patronType = PatronType::factory()->create([
+            'organization_id' => $organization->id,
+        ]);
+        Patron::factory()->create([
+            'organization_id' => $organization->id,
+            'user_id' => $user->id,
+            'patron_type_id' => $patronType->id,
+            'home_branch_id' => null,
+        ]);
+
+        $this->assertTrue($user->patrons()->exists());
     }
 
     #[Test]
