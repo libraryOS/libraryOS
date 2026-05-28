@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Enums\PatronStatusEnum;
 use App\Enums\PermissionEnum;
 use App\Enums\UserActionEnum;
 use App\Jobs\LogPatronAction;
@@ -53,7 +54,7 @@ class DestroyPatron
     private function archive(): void
     {
         $this->patron->update([
-            'status' => 'archived',
+            'status' => PatronStatusEnum::Archived->value,
         ]);
     }
 

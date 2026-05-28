@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Enums\PatronStatusEnum;
 use App\Enums\PermissionEnum;
 use App\Enums\UserActionEnum;
 use App\Helpers\TextSanitizer;
@@ -32,7 +33,7 @@ class CreatePatron
         private string $lastName,
         private ?string $email = null,
         private ?string $phone = null,
-        private string $status = 'active',
+        private string $status = PatronStatusEnum::Active->value,
         private readonly ?string $membershipExpiresAt = null,
         private ?string $notes = null,
     ) {}

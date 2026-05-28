@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Actions;
 
 use App\Actions\UpdatePatron;
+use App\Enums\PatronStatusEnum;
 use App\Enums\PermissionEnum;
 use App\Enums\UserActionEnum;
 use App\Jobs\LogPatronAction;
@@ -78,7 +79,7 @@ class UpdatePatronTest extends TestCase
             'last_name' => 'Schrute',
             'email' => 'dwight@example.com',
             'phone' => '555-1111',
-            'status' => 'active',
+            'status' => PatronStatusEnum::Active->value,
             'notes' => 'Updated notes',
         ]);
 

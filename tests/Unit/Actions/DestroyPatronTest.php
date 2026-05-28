@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Actions;
 
 use App\Actions\DestroyPatron;
+use App\Enums\PatronStatusEnum;
 use App\Enums\PermissionEnum;
 use App\Enums\UserActionEnum;
 use App\Jobs\LogPatronAction;
@@ -36,7 +37,7 @@ class DestroyPatronTest extends TestCase
             'organization_id' => $organization->id,
             'first_name' => 'Jim',
             'last_name' => 'Halpert',
-            'status' => 'active',
+            'status' => PatronStatusEnum::Active->value,
         ]);
 
         new DestroyPatron(
@@ -47,7 +48,7 @@ class DestroyPatronTest extends TestCase
 
         $this->assertDatabaseHas('patrons', [
             'id' => $patron->id,
-            'status' => 'archived',
+            'status' => PatronStatusEnum::Archived->value,
         ]);
 
         Queue::assertPushedOn(
