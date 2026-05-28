@@ -7,6 +7,7 @@ namespace App\Actions;
 use App\Enums\PermissionEnum;
 use App\Enums\UserActionEnum;
 use App\Helpers\TextSanitizer;
+use App\Jobs\LogPatronAction;
 use App\Jobs\LogUserAction;
 use App\Models\Branch;
 use App\Models\Member;
@@ -107,6 +108,14 @@ class UpdatePatron
         LogUserAction::dispatch(
             organization: $this->organization,
             user: $this->user,
+            action: UserActionEnum::PatronUpdate,
+            description: sprintf('Updated a patron called %s %s', $this->firstName, $this->lastName),
+        )->onQueue('low');
+
+        LogPatronAction::dispatch(
+            organization: $this->organization,
+            patron: $this->patron,
+            actor: $this->user,
             action: UserActionEnum::PatronUpdate,
             description: sprintf('Updated a patron called %s %s', $this->firstName, $this->lastName),
         )->onQueue('low');

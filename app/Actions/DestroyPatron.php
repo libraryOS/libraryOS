@@ -6,6 +6,7 @@ namespace App\Actions;
 
 use App\Enums\PermissionEnum;
 use App\Enums\UserActionEnum;
+use App\Jobs\LogPatronAction;
 use App\Jobs\LogUserAction;
 use App\Models\Member;
 use App\Models\Organization;
@@ -61,6 +62,14 @@ class DestroyPatron
         LogUserAction::dispatch(
             organization: $this->organization,
             user: $this->user,
+            action: UserActionEnum::PatronArchive,
+            description: sprintf('Archived a patron called %s', $this->patronName),
+        )->onQueue('low');
+
+        LogPatronAction::dispatch(
+            organization: $this->organization,
+            patron: $this->patron,
+            actor: $this->user,
             action: UserActionEnum::PatronArchive,
             description: sprintf('Archived a patron called %s', $this->patronName),
         )->onQueue('low');
