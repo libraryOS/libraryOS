@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Enums\PatronStatusEnum;
 use App\Models\Branch;
 use App\Models\Organization;
 use App\Models\Patron;
@@ -28,7 +29,7 @@ class PatronFactory extends Factory
             'last_name' => fake()->lastName(),
             'email' => fake()->safeEmail(),
             'phone' => fake()->phoneNumber(),
-            'status' => 'active',
+            'status' => PatronStatusEnum::Active->value,
             'membership_expires_at' => fake()->optional()->dateTimeBetween('now', '+2 years'),
             'notes' => fake()->optional()->sentence(),
         ];
