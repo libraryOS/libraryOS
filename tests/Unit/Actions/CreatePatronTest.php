@@ -7,6 +7,7 @@ namespace Tests\Unit\Actions;
 use App\Actions\CreatePatron;
 use App\Enums\PermissionEnum;
 use App\Enums\UserActionEnum;
+use App\Jobs\LogPatronAction;
 use App\Jobs\LogUserAction;
 use App\Models\Branch;
 use App\Models\Patron;
@@ -81,6 +82,18 @@ class CreatePatronTest extends TestCase
             callback: fn (LogUserAction $job): bool => (
                 $job->action === UserActionEnum::PatronCreation
                 && $job->user->id === $user->id
+                && $job->organization->id === $organization->id
+                && $job->description === 'Created a patron called Pam Beesly'
+            ),
+        );
+
+        Queue::assertPushedOn(
+            queue: 'low',
+            job: LogPatronAction::class,
+            callback: fn (LogPatronAction $job): bool => (
+                $job->action === UserActionEnum::PatronCreation
+                && $job->actor->id === $user->id
+                && $job->patron->id === $patron->id
                 && $job->organization->id === $organization->id
                 && $job->description === 'Created a patron called Pam Beesly'
             ),
