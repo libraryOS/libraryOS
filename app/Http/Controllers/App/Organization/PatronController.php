@@ -14,7 +14,6 @@ class PatronController extends Controller
     {
         return view('app.organization.patrons.show', [
             'patronId' => $patron,
-            'organization' => $organization,
         ]);
     }
 }
