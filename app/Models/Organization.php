@@ -55,6 +55,16 @@ class Organization extends Model
     }
 
     /**
+     * Get the route key for implicit model binding.
+     *
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    /**
      * Get the members of the organization.
      *
      * @return HasMany<Member, $this>
