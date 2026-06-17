@@ -6,7 +6,7 @@
 
 @foreach ($items as $item)
   @if (count($item['children']) > 0)
-    <p class="{{ $loop->first && $depth === 0 ? '' : 'mt-4' }} mb-1 border-b border-gray-200 pb-2 font-mono text-xs font-bold tracking-wider text-gray-600 uppercase dark:border-gray-700 dark:text-gray-300" style="margin-left: {{ $depth * 18 }}px">
+    <p class="{{ $loop->first && $depth === 0 ? '' : 'mt-4' }} mb-1 border-b border-gray-200 pb-2 font-mono text-xs  text-gray-600 uppercase dark:border-gray-700 dark:text-gray-300" style="margin-left: {{ $depth * 18 }}px">
       {{ $item['label'] }}
     </p>
     <div class="mb-3">

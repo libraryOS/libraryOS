@@ -15,7 +15,7 @@ class DocsOrganizationControllerTest extends TestCase
     #[Test]
     public function it_renders_the_organizations_page(): void
     {
-        $response = $this->get('/docs/1.x/organizations/index');
+        $response = $this->get('/docs/1.x/organizations/introduction');
         $response->assertOk();
     }
 }
