@@ -14,6 +14,7 @@ use App\Models\PatronLog;
 use App\Models\PatronType;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Models\Work;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -80,6 +81,17 @@ class OrganizationTest extends TestCase
         ]);
 
         $this->assertTrue($organization->patrons()->exists());
+    }
+
+    #[Test]
+    public function it_has_many_works(): void
+    {
+        $organization = Organization::factory()->create();
+        Work::factory()->create([
+            'organization_id' => $organization->id,
+        ]);
+
+        $this->assertTrue($organization->works()->exists());
     }
 
     #[Test]

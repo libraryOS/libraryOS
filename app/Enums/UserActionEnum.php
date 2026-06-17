@@ -16,6 +16,7 @@ enum UserActionEnum: string
     case PatronCreation = 'patron_creation';
     case PatronTypeCreation = 'patron_type_creation';
     case RoleCreation = 'role_creation';
+    case WorkCreation = 'work_creation';
     case ApiKeyDeletion = 'api_key_deletion';
     case BranchDeletion = 'branch_deletion';
     case ItemTypeDeletion = 'item_type_deletion';
@@ -24,6 +25,7 @@ enum UserActionEnum: string
     case PatronArchive = 'patron_archive';
     case PatronTypeDeletion = 'patron_type_deletion';
     case RoleDeletion = 'role_deletion';
+    case WorkDeletion = 'work_deletion';
     case TwoFaQrCodeGeneration = '2fa_qr_code_generation';
     case OrganizationJoined = 'organization_joined';
     case TwoFaRemoval = '2fa_removal';
@@ -35,6 +37,7 @@ enum UserActionEnum: string
     case PatronUpdate = 'patron_update';
     case PatronTypeUpdate = 'patron_type_update';
     case RoleUpdate = 'role_update';
+    case WorkUpdate = 'work_update';
     case PersonalProfileUpdate = 'personal_profile_update';
     case UpdateUserPassword = 'update_user_password';
 }

@@ -133,6 +133,7 @@ class PopulateOrganization implements ShouldQueue
                 PermissionEnum::PatronCreate->value,
                 PermissionEnum::PatronUpdate->value,
                 PermissionEnum::PatronArchive->value,
+                PermissionEnum::WorkManage->value,
             ],
             'administrator' => [
                 PermissionEnum::AdminlandAccess->value,
@@ -146,6 +147,7 @@ class PopulateOrganization implements ShouldQueue
                 PermissionEnum::PatronCreate->value,
                 PermissionEnum::PatronUpdate->value,
                 PermissionEnum::PatronArchive->value,
+                PermissionEnum::WorkManage->value,
             ],
         ];
 

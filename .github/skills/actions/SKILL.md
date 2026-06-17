@@ -35,7 +35,11 @@ AccountCreated
 
 - [ ] Always sanitize data first
 - [ ] Always validate data: permissions, existence of related models, link to organization,...
-- [ ] Create Permission if needed
-- [ ] Do what the action is supposed to do
-- [ ] Log the action for the user, include organization if aplicable
-- [ ] Write test for the action, and test all edge cases
+- [ ] Create Permission if needed in app/Enums/PermissionEnum.php
+- [ ] Write what the action is supposed to do
+- [ ] Log the action for the user, include organization if applicable
+- [ ] Write test for the action:
+    - the happy path for the action
+    - the case where the user doesn't have permission to do the action
+    - the case where the user is not part of the organization (if applicable)
+    - the case where the related model doesn't exist (if applicable)
