@@ -39,7 +39,7 @@ class DocsPageControllerTest extends TestCase
     #[Test]
     public function it_shows_a_blade_doc_page(): void
     {
-        $response = $this->get('/docs/1.x/api/organizations/introduction');
+        $response = $this->get('/docs/1.x/api/organizations/index');
 
         $response->assertOk();
     }
