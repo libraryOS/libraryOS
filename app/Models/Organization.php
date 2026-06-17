@@ -125,6 +125,16 @@ class Organization extends Model
     }
 
     /**
+     * Get the works of the organization.
+     *
+     * @return HasMany<Work, $this>
+     */
+    public function works(): HasMany
+    {
+        return $this->hasMany(Work::class);
+    }
+
+    /**
      * Get the patron logs of the organization.
      *
      * @return HasMany<PatronLog, $this>
