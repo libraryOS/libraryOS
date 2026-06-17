@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Models;
 
+use App\Models\Edition;
 use App\Models\Organization;
 use App\Models\Work;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -24,5 +25,20 @@ class WorkTest extends TestCase
 
         $this->assertTrue($work->organization()->exists());
         $this->assertEquals($organization->id, $work->organization?->id);
+    }
+
+    #[Test]
+    public function it_has_many_editions(): void
+    {
+        $organization = Organization::factory()->create();
+        $work = Work::factory()->create([
+            'organization_id' => $organization->id,
+        ]);
+        Edition::factory()->create([
+            'organization_id' => $organization->id,
+            'work_id' => $work->id,
+        ]);
+
+        $this->assertTrue($work->editions()->exists());
     }
 }

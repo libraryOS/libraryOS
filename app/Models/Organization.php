@@ -135,6 +135,16 @@ class Organization extends Model
     }
 
     /**
+     * Get the editions of the organization.
+     *
+     * @return HasMany<Edition, $this>
+     */
+    public function editions(): HasMany
+    {
+        return $this->hasMany(Edition::class);
+    }
+
+    /**
      * Get the patron logs of the organization.
      *
      * @return HasMany<PatronLog, $this>

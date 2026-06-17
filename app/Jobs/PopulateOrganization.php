@@ -83,6 +83,11 @@ class PopulateOrganization implements ShouldQueue
                 'description_translation_key' => trans_key('Allows the user to manage item types for the organization.'),
             ],
             [
+                'key' => PermissionEnum::EditionManage->value,
+                'name_translation_key' => trans_key('Manage editions'),
+                'description_translation_key' => trans_key('Allows the user to manage editions for the organization.'),
+            ],
+            [
                 'key' => PermissionEnum::PatronTypeManage->value,
                 'name_translation_key' => trans_key('Manage patron types'),
                 'description_translation_key' => trans_key('Allows the user to manage patron types for the organization.'),
@@ -134,6 +139,7 @@ class PopulateOrganization implements ShouldQueue
                 PermissionEnum::PatronUpdate->value,
                 PermissionEnum::PatronArchive->value,
                 PermissionEnum::WorkManage->value,
+                PermissionEnum::EditionManage->value,
             ],
             'administrator' => [
                 PermissionEnum::AdminlandAccess->value,
@@ -148,6 +154,7 @@ class PopulateOrganization implements ShouldQueue
                 PermissionEnum::PatronUpdate->value,
                 PermissionEnum::PatronArchive->value,
                 PermissionEnum::WorkManage->value,
+                PermissionEnum::EditionManage->value,
             ],
         ];
 

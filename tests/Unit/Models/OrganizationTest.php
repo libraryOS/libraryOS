@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Models;
 
 use App\Models\Branch;
+use App\Models\Edition;
 use App\Models\ItemType;
 use App\Models\Location;
 use App\Models\Member;
@@ -92,6 +93,17 @@ class OrganizationTest extends TestCase
         ]);
 
         $this->assertTrue($organization->works()->exists());
+    }
+
+    #[Test]
+    public function it_has_many_editions(): void
+    {
+        $organization = Organization::factory()->create();
+        Edition::factory()->create([
+            'organization_id' => $organization->id,
+        ]);
+
+        $this->assertTrue($organization->editions()->exists());
     }
 
     #[Test]
