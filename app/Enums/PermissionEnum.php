@@ -13,6 +13,7 @@ enum PermissionEnum: string
     case BranchManage = 'branch.manage';
     case ItemTypeManage = 'item_type.manage';
     case WorkManage = 'work.manage';
+    case EditionManage = 'edition.manage';
     case PatronTypeManage = 'patron_type.manage';
     case LocationManage = 'location.manage';
     case PatronView = 'patron.view';

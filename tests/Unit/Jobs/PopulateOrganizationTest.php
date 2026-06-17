@@ -38,6 +38,7 @@ class PopulateOrganizationTest extends TestCase
         $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'organization.update', 'name_translation_key' => 'Update organization']);
         $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'organization.delete', 'name_translation_key' => 'Delete organization']);
         $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'item_type.manage', 'name_translation_key' => 'Manage item types']);
+        $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'edition.manage', 'name_translation_key' => 'Manage editions']);
         $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'patron_type.manage', 'name_translation_key' => 'Manage patron types']);
         $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'location.manage', 'name_translation_key' => 'Manage locations']);
         $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'patron.view', 'name_translation_key' => 'View patrons']);
@@ -45,7 +46,7 @@ class PopulateOrganizationTest extends TestCase
         $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'patron.update', 'name_translation_key' => 'Update patrons']);
         $this->assertDatabaseHas('permissions', ['organization_id' => $organization->id, 'key' => 'patron.archive', 'name_translation_key' => 'Archive patrons']);
 
-        $this->assertEquals(12, $organization->permissions()->count());
+        $this->assertEquals(13, $organization->permissions()->count());
     }
 
     #[Test]
@@ -59,8 +60,8 @@ class PopulateOrganizationTest extends TestCase
         $owner = $organization->roles()->where('key', 'owner')->first();
         $administrator = $organization->roles()->where('key', 'administrator')->first();
 
-        $this->assertCount(12, $owner->permissions);
-        $this->assertCount(11, $administrator->permissions);
+        $this->assertCount(13, $owner->permissions);
+        $this->assertCount(12, $administrator->permissions);
     }
 
     #[Test]

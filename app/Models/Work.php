@@ -9,6 +9,7 @@ use Database\Factories\WorkFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Work
@@ -67,5 +68,15 @@ class Work extends Model
     public function organization(): BelongsTo
     {
         return $this->belongsTo(Organization::class);
+    }
+
+    /**
+     * Get the editions of the work.
+     *
+     * @return HasMany<Edition, $this>
+     */
+    public function editions(): HasMany
+    {
+        return $this->hasMany(Edition::class);
     }
 }

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Models;
 
+use App\Models\Edition;
 use App\Models\ItemType;
+use App\Models\Organization;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -19,6 +21,21 @@ class ItemTypeTest extends TestCase
         $itemType = ItemType::factory()->create();
 
         $this->assertTrue($itemType->organization()->exists());
+    }
+
+    #[Test]
+    public function it_has_many_editions(): void
+    {
+        $organization = Organization::factory()->create();
+        $itemType = ItemType::factory()->create([
+            'organization_id' => $organization->id,
+        ]);
+        Edition::factory()->create([
+            'organization_id' => $organization->id,
+            'item_type_id' => $itemType->id,
+        ]);
+
+        $this->assertTrue($itemType->editions()->exists());
     }
 
     #[Test]
