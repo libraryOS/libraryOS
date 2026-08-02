@@ -6,7 +6,7 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
   </head>
-  <body class="flex min-h-screen flex-col font-sans text-sm text-gray-900 antialiased dark:bg-gray-950 dark:text-gray-100">
+  <body class="flex min-h-screen flex-col font-sans text-gray-900 antialiased dark:bg-gray-950 dark:text-gray-100">
     <x-header :organization="$organization" />
 
     <main class="flex flex-1 flex-col px-2 py-px">

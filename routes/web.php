@@ -11,6 +11,7 @@ use App\Http\Controllers\App\Organization\Adminland\PatronTypeController;
 use App\Http\Controllers\App\Organization\Adminland\RoleController;
 use App\Http\Controllers\App\Organization\JoinOrganizationController;
 use App\Http\Controllers\App\Organization\OrganizationController;
+use App\Http\Controllers\App\Organization\PatronController;
 use App\Http\Controllers\App\Settings\ApiKeyController;
 use App\Http\Controllers\App\Settings\AutoDeleteAccountController;
 use App\Http\Controllers\App\Settings\EmailSentController;
@@ -40,6 +41,7 @@ Route::middleware(['auth', 'verified', 'throttle:60,1', 'set.locale'])->group(fu
 
     Route::middleware(['organization'])->group(function (): void {
         Route::get('organizations/{slug}', [OrganizationController::class, 'show'])->name('organization.show');
+        Route::get('organizations/{slug}/patrons/{patron}', [PatronController::class, 'show'])->name('organization.patron.show');
 
         // adminland
         Route::prefix('organizations/{slug}/adminland')->group(function (): void {
